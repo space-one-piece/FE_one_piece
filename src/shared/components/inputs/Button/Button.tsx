@@ -6,20 +6,26 @@ import type { ReactNode } from "react"
 const buttonVariants = cva("", {
   variants: {
     size: {
-      sm: "text-sm py-lg py-xl",
-      lg: "text-md py-lg py-xl",
+      sm: "text-sm py-md px-xl",
+      lg: "text-md py-lg px-xl",
     },
     shape: {
       rectangle: "rounded-md",
       pill: "rounded-full",
     },
     isContained: {
-      false: "border border-primary hover:border-primary-hover",
-      true: "bg-primary hover:bg-primary text-text-button",
+      false: clsx(
+        "border border-primary hover:border-primary-hover disabled:border-primary-disabled",
+        "text-primary disabled:text-text-disabled"
+      ),
+      true: clsx(
+        "bg-primary hover:bg-primary-hover disabled:bg-primary-disabled",
+        "text-text-button disabled:text-text-disabled"
+      ),
     },
     disabled: {
-      false: "border border-primary-disabled text-primary-disabled",
-      true: "cursor-pointer text-text-disabled",
+      false: "cursor-pointer",
+      true: "",
     },
   },
 })
@@ -41,15 +47,18 @@ const Button = ({
 }: DefaultButtonProps & ButtonProps) => {
   const { className, ...rest } = props
   return (
-    <button
-      {...rest}
-      className={clsx(
-        buttonVariants({ size, shape, isContained, disabled }),
-        className
-      )}
-    >
-      {children}
-    </button>
+    <>
+      <button
+        {...rest}
+        disabled={disabled}
+        className={clsx(
+          buttonVariants({ size, shape, isContained, disabled }),
+          className
+        )}
+      >
+        {children}
+      </button>
+    </>
   )
 }
 
