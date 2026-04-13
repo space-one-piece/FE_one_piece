@@ -15,33 +15,24 @@ Empty 컴포넌트는 콘텐츠가 없을 때 표시되는 플레이스홀더 UI
 - avatar: 프로필 이미지가 없을 때 사용
 - image: 일반 이미지가 없을 때 사용
 
-### 사이즈 사용 방식
-이 컴포넌트는 **preset + 커스텀 override 방식**을 지원합니다.
+### 사이즈
+- 공통 타입 \`SmToLg\`를 사용합니다.
+- 기본적으로 \`size\` prop을 통해 sm / md / lg 프리셋을 사용합니다.
+- 아이콘 크기는 lucide-react의 \`size\` prop을 통해 제어합니다.
 
-1. 기본 preset 사용
+### 스타일 커스터마이징
+- \`wrapperClassName\`: 바깥 레이아웃 제어 (margin, flex 등)
+- \`className\`: 실제 Empty 박스 스타일 제어 (border, background 등)
+
+### 예시
 \`\`\`tsx
 <Empty />
-<Empty size="sm" />
 <Empty type="avatar" size="lg" />
+<Empty className="bg-white" />
+<Empty wrapperClassName="justify-start" />
+<Empty iconSize={28} />
 \`\`\`
-
-2. 커스텀 사이즈 (숫자 기반)
-\`\`\`tsx
-<Empty width={260} height={260} />
-<Empty type="avatar" width={96} height={96} />
-\`\`\`
-
-3. 아이콘 크기까지 커스터마이징
-\`\`\`tsx
-<Empty width={120} height={120} iconSize={32} />
-\`\`\`
-
-### 우선순위
-- width / height / iconSize가 제공되면 preset보다 **우선 적용됩니다**
-
-### 참고
-- Tailwind class 기반 size 대신 **숫자 props를 사용하여 안정적으로 동작하도록 설계되었습니다**
-        `,
+    `,
       },
     },
   },

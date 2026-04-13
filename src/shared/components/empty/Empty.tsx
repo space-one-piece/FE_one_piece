@@ -1,77 +1,68 @@
 import { cn } from "@/lib/utils"
+import type { SmToLg } from "@/shared/types"
 import { Image as ImageIcon, UserRound } from "lucide-react"
 
 type EmptyType = "avatar" | "image"
-type EmptyPresetSize = "sm" | "md" | "lg"
 
 export type EmptyProps = {
   type?: EmptyType
-  size?: EmptyPresetSize
-  width?: number
-  height?: number
+  size?: SmToLg
   iconSize?: number
+  wrapperClassName?: string
   className?: string
 }
 
-const presetSizeMap = {
+const sizeStyle = {
   avatar: {
-    sm: { width: 80, height: 80, iconSize: 24 },
-    md: { width: 124, height: 124, iconSize: 40 },
-    lg: { width: 160, height: 160, iconSize: 48 },
+    sm: "h-20 w-20",
+    md: "h-[124px] w-[124px]",
+    lg: "h-40 w-40",
   },
   image: {
-    sm: { width: 100, height: 100, iconSize: 24 },
-    md: { width: 138, height: 138, iconSize: 36 },
-    lg: { width: 180, height: 180, iconSize: 48 },
+    sm: "h-[100px] w-[100px]",
+    md: "h-[138px] w-[138px]",
+    lg: "h-[180px] w-[180px]",
   },
+} as const
+
+const iconSizeStyle = {
+  sm: 24,
+  md: 36,
+  lg: 48,
 } as const
 
 const Empty = ({
   type = "image",
   size = "md",
-  width,
-  height,
   iconSize,
+  wrapperClassName,
   className,
 }: EmptyProps) => {
   const isAvatar = type === "avatar"
-  const preset = presetSizeMap[type][size]
-
-  const resolvedWidth = width ?? preset.width
-  const resolvedHeight = height ?? preset.height
-  const resolvedIconSize = iconSize ?? preset.iconSize
 
   return (
-    <div className={cn("flex items-center justify-center", className)}>
+    <div className={cn("flex items-center justify-center", wrapperClassName)}>
       <div
         className={cn(
           "flex shrink-0 items-center justify-center border border-border",
+          sizeStyle[type][size],
           isAvatar
             ? "rounded-full bg-white shadow-md"
-            : "rounded-lg bg-primary-disabled"
+            : "rounded-lg bg-disabled",
+          className
         )}
-        style={{
-          width: resolvedWidth,
-          height: resolvedHeight,
-        }}
       >
         {isAvatar ? (
           <UserRound
+            size={iconSize ?? iconSizeStyle[size]}
             className="text-text-primary"
             strokeWidth={2.2}
-            style={{
-              width: resolvedIconSize,
-              height: resolvedIconSize,
-            }}
           />
         ) : (
           <ImageIcon
+            size={iconSize ?? iconSizeStyle[size]}
             className="text-text-primary"
             strokeWidth={1.8}
-            style={{
-              width: resolvedIconSize,
-              height: resolvedIconSize,
-            }}
           />
         )}
       </div>
