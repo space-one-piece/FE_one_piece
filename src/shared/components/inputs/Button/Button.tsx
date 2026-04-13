@@ -3,7 +3,7 @@ import { cva } from "class-variance-authority"
 import clsx from "clsx"
 import type { ReactNode } from "react"
 
-const buttonVariants = cva("", {
+const buttonVariants = cva("transition", {
   variants: {
     size: {
       sm: "text-sm py-md px-xl",
@@ -16,6 +16,7 @@ const buttonVariants = cva("", {
     isContained: {
       false: clsx(
         "border border-primary hover:border-primary-hover disabled:border-primary-disabled",
+        "bg-card hover:bg-gray-5",
         "text-primary disabled:text-text-disabled"
       ),
       true: clsx(
