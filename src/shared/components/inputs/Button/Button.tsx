@@ -2,6 +2,7 @@ import type { DefaultButtonProps } from "@/shared/types"
 import type { ReactNode } from "react"
 
 type ButtonProps = {
+  isDisabled: boolean
   children: ReactNode
 }
 const Button = ({ children }: DefaultButtonProps & ButtonProps) => {
