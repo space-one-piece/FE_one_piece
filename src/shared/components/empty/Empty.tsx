@@ -2,63 +2,76 @@ import { cn } from "@/lib/utils"
 import { Image as ImageIcon, UserRound } from "lucide-react"
 
 type EmptyType = "avatar" | "image"
-type EmptySize = "sm" | "md" | "lg" | string
+type EmptyPresetSize = "sm" | "md" | "lg"
 
 export type EmptyProps = {
   type?: EmptyType
-  size?: EmptySize
+  size?: EmptyPresetSize
+  width?: number
+  height?: number
+  iconSize?: number
   className?: string
 }
 
-const sizeStyle = {
+const presetSizeMap = {
   avatar: {
-    sm: "h-[80px] w-[80px]",
-    md: "h-[124px] w-[124px]",
-    lg: "h-[160px] w-[160px]",
+    sm: { width: 80, height: 80, iconSize: 24 },
+    md: { width: 124, height: 124, iconSize: 40 },
+    lg: { width: 160, height: 160, iconSize: 48 },
   },
   image: {
-    sm: "h-[100px] w-[100px]",
-    md: "h-[138px] w-[138px]",
-    lg: "h-[180px] w-[180px]",
+    sm: { width: 100, height: 100, iconSize: 24 },
+    md: { width: 138, height: 138, iconSize: 36 },
+    lg: { width: 180, height: 180, iconSize: 48 },
   },
-}
+} as const
 
-const iconSize = {
-  sm: "h-6 w-6",
-  md: "h-9 w-9",
-  lg: "h-12 w-12",
-}
-
-const Empty = ({ type = "image", size = "md", className }: EmptyProps) => {
+const Empty = ({
+  type = "image",
+  size = "md",
+  width,
+  height,
+  iconSize,
+  className,
+}: EmptyProps) => {
   const isAvatar = type === "avatar"
-  const isPreset = size === "sm" || size === "md" || size === "lg"
+  const preset = presetSizeMap[type][size]
+
+  const resolvedWidth = width ?? preset.width
+  const resolvedHeight = height ?? preset.height
+  const resolvedIconSize = iconSize ?? preset.iconSize
 
   return (
-    <div className={cn("flex items-center gap-10", className)}>
+    <div className={cn("flex items-center justify-center", className)}>
       <div
         className={cn(
           "flex shrink-0 items-center justify-center border border-border",
-          isPreset ? sizeStyle[type][size] : size,
           isAvatar
-            ? "rounded-full shadow-md bg-white"
+            ? "rounded-full bg-white shadow-md"
             : "rounded-lg bg-primary-disabled"
         )}
+        style={{
+          width: resolvedWidth,
+          height: resolvedHeight,
+        }}
       >
         {isAvatar ? (
           <UserRound
-            className={cn(
-              isPreset ? iconSize[size] : "h-10 w-10", // fallback
-              "text-text-primary"
-            )}
+            className="text-text-primary"
             strokeWidth={2.2}
+            style={{
+              width: resolvedIconSize,
+              height: resolvedIconSize,
+            }}
           />
         ) : (
           <ImageIcon
-            className={cn(
-              isPreset ? iconSize[size] : "h-9 w-9",
-              "text-text-primary"
-            )}
+            className="text-text-primary"
             strokeWidth={1.8}
+            style={{
+              width: resolvedIconSize,
+              height: resolvedIconSize,
+            }}
           />
         )}
       </div>
