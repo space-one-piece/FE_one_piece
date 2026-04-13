@@ -79,6 +79,7 @@
   /* Primary */
   --color-primary: var(--color-green-40);
   --color-primary-hover: var(--color-green-50);
+  --color-primary-disabled: var(--color-gray-10);
 
   /* Component */
   --color-card: var(--white);
@@ -87,7 +88,7 @@
   --color-chatbot: var(--color-green-50);
   --color-star: var(--color-action-active);
   --color-secondary: var(--color-gray-30);
-  --color-disabled: var(--color-gray-10);
+  --color-primary-disabled: var(--color-gray-10);
 
   /* Text */
   --color-text-primary: var(--color-gray-primary);
@@ -162,6 +163,7 @@
   /* color: brand / component */
   --color-primary: var(--color-primary);
   --color-primary-hover: var(--color-primary-hover);
+  --color-primary-disabled: var(--color-primary-disabled);
 
   --color-card: var(--color-card);
   --color-tag: var(--color-tag);
@@ -169,7 +171,6 @@
   --color-chatbot: var(--color-chatbot);
   --color-star: var(--color-star);
   --color-secondary: var(--color-secondary);
-  --color-disabled: var(--color-disabled);
 
   --color-border: var(--color-gray-20);
   --color-border-primary: var(--color-primary);
