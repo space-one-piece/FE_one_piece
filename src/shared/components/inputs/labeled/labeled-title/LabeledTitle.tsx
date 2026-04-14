@@ -12,7 +12,7 @@ const LabeledTitle = (props: PProps) => {
       {...rest}
       className={clsx(
         "text-lg font-medium",
-        isError && "text-(--toast-error-color)",
+        isError && "text-text-error",
         className
       )}
     >

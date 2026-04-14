@@ -19,7 +19,7 @@ const LabeledMessage = ({
       {...rest}
       className={clsx(
         "text-sm",
-        isError ? "text-(--toast-error-color)" : "text-text-sub",
+        isError ? "text-text-error" : "text-text-sub",
         className
       )}
     >
