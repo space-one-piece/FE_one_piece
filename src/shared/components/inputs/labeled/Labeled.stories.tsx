@@ -48,21 +48,21 @@ export const MessageAbove: Story = {
   ),
 }
 
+export const WithStar: Story = {
+  render: () => (
+    <Labeled>
+      <Labeled.Message withStar>Please fill in your password</Labeled.Message>
+      <Input placeholder="Password" type="password" />
+    </Labeled>
+  ),
+}
+
 export const WithError: Story = {
   render: () => (
     <Labeled isError>
       <Labeled.Title>Password</Labeled.Title>
       <Input placeholder="Enter password" value="wrong" />
       <Labeled.Message withStar>Incorrect password</Labeled.Message>
-    </Labeled>
-  ),
-}
-
-export const NoTitle: Story = {
-  render: () => (
-    <Labeled>
-      <Input placeholder="Just an input" />
-      <Labeled.Message>No title, just message below</Labeled.Message>
     </Labeled>
   ),
 }
