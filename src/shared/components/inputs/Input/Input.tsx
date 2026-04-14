@@ -7,17 +7,13 @@ import type { ReactNode } from "react"
 import { Hstack } from "../../layouts"
 
 const inputVariants = cva(
-  // "p-lg rounded-sm transition items-center outline flex-1 bg-card text-text-primary disabled:text-text-disabled",
   "p-lg rounded-sm transition items-center outline flex-1 bg-card text-text-primary disabled:text-text-disabled",
   {
     variants: {
       status: {
-        none: "",
-        success: "",
-        error: "",
-        // none: "outline-border",
-        // success: "outline-border-primary",
-        // error: "outline-toast-error-color",
+        none: "outline-border",
+        success: "outline-border-primary",
+        error: "outline-(--toast-error-color)",
       },
     },
   }
@@ -40,11 +36,7 @@ const Input = ({
       <input
         {...rest}
         disabled={disabled}
-        className={clsx(
-          inputVariants({ status }),
-          className,
-          "bg-(--toast-error-color)"
-        )}
+        className={clsx(inputVariants({ status }), className)}
       />
       {trailingChild}
     </Hstack>
