@@ -18,7 +18,7 @@ const LabeledMessage = ({
     <p
       {...rest}
       className={clsx(
-        "test-sm",
+        "text-sm text-text-sub",
         isError && "text-(--toast-error-color)",
         className
       )}
