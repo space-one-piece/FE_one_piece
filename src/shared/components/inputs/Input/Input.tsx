@@ -7,7 +7,7 @@ import type { ReactNode } from "react"
 import { Hstack } from "../../layouts"
 
 const inputVariants = cva(
-  "p-lg rounded-sm transition items-center outline flex-1 bg-card text-text-primary disabled:text-text-disabled",
+  "p-lg rounded-sm transition items-center outline bg-card text-text-primary disabled:text-text-disabled",
   {
     variants: {
       status: {
@@ -32,11 +32,11 @@ const Input = ({
 
   console.log("---- rerendered")
   return (
-    <Hstack>
+    <Hstack className={clsx(inputVariants({ status }), className)}>
       <input
         {...rest}
         disabled={disabled}
-        className={clsx(inputVariants({ status }), className)}
+        className="flex-1 border-0 px-3 py-2 outline-0"
       />
       {trailingChild}
     </Hstack>

@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react-vite"
 import Input from "./Input"
 
-// const ChildDiv = () => {
-//   return <div className="size-4 bg-amber-300" />
-// }
+const ChildDiv = () => {
+  return <div className="size-4 bg-amber-300" />
+}
 
 const meta = {
   title: "Shared/Inputs/Input",
@@ -66,5 +66,12 @@ export const Disabled: Story = {
   args: {
     disabled: true,
     value: "Disabled input",
+  },
+}
+
+export const WithTrailingChild: Story = {
+  args: {
+    placeholder: "With trailing child...",
+    trailingChild: <ChildDiv />,
   },
 }
