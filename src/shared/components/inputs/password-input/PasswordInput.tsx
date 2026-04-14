@@ -29,7 +29,7 @@ const PasswordInput = ({
     <Input
       {...props}
       status={isError ? "error" : "none"}
-      type={isHidden && "password"}
+      type={isHidden ? "password" : "text"}
       trailingChild={
         <EyeButton isHidden={isHidden} setIsHidden={setIsHidden} />
       }

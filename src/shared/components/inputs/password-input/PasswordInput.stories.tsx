@@ -46,6 +46,7 @@ export const Disabled: Story = {
   args: {
     placeholder: "Enter password",
     disabled: true,
+    isError: false,
   },
 }
 
