@@ -1,6 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react-vite"
 import Input from "./Input"
 
+// const ChildDiv = () => {
+//   return <div className="size-4 bg-amber-300" />
+// }
+
 const meta = {
   title: "Shared/Inputs/Input",
   component: Input,

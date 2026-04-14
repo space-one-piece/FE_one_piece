@@ -102,11 +102,8 @@
   /* border */
   --color-border: var(--color-gray-20);
   --color-border-primary: var(--color-primary);
-  --color-border-error:  
-
-  /* Surface */ --color-surface-default: var(
-      --color-bg-default
-    );
+  --color-border-error: var(--) /* Surface */
+    --color-surface-default: var(--color-bg-default);
   --color-surface-container: var(--color-bg-container);
 
   /* Toast */
