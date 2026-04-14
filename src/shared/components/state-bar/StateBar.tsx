@@ -1,3 +1,5 @@
+import { cn } from "@/lib/utils"
+
 type StateBarProps = {
   label?: string
   value: number
@@ -20,7 +22,10 @@ export default function StateBar({
 
   return (
     <div
-      className={`flex w-full min-w-0 basis-full flex-col self-stretch ${className ?? ""}`}
+      className={cn(
+        "flex w-full min-w-0 basis-full flex-col self-stretch",
+        className
+      )}
     >
       <div className="mb-xs flex w-full min-w-0 items-center justify-between gap-sm">
         <span className="truncate text-sm font-semibold text-text-primary">
