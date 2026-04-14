@@ -11,8 +11,8 @@ type NoteSectionCardProps = {
 }
 
 const sizeStyles = {
-  sm: "text-md",
-  md: "text-lg",
+  sm: "text-md font-bold",
+  md: "text-lg font-bold",
 }
 
 const commonStyles = {

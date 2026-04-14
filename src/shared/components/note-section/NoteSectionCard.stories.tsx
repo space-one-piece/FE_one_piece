@@ -53,9 +53,9 @@ export const LongDescription: Story = {
 
 export const SeparatedCards: Story = {
   render: () => (
-    <div className="flex flex-col gap-lg" style={{ width: 520 }}>
+    <div className="flex flex-col gap-sm" style={{ width: 520 }}>
       {[1, 2, 3].map((i) => (
-        <div key={i} className="rounded-lg border border-border bg-white p-md">
+        <div key={i} className="rounded-lg border border-border bg-white p-lg">
           <NoteSectionCard {...defaultArgs} size="md" />
         </div>
       ))}
@@ -65,12 +65,12 @@ export const SeparatedCards: Story = {
 
 export const GroupedCard: Story = {
   render: () => (
-    <div className="rounded-[28px] bg-background p-lg" style={{ width: 380 }}>
+    <div className="rounded-lg bg-background p-lg w-full">
       <p className="text-sm font-semibold text-text-primary">
         NOTE COMPOSITION
       </p>
 
-      <div className="mt-md flex flex-col gap-lg">
+      <div className="mt-sm flex flex-col gap-sm">
         <NoteSectionCard {...defaultArgs} size="sm" />
         <NoteSectionCard {...defaultArgs} size="sm" />
         <NoteSectionCard {...defaultArgs} size="sm" />
