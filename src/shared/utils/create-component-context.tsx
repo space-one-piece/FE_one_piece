@@ -32,4 +32,4 @@ const createComponentContext = <T,>() => {
   return { useComponentContext, ComponentContextProvider }
 }
 
-export default createComponentContext
+export { createComponentContext }

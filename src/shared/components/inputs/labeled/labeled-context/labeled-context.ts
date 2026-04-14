@@ -1,4 +1,4 @@
-import createComponentContext from "@/shared/components/wrappers/create-component-context/create-component-context"
+import { createComponentContext } from "@/shared/utils/create-component-context"
 import type { WithLabeledProps } from "../Labeled"
 
 type LabeledContextProps = WithLabeledProps
