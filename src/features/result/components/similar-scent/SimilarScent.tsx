@@ -35,7 +35,7 @@ const SimilarScent = ({
             onError={() => setIsError(true)}
           />
         ) : (
-          <Empty type="image" size="md" />
+          <Empty type="image" size="md" className="rounded-none" />
         )}
       </div>
 
