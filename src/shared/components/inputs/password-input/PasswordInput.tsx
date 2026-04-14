@@ -9,7 +9,7 @@ type EyeButtonProps = {
 }
 const EyeButton = ({ isHidden, setIsHidden }: EyeButtonProps) => {
   const handleClick = () => setIsHidden((prev) => !prev)
-  const Icon = isHidden ? <EyeOff /> : <Eye />
+  const Icon = isHidden ? <EyeOff size={16} /> : <Eye size={16} />
   return (
     <button type="button" onClick={handleClick}>
       {Icon}
