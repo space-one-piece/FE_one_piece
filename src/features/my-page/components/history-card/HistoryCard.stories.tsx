@@ -46,7 +46,7 @@ export const Default: Story = {
 
 export const WithoutImage: Story = {
   args: {
-    imageSrc: undefined, // 👈 중요
+    imageSrc: undefined,
     title: "Blossom Dream",
     badgeText: "챗봇 추천",
     tags: ["체리 블라썸", "머스크", "바닐라"],
