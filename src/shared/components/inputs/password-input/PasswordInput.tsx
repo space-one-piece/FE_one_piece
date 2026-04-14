@@ -10,7 +10,11 @@ type EyeButtonProps = {
 const EyeButton = ({ isHidden, setIsHidden }: EyeButtonProps) => {
   const handleClick = () => setIsHidden((prev) => !prev)
   const Icon = isHidden ? <EyeOff /> : <Eye />
-  return <button onClick={handleClick}>{Icon}</button>
+  return (
+    <button type="button" onClick={handleClick}>
+      {Icon}
+    </button>
+  )
 }
 
 type WithPasswordInputProps = {
