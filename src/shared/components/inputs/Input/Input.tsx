@@ -7,11 +7,11 @@ import type { ReactNode } from "react"
 import { Hstack } from "../../layouts"
 
 const inputVariants = cva(
-  "p-lg rounded-sm transition items-center outline bg-card text-text-primary disabled:text-text-disabled",
+  "p-lg rounded-sm transition items-center outline bg-card text-text-primary disabled:text-text-disabled focus-within:shadow-box",
   {
     variants: {
       status: {
-        none: "outline-border focus-within:outline-border-text-primary focus-within:outline-2",
+        none: "outline-border focus-within:outline-text-primary focus-within:outline-2",
         success: "outline-border-primary focus-within:outline-2",
         error: "outline-(--toast-error-color) focus-within:outline-2",
       },
