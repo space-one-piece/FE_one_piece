@@ -11,9 +11,9 @@ const inputVariants = cva(
   {
     variants: {
       status: {
-        none: "outline-border",
-        success: "outline-border-primary",
-        error: "outline-(--toast-error-color)",
+        none: "outline-border focus-within:outline-border-text-primary focus-within:outline-2",
+        success: "outline-border-primary focus-within:outline-2",
+        error: "outline-(--toast-error-color) focus-within:outline-2",
       },
     },
   }
