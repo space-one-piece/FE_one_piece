@@ -25,13 +25,13 @@ const CollectionCard = ({
   const [isError, setIsError] = useState(false)
 
   return (
-    <article className="flex h-[440px] w-[315px] flex-col overflow-hidden rounded-3xl border border-gray-20 bg-gray-0 transition-shadow duration-200 hover:shadow-md">
+    <article className="flex h-[440px] w-full flex-col overflow-hidden rounded-lg border border-border bg-card transition-shadow duration-200 hover:shadow-md">
       <div className="flex items-center justify-center h-[315px] w-full overflow-hidden">
         {imageSrc && !isError ? (
           <img
             src={imageSrc}
             alt={imageAlt}
-            className="w-full h-full object-cover bg-primary-disabled"
+            className="w-full h-full object-cover bg-surface-default"
             onError={() => setIsError(true)}
           />
         ) : (
@@ -48,7 +48,7 @@ const CollectionCard = ({
             type="button"
             onClick={onDelete}
             aria-label={`${title} 삭제`}
-            className="cursor-pointer text-gray-40 transition-colors hover:text-primary-hover"
+            className="cursor-pointer text-text-sub transition-colors hover:text-primary-hover"
           >
             <Trash2 className="text-current" />
           </button>
