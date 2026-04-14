@@ -70,7 +70,6 @@
 
   /* STATUS PALETTE */
   --answer-active: #04c730;
-  --toast-error: #ec0037;
 
   /* =====================================================
    SEMANTIC TOKENS (역할 기반)
@@ -103,9 +102,11 @@
   /* border */
   --color-border: var(--color-gray-20);
   --color-border-primary: var(--color-primary);
+  --color-border-error:  
 
-  /* Surface */
-  --color-surface-default: var(--color-bg-default);
+  /* Surface */ --color-surface-default: var(
+      --color-bg-default
+    );
   --color-surface-container: var(--color-bg-container);
 
   /* Toast */
