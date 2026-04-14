@@ -1,14 +1,5 @@
 import { Button } from "@/shared/components"
-
-type FeatureCardProps = {
-  imageSrc: string
-  imageAlt?: string
-  title: string
-  description: string
-  buttonLabel?: string
-  onClick?: () => void
-  className?: string
-}
+import type { FeatureCardProps } from "../../types/feature-card.type"
 
 const FeatureCard = ({
   imageSrc,
