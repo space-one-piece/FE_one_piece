@@ -6,7 +6,7 @@ import {
 } from "./SimilarScent"
 
 const meta = {
-  title: "Components/Card/SimilarScent",
+  title: "Components/SimilarScent",
   component: SimilarScent,
   parameters: {
     layout: "centered",
