@@ -21,12 +21,12 @@ const SimilarScent = ({
       type="button"
       onClick={onClick}
       className={cn(
-        "flex w-container-sm overflow-hidden rounded-lg bg-white text-left transition-all border border-border",
+        "flex w-full overflow-hidden rounded-lg border border-border bg-white text-left transition-all",
         "hover:shadow-md",
         className
       )}
     >
-      <div className="size-30 shrink-0 overflow-hidden bg-disabled self-stretch">
+      <div className="w-1/3 aspect-square shrink-0 overflow-hidden bg-disabled self-stretch">
         {imageSrc && !isError ? (
           <img
             src={imageSrc}
