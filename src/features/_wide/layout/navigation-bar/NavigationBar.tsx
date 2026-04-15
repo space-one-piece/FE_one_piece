@@ -1,5 +1,5 @@
 const NavigationBar = () => {
-  return <div></div>
+  return <div>this is navigationbar placeholder</div>
 }
 
 export default NavigationBar
