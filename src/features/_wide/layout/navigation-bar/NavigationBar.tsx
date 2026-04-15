@@ -8,15 +8,17 @@ const HomeButton = () => {
     select: (location) => location.pathname,
   })
   const isSelected = pathname === "/"
+  const navigate = useNavigate()
   return (
     <button>
       <Vstack gap="none">
         <Home
           size={40}
           className={clsx(
-            "rounded-md",
+            "rounded-md transition",
             isSelected ? "text-card bg-primary scale-120" : "text-primary"
           )}
+          onClick={() => navigate({ to: "/" })}
         />
         <p>Home</p>
       </Vstack>
