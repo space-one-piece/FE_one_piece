@@ -1,8 +1,28 @@
 import Flower from "@/assets/images/footer/flower.svg"
+import Instagram from "@/assets/images/footer/instagram.svg"
+import Kakao from "@/assets/images/footer/kakao.svg"
+import Youtube from "@/assets/images/footer/youtube.svg"
 import type { FileRoutesByFullPath } from "@/routeTree.gen"
-import { FlexOneContainer, RoundBox, Vstack } from "@/shared/components"
+import { FlexOneContainer, Hstack, RoundBox, Vstack } from "@/shared/components"
 import { useNavigate } from "@tanstack/react-router"
 import clsx from "clsx"
+
+type SnsButtonProps = {
+  imageSrc: string
+  to: string
+}
+const SnsButton = ({ imageSrc, to }: SnsButtonProps) => {
+  // NOTE: BackButton과 SnsButton이 형태적으로 많이 유사합니다
+  // NOTE: 비슷한 또 다른 동그라미 버튼이 있다면 공통 컴포넌트로 만드는 것도 고려할만 할 것 같습니다
+  const handleClick = () => {
+    window.location.href = to
+  }
+  return (
+    <button onClick={handleClick} className="text-red-500">
+      <img src={imageSrc} />
+    </button>
+  )
+}
 
 type FooterButtonProps = {
   to: keyof FileRoutesByFullPath
@@ -70,6 +90,11 @@ const Footer = () => {
             <h3 className="text-text-disabled text-sm">CONNECT</h3>
             <FooterButton to="/">fragmnt studio</FooterButton>
             <FooterButton to="/">Onepiece@fragmnt.co</FooterButton>
+            <Hstack>
+              <SnsButton to="https://www.google.com" imageSrc={Instagram} />
+              <SnsButton to="https://www.google.com" imageSrc={Kakao} />
+              <SnsButton to="https://www.google.com" imageSrc={Youtube} />
+            </Hstack>
           </Vstack>
         </FlexOneContainer>
         <FooterButton to="/" isDim>
