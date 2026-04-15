@@ -1,4 +1,4 @@
-import { Toaster } from "@/shared/components/toast/sonner"
+import { Toaster } from "@/shared/components/toast"
 import { Outlet } from "@tanstack/react-router"
 
 const RootLayout = () => {

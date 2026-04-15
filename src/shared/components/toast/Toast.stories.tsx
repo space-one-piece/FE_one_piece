@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite"
 import Toast from "./Toast"
 
 const meta = {
-  title: "Shared/Toast",
+  title: "Components/Toast",
   component: Toast,
   parameters: {
     layout: "centered",

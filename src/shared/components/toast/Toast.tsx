@@ -26,7 +26,7 @@ const Toast = ({ message, variant = "success", className }: ToastProps) => {
   return (
     <div
       className={cn(
-        "flex min-w-[20rem] max-w-[24rem] items-center gap-md rounded-2xl border border-border bg-surface-default px-lg py-md shadow-box",
+        "flex w-full max-w-[24rem] items-center gap-md rounded-2xl border border-border bg-surface-default px-lg py-md shadow-box",
         className
       )}
     >
