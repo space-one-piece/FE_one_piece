@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils"
-import { Tag } from "@/shared/components"
+import { EmptyImage, Tag } from "@/shared/components"
+import { useState } from "react"
 
 type PlaceCardProps = {
   imageSrc: string
@@ -7,7 +8,6 @@ type PlaceCardProps = {
   title: string
   description: string
   matchRate?: number
-  onClick?: () => void
   className?: string
 }
 
@@ -17,26 +17,29 @@ export default function PlaceCard({
   title,
   description,
   matchRate,
-  onClick,
   className,
 }: PlaceCardProps) {
-  const Container = onClick ? "button" : "div"
+  const [isError, setIsError] = useState(false)
 
   return (
-    <Container
-      type={onClick ? "button" : undefined}
-      onClick={onClick}
+    <div
       className={cn(
-        // TODO: 카드 높이 고정, 이미지 비율 유지하면서 꽉 채우기
-        "relative block h-[240px] w-full overflow-hidden rounded-lg text-left",
+        "relative block w-full aspect-video overflow-hidden rounded-lg text-left",
         className
       )}
     >
-      <img
-        src={imageSrc}
-        alt={imageAlt}
-        className="absolute inset-0 h-full w-full object-cover"
-      />
+      <div className="absolute inset-0">
+        {imageSrc && !isError ? (
+          <img
+            src={imageSrc}
+            alt={imageAlt}
+            className="h-full w-full object-cover"
+            onError={() => setIsError(true)}
+          />
+        ) : (
+          <EmptyImage type="image" size="sm" className="h-full w-full" />
+        )}
+      </div>
 
       <div className="absolute inset-0 bg-black/20" />
 
@@ -44,19 +47,14 @@ export default function PlaceCard({
 
       {typeof matchRate === "number" && (
         <div className="absolute right-md top-md">
-          <Tag
-            key={matchRate}
-            label={`${matchRate}% MATCH`}
-            size="sm"
-            variant="subtle"
-          />
+          <Tag label={`${matchRate}% MATCH`} size="sm" variant="subtle" />
         </div>
       )}
 
       <div className="absolute bottom-lg left-lg right-lg">
         <h3 className="text-lg font-bold text-white">{title}</h3>
-        <p className="text-sm text-white/85">{description}</p>
+        <p className="text-sm text-white/85 line-clamp-2">{description}</p>
       </div>
-    </Container>
+    </div>
   )
 }
