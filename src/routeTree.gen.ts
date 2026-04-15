@@ -11,7 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as WideRouteImport } from './routes/_wide'
 import { Route as WideIndexRouteImport } from './routes/_wide.index'
-import { Route as TestNotWorkingCssRouteImport } from './routes/test.not-working-css'
+import { Route as WideNotRealRouteImport } from './routes/_wide.not-real'
 
 const WideRoute = WideRouteImport.update({
   id: '/_wide',
@@ -22,37 +22,36 @@ const WideIndexRoute = WideIndexRouteImport.update({
   path: '/',
   getParentRoute: () => WideRoute,
 } as any)
-const TestNotWorkingCssRoute = TestNotWorkingCssRouteImport.update({
-  id: '/test/not-working-css',
-  path: '/test/not-working-css',
-  getParentRoute: () => rootRouteImport,
+const WideNotRealRoute = WideNotRealRouteImport.update({
+  id: '/not-real',
+  path: '/not-real',
+  getParentRoute: () => WideRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof WideIndexRoute
-  '/test/not-working-css': typeof TestNotWorkingCssRoute
+  '/not-real': typeof WideNotRealRoute
 }
 export interface FileRoutesByTo {
-  '/test/not-working-css': typeof TestNotWorkingCssRoute
+  '/not-real': typeof WideNotRealRoute
   '/': typeof WideIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_wide': typeof WideRouteWithChildren
-  '/test/not-working-css': typeof TestNotWorkingCssRoute
+  '/_wide/not-real': typeof WideNotRealRoute
   '/_wide/': typeof WideIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/test/not-working-css'
+  fullPaths: '/' | '/not-real'
   fileRoutesByTo: FileRoutesByTo
-  to: '/test/not-working-css' | '/'
-  id: '__root__' | '/_wide' | '/test/not-working-css' | '/_wide/'
+  to: '/not-real' | '/'
+  id: '__root__' | '/_wide' | '/_wide/not-real' | '/_wide/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   WideRoute: typeof WideRouteWithChildren
-  TestNotWorkingCssRoute: typeof TestNotWorkingCssRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -71,21 +70,23 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WideIndexRouteImport
       parentRoute: typeof WideRoute
     }
-    '/test/not-working-css': {
-      id: '/test/not-working-css'
-      path: '/test/not-working-css'
-      fullPath: '/test/not-working-css'
-      preLoaderRoute: typeof TestNotWorkingCssRouteImport
-      parentRoute: typeof rootRouteImport
+    '/_wide/not-real': {
+      id: '/_wide/not-real'
+      path: '/not-real'
+      fullPath: '/not-real'
+      preLoaderRoute: typeof WideNotRealRouteImport
+      parentRoute: typeof WideRoute
     }
   }
 }
 
 interface WideRouteChildren {
+  WideNotRealRoute: typeof WideNotRealRoute
   WideIndexRoute: typeof WideIndexRoute
 }
 
 const WideRouteChildren: WideRouteChildren = {
+  WideNotRealRoute: WideNotRealRoute,
   WideIndexRoute: WideIndexRoute,
 }
 
@@ -93,7 +94,6 @@ const WideRouteWithChildren = WideRoute._addFileChildren(WideRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   WideRoute: WideRouteWithChildren,
-  TestNotWorkingCssRoute: TestNotWorkingCssRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
