@@ -2,8 +2,12 @@ import { FlexOneContainer, RoundBox, Vstack } from "@/shared/components"
 
 const Footer = () => {
   return (
-    <RoundBox padding="xl" radius="none" className="bg-gray-40 grid-cols-4">
-      <Vstack>
+    <RoundBox
+      padding="xl"
+      radius="none"
+      className="bg-gray-40 grid grid-cols-4"
+    >
+      <Vstack className="bg-amber-50 col-span-2">
         <FlexOneContainer>
           <Vstack>
             <h3>Fragmnt</h3>

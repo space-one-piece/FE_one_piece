@@ -6,10 +6,10 @@ import clsx from "clsx"
 const containerVariants = cva("mx-auto", {
   variants: {
     width: {
-      sm: "size-container-sm",
-      md: "size-container-md",
-      lg: "size-container-lg",
-      xl: "size-container-xl",
+      sm: "max-w-container-sm w-full",
+      md: "max-w-container-md w-full",
+      lg: "max-w-container-lg w-full",
+      xl: "max-w-container-xl w-full",
     },
     isPadded: {
       true: "p-2xl",
