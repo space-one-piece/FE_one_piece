@@ -8,7 +8,6 @@ type PlaceCardProps = {
   title: string
   description: string
   matchRate?: number
-  className?: string
 }
 
 export default function PlaceCard({
@@ -17,15 +16,13 @@ export default function PlaceCard({
   title,
   description,
   matchRate,
-  className,
 }: PlaceCardProps) {
   const [isError, setIsError] = useState(false)
 
   return (
     <div
       className={cn(
-        "relative block w-full aspect-video overflow-hidden rounded-lg text-left",
-        className
+        "relative block w-full aspect-video overflow-hidden rounded-lg text-left"
       )}
     >
       <div className="absolute inset-0">
@@ -43,7 +40,7 @@ export default function PlaceCard({
 
       <div className="absolute inset-0 bg-black/20" />
 
-      <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+      <div className="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-black/60 via-black/20 to-transparent" />
 
       {typeof matchRate === "number" && (
         <div className="absolute right-md top-md">
