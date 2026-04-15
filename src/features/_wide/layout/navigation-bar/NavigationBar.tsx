@@ -1,9 +1,10 @@
 import { Hstack, Vstack } from "@/shared/components"
 import { useLocation, useNavigate } from "@tanstack/react-router"
 import clsx from "clsx"
-import { Home, Scroll, Sparkles, User } from "lucide-react"
+import { Home, ScrollText, Sparkles, User } from "lucide-react"
 
-type NavigationPathname = "/" | "/list" | "/search" | "/my-page"
+type NavigationPathname = "/" | "." // TODO: 실제 라우트 생성되고 나면 "." 삭제
+// type NavigationPathname = "/" | "/list" | "/search" | "/my-page" | "." // TODO: 실제 라우트 생성되고 나면 이것 사용
 type LucideIconProps = typeof Home
 
 type NavigationButtonConfig = {
@@ -14,9 +15,9 @@ type NavigationButtonConfig = {
 
 const navigationButtonConfigs: NavigationButtonConfig[] = [
   { pathname: "/", label: "Home", Icon: Home },
-  { pathname: "/list", label: "Home", Icon: Scroll },
-  { pathname: "/search", label: "Home", Icon: Sparkles },
-  { pathname: "/my-page", label: "Home", Icon: User },
+  { pathname: ".", label: "List", Icon: ScrollText },
+  { pathname: ".", label: "Search", Icon: Sparkles },
+  { pathname: ".", label: "My Page", Icon: User },
 ]
 
 const NavigationButton = ({
