@@ -1,25 +1,30 @@
 import Flower from "@/assets/images/footer/flower.svg"
-import Instagram from "@/assets/images/footer/instagram.svg"
-import Kakao from "@/assets/images/footer/kakao.svg"
-import Youtube from "@/assets/images/footer/youtube.svg"
+import Instagram from "@/assets/images/footer/Instagram.svg.tsx"
+import Kakao from "@/assets/images/footer/Kakao.svg.tsx"
+import Youtube from "@/assets/images/footer/Youtube.svg.tsx"
 import type { FileRoutesByFullPath } from "@/routeTree.gen"
 import { FlexOneContainer, Hstack, RoundBox, Vstack } from "@/shared/components"
+import type { SvgProps } from "@/shared/types"
 import { useNavigate } from "@tanstack/react-router"
 import clsx from "clsx"
+import type { JSX } from "react"
 
 type SnsButtonProps = {
-  imageSrc: string
+  SvgInReact: (props: SvgProps) => JSX.Element
   to: string
 }
-const SnsButton = ({ imageSrc, to }: SnsButtonProps) => {
+const SnsButton = ({ SvgInReact, to }: SnsButtonProps) => {
   // NOTE: BackButton과 SnsButton이 형태적으로 많이 유사합니다
   // NOTE: 비슷한 또 다른 동그라미 버튼이 있다면 공통 컴포넌트로 만드는 것도 고려할만 할 것 같습니다
   const handleClick = () => {
     window.location.href = to
   }
   return (
-    <button onClick={handleClick} className="text-red-500">
-      <img src={imageSrc} />
+    <button
+      onClick={handleClick}
+      className="transition text-button/50 hover:bg-button hover:text-card rounded-full border border-border p-xs"
+    >
+      <SvgInReact className="size-6" />
     </button>
   )
 }
@@ -91,9 +96,9 @@ const Footer = () => {
             <FooterButton to="/">fragmnt studio</FooterButton>
             <FooterButton to="/">Onepiece@fragmnt.co</FooterButton>
             <Hstack>
-              <SnsButton to="https://www.google.com" imageSrc={Instagram} />
-              <SnsButton to="https://www.google.com" imageSrc={Kakao} />
-              <SnsButton to="https://www.google.com" imageSrc={Youtube} />
+              <SnsButton to="https://www.google.com" SvgInReact={Instagram} />
+              <SnsButton to="https://www.google.com" SvgInReact={Kakao} />
+              <SnsButton to="https://www.google.com" SvgInReact={Youtube} />
             </Hstack>
           </Vstack>
         </FlexOneContainer>
