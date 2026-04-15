@@ -9,13 +9,18 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
+import { Route as WideRouteImport } from './routes/_wide'
+import { Route as WideIndexRouteImport } from './routes/_wide.index'
 import { Route as TestNotWorkingCssRouteImport } from './routes/test.not-working-css'
 
-const IndexRoute = IndexRouteImport.update({
+const WideRoute = WideRouteImport.update({
+  id: '/_wide',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WideIndexRoute = WideIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => WideRoute,
 } as any)
 const TestNotWorkingCssRoute = TestNotWorkingCssRouteImport.update({
   id: '/test/not-working-css',
@@ -24,39 +29,47 @@ const TestNotWorkingCssRoute = TestNotWorkingCssRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
+  '/': typeof WideIndexRoute
   '/test/not-working-css': typeof TestNotWorkingCssRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
   '/test/not-working-css': typeof TestNotWorkingCssRoute
+  '/': typeof WideIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
+  '/_wide': typeof WideRouteWithChildren
   '/test/not-working-css': typeof TestNotWorkingCssRoute
+  '/_wide/': typeof WideIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths: '/' | '/test/not-working-css'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/test/not-working-css'
-  id: '__root__' | '/' | '/test/not-working-css'
+  to: '/test/not-working-css' | '/'
+  id: '__root__' | '/_wide' | '/test/not-working-css' | '/_wide/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
+  WideRoute: typeof WideRouteWithChildren
   TestNotWorkingCssRoute: typeof TestNotWorkingCssRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
+    '/_wide': {
+      id: '/_wide'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof WideRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_wide/': {
+      id: '/_wide/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof WideIndexRouteImport
+      parentRoute: typeof WideRoute
     }
     '/test/not-working-css': {
       id: '/test/not-working-css'
@@ -68,8 +81,18 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface WideRouteChildren {
+  WideIndexRoute: typeof WideIndexRoute
+}
+
+const WideRouteChildren: WideRouteChildren = {
+  WideIndexRoute: WideIndexRoute,
+}
+
+const WideRouteWithChildren = WideRoute._addFileChildren(WideRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
+  WideRoute: WideRouteWithChildren,
   TestNotWorkingCssRoute: TestNotWorkingCssRoute,
 }
 export const routeTree = rootRouteImport
