@@ -44,7 +44,8 @@ const Container = ({
       className={clsx(
         containerVariants({ width, isPadded }),
         className,
-        "p-iua-xl"
+        "p-iua-xl",
+        "max-w-"
       )}
     >
       {children}
