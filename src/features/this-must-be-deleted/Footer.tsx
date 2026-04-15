@@ -50,6 +50,8 @@ const FooterButton = ({ to, isDim, children }: FooterButtonProps) => {
 }
 
 const Footer = () => {
+  // TODO: 외부 url 연결해야
+  // TODO: 내부 navigate 연결해야
   return (
     <RoundBox
       padding="2xl"
