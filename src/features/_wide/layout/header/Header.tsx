@@ -1,5 +1,9 @@
 const Header = () => {
-  return <div>this is header placeholder</div>
+  return (
+    <div className="bg-card text-lg font-league-gothic font-bold w-full py-lg flex justify-center">
+      fragment
+    </div>
+  )
 }
 
 export default Header
