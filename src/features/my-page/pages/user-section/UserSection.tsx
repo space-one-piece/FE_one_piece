@@ -19,52 +19,50 @@ export default function UserSection({
   return (
     <section className={cn("w-full", className)}>
       <div className="flex flex-col items-center">
-        {user.profileImageUrl ?? <EmptyImage />}
+        {user.profileImageUrl ?? <EmptyImage type="avatar" />}
 
         <h2 className="mt-lg text-xl font-bold text-text-primary">
           {user.userName}
         </h2>
 
-        <p className="mt-xs text-xs text-text-sub">@{user.userId}</p>
+        <p className="mt-xs text-sm text-text-sub">@{user.userId}</p>
       </div>
 
       <div className="mt-xl flex items-center gap-xs">
-        <span className="text-sm font-semibold text-text-primary">
+        <span className="text-md font-semibold text-text-primary p-sm">
           개인정보
         </span>
 
-        {onEdit && (
-          <button
-            type="button"
-            onClick={onEdit}
-            className="flex items-center justify-center text-text-sub transition-opacity hover:opacity-70"
-            aria-label="개인정보 수정"
-          >
-            <Pencil size={14} strokeWidth={2} />
-          </button>
-        )}
+        <button
+          type="button"
+          onClick={onEdit}
+          className="flex items-center justify-center text-text-description transition-opacity hover:opacity-70"
+          aria-label="개인정보 수정"
+        >
+          <Pencil size={18} strokeWidth={2} />
+        </button>
       </div>
 
       <div className="mt-sm grid grid-cols-2 gap-sm">
         <UserCard
           label="이메일"
           value={user.email}
-          icon={<Mail className="h-[18px] w-[18px]" strokeWidth={2} />}
+          icon={<Mail size={18} strokeWidth={2} />}
         />
         <UserCard
           label="성별"
           value={user.gender}
-          icon={<UserRound className="h-[18px] w-[18px]" strokeWidth={2} />}
+          icon={<UserRound size={18} strokeWidth={2} />}
         />
         <UserCard
           label="휴대폰 번호"
           value={user.phone}
-          icon={<Phone className="h-[18px] w-[18px]" strokeWidth={2} />}
+          icon={<Phone size={18} strokeWidth={2} />}
         />
         <UserCard
           label="생년월일"
           value={user.birthDate}
-          icon={<CalendarDays className="h-[18px] w-[18px]" strokeWidth={2} />}
+          icon={<CalendarDays size={18} strokeWidth={2} />}
         />
       </div>
     </section>
