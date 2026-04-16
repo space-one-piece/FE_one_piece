@@ -1,19 +1,9 @@
 import { CalendarDays, Mail, Pencil, Phone, UserRound } from "lucide-react"
-import type { ReactNode } from "react"
 
 import { cn } from "@/lib/utils"
 import { EmptyImage } from "@/shared/components"
+import type { UserProfile } from "../../types"
 import UserCard from "./user-card/UserCard"
-
-type UserProfile = {
-  profileImage?: ReactNode
-  userName: string
-  userId: string
-  email: string
-  gender: string
-  phone: string
-  birthDate: string
-}
 
 type UserSectionProps = {
   user: UserProfile
@@ -29,7 +19,7 @@ export default function UserSection({
   return (
     <section className={cn("w-full", className)}>
       <div className="flex flex-col items-center">
-        {user.profileImage ?? <EmptyImage />}
+        {user.profileImageUrl ?? <EmptyImage />}
 
         <h2 className="mt-lg text-xl font-bold text-text-primary">
           {user.userName}
