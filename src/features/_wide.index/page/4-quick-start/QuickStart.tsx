@@ -19,12 +19,12 @@ const QuickStart = () => {
           card content placeholder
         </RoundBox>
       </Hstack>
-      <Hstack>
-        <Button>Start now</Button>
+      <Hstack gap="none">
+        <Button isContained={false}>Start now</Button>
         <Button>
-          <Hstack>
+          <Hstack gap="sm" className="items-center">
             <p>Learn more</p>
-            <ChevronRight size={16} />
+            <ChevronRight />
           </Hstack>
         </Button>
       </Hstack>
