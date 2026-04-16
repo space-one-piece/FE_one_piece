@@ -12,6 +12,7 @@ const MainPage = () => {
       <Introduction />
       <FindYourScent />
       <ViewAllScents />
+      <div>perfume image placeholder</div>
       <QuickStart />
       <CustomerReviews />
       <FAQ />
