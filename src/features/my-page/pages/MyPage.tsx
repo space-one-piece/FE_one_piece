@@ -25,12 +25,12 @@ export default function MyPage() {
   }, [])
 
   return (
-    <FullScreen className="bg-surface-default">
+    <FullScreen className="bg-surface-">
       <CenterContainer className="w-full py-2xl">
         <Container
           width="xl"
           isPadded
-          className="h-screen w-full max-w-[850px] border border-border bg-surface-container shadow-box"
+          className="h-screen max-w-container-xl border border-border bg-surface-default shadow-box"
         >
           {!user ? <LoadingState /> : <UserSection user={user} />}
         </Container>

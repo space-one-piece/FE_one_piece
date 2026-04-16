@@ -43,7 +43,7 @@ export default function UserSection({
         </button>
       </div>
 
-      <div className="mt-sm grid grid-cols-2 gap-sm">
+      <div className="grid grid-cols-2 gap-sm">
         <UserCard
           label="이메일"
           value={user.email}
