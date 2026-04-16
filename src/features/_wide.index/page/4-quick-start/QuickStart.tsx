@@ -4,7 +4,7 @@ import SectionVstack from "../section-container/SectionContainer"
 
 const QuickStart = () => {
   return (
-    <SectionVstack>
+    <SectionVstack className="items-center">
       <h2>간편한 시작</h2>
       <h3>fragmnt 이렇게 사용해보세요</h3>
       <p>세 번의 과정으로 당신의 공간에 딱 맞는 향기를 찾아보세요.</p>

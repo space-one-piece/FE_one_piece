@@ -8,7 +8,7 @@ import FAQ from "./6-faq/FAQ"
 
 const MainPage = () => {
   return (
-    <Vstack gap="2xl">
+    <Vstack gap="2xl" className="pb-2xl">
       <Introduction />
       <FindYourScent />
       <ViewAllScents />
