@@ -2,13 +2,15 @@ import BgMainSrc from "@/assets/images/root/bg.main.png"
 import BgAuthSrc from "@/assets/images/root/placeholder.auth.png"
 import BgFindScent from "@/assets/images/root/placeholder.findscent.png"
 import BgMypage from "@/assets/images/root/placeholder.mypage.png"
+import { FullScreen } from "@/shared/components"
 import { Toaster } from "@/shared/components/toast"
 import { Outlet, useLocation } from "@tanstack/react-router"
 
 const selectImageSrc = (pathname: string) => {
-  if (pathname.includes("auth")) return BgAuthSrc
-  if (pathname.includes("find-scent")) return BgFindScent
-  if (pathname.includes("my-page")) return BgMypage
+  if (pathname.includes("auth")) return BgAuthSrc // TODO: need to replace
+  if (pathname.includes("find-scent")) return BgFindScent // TODO: need to replace
+  if (pathname.includes("my-page")) return BgMypage // TODO: need to replace
+  // TODO: need to handle "list" page
   return BgMainSrc
 }
 
@@ -18,16 +20,16 @@ const RootLayout = () => {
   const imageSrc = selectImageSrc(pathname)
 
   return (
-    <div className="size-screen overflow-hidden">
+    <FullScreen>
       <img
         src={imageSrc}
         alt="배경 이미지"
-        className="-z-1 fixed inset-0 object-cover opacity-40"
+        className="-z-1 fixed inset-0 opacity-40 size-full object-cover"
       />
 
       <Outlet />
       <Toaster />
-    </div>
+    </FullScreen>
   )
 }
 
