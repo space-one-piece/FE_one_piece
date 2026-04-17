@@ -36,7 +36,7 @@ const WideLayout = () => {
           <Container className="h-full">
             <Vstack
               gap="none"
-              className="h-full justify-between bg-surface-default"
+              className="min-h-full justify-between bg-surface-default"
             >
               <Outlet />
               <Footer />
