@@ -39,7 +39,7 @@ const FAQ = () => {
             있습니다.
           </AccordionContent>
         </AccordionItem>
-        <AccordionItem value="item-3">
+        <AccordionItem value="item-4">
           <AccordionTrigger>개인정보는 안전하게 보호되나요?</AccordionTrigger>
           <AccordionContent>
             제공해주신 이미지 데이터는 오직 향기 분석 및 추천을 위한 용도로만
