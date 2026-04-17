@@ -46,16 +46,16 @@ const PreferenceSlider = ({
     >
       <header className="flex items-start gap-sm">
         <div className="flex mt-xs pt-xs h-xl w-xl shrink-0 items-center justify-center rounded-full bg-primary">
-          <span className="text-lg font-bold text-card">{order}</span>
+          <span className="text-md font-bold text-card">{order}</span>
         </div>
 
         <div className="flex flex-col">
           <h3 className="text-lg font-bold text-text-primary">{title}</h3>
-          <p className="text-md text-text-sub">{description}</p>
+          <p className=" text-md text-text-sub">{description}</p>
         </div>
       </header>
 
-      <div className="flex flex-col px-xl pb-xl">
+      <div className="flex flex-col px-2xl pb-xl">
         <div className="flex items-center justify-between text-md text-text-sub">
           <span>{leftEdgeLabel}</span>
           <span>{rightEdgeLabel}</span>
@@ -112,9 +112,8 @@ const PreferenceSlider = ({
             aria-label={title}
             className="preference-slider absolute inset-0 z-40"
           />
-
           <output
-            className="absolute top-full z-20 mt-sm -translate-x-1/2 whitespace-nowrap rounded-full border border-border bg-surface-container px-sm py-xs text-sm font-bold text-text-highlight shadow-sm"
+            className="absolute top-full z-20 mt-sm -translate-x-1/2 whitespace-nowrap rounded-full border border-border bg-surface-container px-sm py-xs text-sm font-bold text-text-highlight shadow-sm transition-all duration-200 ease-out"
             style={{ left: `${percentage}%` }}
           >
             {selectedLabel}
