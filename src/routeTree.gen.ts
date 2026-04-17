@@ -10,15 +10,21 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as WideRouteImport } from './routes/_wide'
+import { Route as NarrowRouteImport } from './routes/_narrow'
 import { Route as WideIndexRouteImport } from './routes/_wide.index'
 import { Route as WideScentSurveyRouteImport } from './routes/_wide.scent-survey'
 import { Route as WideScentKeywordRouteImport } from './routes/_wide.scent-keyword'
 import { Route as WideNotRealRouteImport } from './routes/_wide.not-real'
 import { Route as WideMyPageRouteImport } from './routes/_wide.my-page'
 import { Route as WideFindScentRouteImport } from './routes/_wide.find-scent'
+import { Route as NarrowSignupIndexRouteImport } from './routes/_narrow.signup.index'
 
 const WideRoute = WideRouteImport.update({
   id: '/_wide',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NarrowRoute = NarrowRouteImport.update({
+  id: '/_narrow',
   getParentRoute: () => rootRouteImport,
 } as any)
 const WideIndexRoute = WideIndexRouteImport.update({
@@ -51,6 +57,11 @@ const WideFindScentRoute = WideFindScentRouteImport.update({
   path: '/find-scent',
   getParentRoute: () => WideRoute,
 } as any)
+const NarrowSignupIndexRoute = NarrowSignupIndexRouteImport.update({
+  id: '/signup/',
+  path: '/signup/',
+  getParentRoute: () => NarrowRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof WideIndexRoute
@@ -59,17 +70,20 @@ export interface FileRoutesByFullPath {
   '/not-real': typeof WideNotRealRoute
   '/scent-keyword': typeof WideScentKeywordRoute
   '/scent-survey': typeof WideScentSurveyRoute
+  '/signup/': typeof NarrowSignupIndexRoute
 }
 export interface FileRoutesByTo {
+  '/': typeof WideIndexRoute
   '/find-scent': typeof WideFindScentRoute
   '/my-page': typeof WideMyPageRoute
   '/not-real': typeof WideNotRealRoute
   '/scent-keyword': typeof WideScentKeywordRoute
   '/scent-survey': typeof WideScentSurveyRoute
-  '/': typeof WideIndexRoute
+  '/signup': typeof NarrowSignupIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
+  '/_narrow': typeof NarrowRouteWithChildren
   '/_wide': typeof WideRouteWithChildren
   '/_wide/find-scent': typeof WideFindScentRoute
   '/_wide/my-page': typeof WideMyPageRoute
@@ -77,6 +91,7 @@ export interface FileRoutesById {
   '/_wide/scent-keyword': typeof WideScentKeywordRoute
   '/_wide/scent-survey': typeof WideScentSurveyRoute
   '/_wide/': typeof WideIndexRoute
+  '/_narrow/signup/': typeof NarrowSignupIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -87,16 +102,19 @@ export interface FileRouteTypes {
     | '/not-real'
     | '/scent-keyword'
     | '/scent-survey'
+    | '/signup/'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/'
     | '/find-scent'
     | '/my-page'
     | '/not-real'
     | '/scent-keyword'
     | '/scent-survey'
-    | '/'
+    | '/signup'
   id:
     | '__root__'
+    | '/_narrow'
     | '/_wide'
     | '/_wide/find-scent'
     | '/_wide/my-page'
@@ -104,9 +122,11 @@ export interface FileRouteTypes {
     | '/_wide/scent-keyword'
     | '/_wide/scent-survey'
     | '/_wide/'
+    | '/_narrow/signup/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
+  NarrowRoute: typeof NarrowRouteWithChildren
   WideRoute: typeof WideRouteWithChildren
 }
 
@@ -117,6 +137,13 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: '/'
       preLoaderRoute: typeof WideRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_narrow': {
+      id: '/_narrow'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof NarrowRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_wide/': {
@@ -161,8 +188,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WideFindScentRouteImport
       parentRoute: typeof WideRoute
     }
+    '/_narrow/signup/': {
+      id: '/_narrow/signup/'
+      path: '/signup'
+      fullPath: '/signup/'
+      preLoaderRoute: typeof NarrowSignupIndexRouteImport
+      parentRoute: typeof NarrowRoute
+    }
   }
 }
+
+interface NarrowRouteChildren {
+  NarrowSignupIndexRoute: typeof NarrowSignupIndexRoute
+}
+
+const NarrowRouteChildren: NarrowRouteChildren = {
+  NarrowSignupIndexRoute: NarrowSignupIndexRoute,
+}
+
+const NarrowRouteWithChildren =
+  NarrowRoute._addFileChildren(NarrowRouteChildren)
 
 interface WideRouteChildren {
   WideFindScentRoute: typeof WideFindScentRoute
@@ -185,6 +230,7 @@ const WideRouteChildren: WideRouteChildren = {
 const WideRouteWithChildren = WideRoute._addFileChildren(WideRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
+  NarrowRoute: NarrowRouteWithChildren,
   WideRoute: WideRouteWithChildren,
 }
 export const routeTree = rootRouteImport

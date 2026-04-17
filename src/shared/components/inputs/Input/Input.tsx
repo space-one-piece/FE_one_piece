@@ -2,7 +2,6 @@ import type { InputProps } from "@/shared/types"
 import type { None } from "@/shared/types/commonPropsTypes/commonPropsTypes"
 import { cva } from "class-variance-authority"
 import clsx from "clsx"
-// import type { ReactNode } from "react"
 import type { ReactNode } from "react"
 import { Hstack } from "../../layouts"
 
@@ -30,7 +29,6 @@ const Input = ({
 }: InputProps & WithInputProps) => {
   const { className, disabled, ...rest } = props
 
-  console.log("---- rerendered")
   return (
     <Hstack gap="md" className={clsx(inputVariants({ status }), className)}>
       <input
