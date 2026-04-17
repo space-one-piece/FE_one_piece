@@ -50,6 +50,7 @@ const SignupPage = () => {
 
   // TODO: 인증 번호는 어디에 쓰지??
   // TODO: 현재 api body 에 인증 번호가 없다
+  // TODO: 현재 CORS 막혀 있음. 백엔드에 열어달라고 해야
   console.log({ errors })
 
   return (
@@ -110,6 +111,7 @@ const SignupPage = () => {
             <Input
               {...register("phone")}
               status={errors.phone ? "error" : "none"}
+              type="number"
               placeholder={`"-"없이 숫자만 입력해주세요`}
               className="grow"
             />
@@ -132,6 +134,7 @@ const SignupPage = () => {
           <Labeled.Title>생년월일</Labeled.Title>
           <Input
             {...register("birthYmd")}
+            type="number"
             status={errors.birthYmd ? "error" : "none"}
             placeholder="8자리 숫자 입력 (예: 19980514)"
           />
