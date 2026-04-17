@@ -14,14 +14,20 @@ const meta = {
       options: ["sm", "lg"],
       description: "Button size",
     },
-    shape: {
+    radius: {
       control: "select",
-      options: ["rectangle", "pill"],
-      description: "Button shape",
+      options: ["md", "full"],
+      description: "Button radius",
     },
-    isContained: {
-      control: "boolean",
-      description: "Whether button is contained style",
+    style: {
+      control: "select",
+      options: ["contained", "outlined", "ghost"],
+      description: "Button style",
+    },
+    padding: {
+      control: "select",
+      options: ["wide", "same"],
+      description: "Button padding",
     },
     disabled: {
       control: "boolean",
@@ -59,14 +65,14 @@ export const Large: Story = {
 
 export const Pill: Story = {
   args: {
-    shape: "pill",
+    radius: "full",
     children: "Pill Button",
   },
 }
 
 export const Outlined: Story = {
   args: {
-    isContained: false,
+    style: "outlined",
     children: "Outlined Button",
   },
 }
