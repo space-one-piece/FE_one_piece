@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite"
+import { ChevronRight } from "lucide-react"
 import Button from "./Button"
 
 const meta = {
@@ -49,43 +50,17 @@ export const Default: Story = {
   },
 }
 
-export const Small: Story = {
-  args: {
-    size: "sm",
-    children: "Small Button",
-  },
-}
-
-export const Large: Story = {
-  args: {
-    size: "lg",
-    children: "Large Button",
-  },
-}
-
-export const Pill: Story = {
+export const IconPill: Story = {
   args: {
     radius: "full",
-    children: "Pill Button",
+    children: <ChevronRight />,
   },
 }
 
-export const Outlined: Story = {
+export const IconCircle: Story = {
   args: {
-    style: "outlined",
-    children: "Outlined Button",
-  },
-}
-
-export const Disabled: Story = {
-  args: {
-    disabled: true,
-    children: "Disabled Button",
-  },
-}
-
-export const WithLongText: Story = {
-  args: {
-    children: "This is a button with longer text",
+    radius: "full",
+    padding: "same",
+    children: <ChevronRight />,
   },
 }

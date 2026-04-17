@@ -25,12 +25,12 @@ const buttonVariants = cva("transition", {
         "text-text-button disabled:text-text-disabled"
       ),
       outlined: clsx(
-        "border border-primary hover:border-primary-hover disabled:border-primary-disabled",
+        "outline outline-primary hover:outline-primary-hover disabled:outline-primary-disabled -outline-offset-1", // NOTE: border를 사용하면 버튼 크기도 커짐
         "bg-card hover:bg-gray-5",
         "text-primary disabled:text-text-disabled"
       ),
       ghost: clsx(
-        "hover:bg-gray-5",
+        "hover:bg-gray-5 disabled:bg-transparent",
         "text-primary disabled:text-text-disabled"
       ),
     },
@@ -47,6 +47,8 @@ const buttonVariants = cva("transition", {
   ],
 })
 
+// NOTE: pill = padding wide + radius full
+// NOTE: circle = padding same + radius full
 type ButtonProps = {
   size?: "sm" | "lg"
   padding?: "wide" | "same"
