@@ -78,7 +78,7 @@ const CardWithImage = ({
       className={clsx(
         "bg-card",
         "overflow-hidden",
-        "shadow-card",
+        "shadow-box",
         {
           flex: direction == "horizontal",
           "flex flex-col items-start": direction == "vertical",

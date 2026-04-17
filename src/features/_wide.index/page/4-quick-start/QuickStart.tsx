@@ -24,7 +24,7 @@ const QuickStartCard = ({
 }: QuickStartCardProps) => {
   // NOTE: currently just placeholder
   return (
-    <RoundBox padding="xl" radius="lg" className="bg-card w-full shadow-card">
+    <RoundBox padding="xl" radius="lg" className="bg-card w-full shadow-box">
       <Vstack className="items-center">
         <RoundBox className="bg-gray-10">
           <Icon size={36} className="text-button" />
