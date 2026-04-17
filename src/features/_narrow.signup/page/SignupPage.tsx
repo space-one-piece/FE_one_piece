@@ -8,13 +8,28 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 
 const signupSchema = z.object({
-  email: z.string().email(),
-  emailVerification: z.string(),
-  password: z.string(),
-  name: z.string(),
-  phone: z.string(),
-  phoneVerification: z.string(),
-  birthYmd: z.string(),
+  email: z
+    .string()
+    .min(1, "이메일을 입력해주세요")
+    .email("올바른 이메일 형식으로 입력해주세요"),
+  emailVerification: z
+    .string()
+    .min(6, "6자리의 인증번호를 입력해주세요")
+    .max(6, "6자리의 인증번호를 입력해주세요"),
+  password: z
+    .string()
+    .min(1, "비밀번호를 입력해주세요")
+    .regex(/^(?=.*[A-Z])(?=.*[a-z]).{6,}$/),
+  name: z.string().min(1, "이름을 입력해주세요"),
+  phone: z.string().min(1, "전화번호를 입력해주세요"),
+  phoneVerification: z
+    .string()
+    .min(6, "6자리의 인증번호를 입력해주세요")
+    .max(6, "6자리의 인증번호를 입력해주세요"),
+  birthYmd: z
+    .string()
+    .min(8, "8자리의 생년월일을 입력해주세요")
+    .max(8, "8자리의 생년월일을 입력해주세요"),
 })
 type SignupSchema = z.input<typeof signupSchema>
 
@@ -35,6 +50,7 @@ const SignupPage = () => {
 
   // TODO: 인증 번호는 어디에 쓰지??
   // TODO: 현재 api body 에 인증 번호가 없다
+  console.log({ errors })
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -55,6 +71,7 @@ const SignupPage = () => {
             />
             <Button>인증</Button>
           </Hstack>
+          <Labeled.Message>{errors.email?.message}</Labeled.Message>
         </Labeled>
 
         <Labeled isError={Boolean(errors.emailVerification)}>
@@ -74,6 +91,7 @@ const SignupPage = () => {
             status={errors.password ? "error" : "none"}
             placeholder="영문, 숫자를 포함해 6자리 이상으로 만들어주세요"
           />
+          <Labeled.Message>{errors.password?.message}</Labeled.Message>
         </Labeled>
 
         <Labeled isError={Boolean(errors.name)}>
@@ -83,6 +101,7 @@ const SignupPage = () => {
             status={errors.name ? "error" : "none"}
             placeholder="이름을 입력해주세요"
           />
+          <Labeled.Message>{errors.name?.message}</Labeled.Message>
         </Labeled>
 
         <Labeled isError={Boolean(errors.phone)}>
@@ -96,6 +115,7 @@ const SignupPage = () => {
             />
             <Button>인증</Button>
           </Hstack>
+          <Labeled.Message>{errors.phone?.message}</Labeled.Message>
         </Labeled>
 
         <Labeled isError={Boolean(errors.phoneVerification)}>
@@ -105,6 +125,7 @@ const SignupPage = () => {
             status={errors.phoneVerification ? "error" : "none"}
             placeholder="6자리 코드를 입력해주세요"
           />
+          <Labeled.Message>{errors.phoneVerification?.message}</Labeled.Message>
         </Labeled>
 
         <Labeled isError={Boolean(errors.birthYmd)}>
@@ -114,6 +135,7 @@ const SignupPage = () => {
             status={errors.birthYmd ? "error" : "none"}
             placeholder="8자리 숫자 입력 (예: 19980514)"
           />
+          <Labeled.Message>{errors.birthYmd?.message}</Labeled.Message>
         </Labeled>
         <Button className="mt-lg">회원가입</Button>
       </Vstack>
