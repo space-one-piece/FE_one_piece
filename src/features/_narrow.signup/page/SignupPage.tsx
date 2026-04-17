@@ -1,5 +1,5 @@
 import NarrowTitleSection from "@/features/_narrow/components/narrow-title-section/NarrowTitleSection"
-import { Button, Input, Vstack } from "@/shared/components"
+import { Button, Hstack, Input, Vstack } from "@/shared/components"
 import Labeled from "@/shared/components/inputs/labeled/Labeled"
 
 const SignupPage = () => {
@@ -12,7 +12,10 @@ const SignupPage = () => {
         />
         <Labeled>
           <Labeled.Title>이메일</Labeled.Title>
-          <Input placeholder="your@email.com" />
+          <Hstack gap="sm">
+            <Input placeholder="your@email.com" className="grow" />
+            <Button>인증</Button>
+          </Hstack>
         </Labeled>
         <Labeled>
           <Labeled.Title>이메일 인증코드</Labeled.Title>
@@ -28,7 +31,13 @@ const SignupPage = () => {
         </Labeled>
         <Labeled>
           <Labeled.Title>전화번호</Labeled.Title>
-          <Input placeholder={`"-"없이 숫자만 입력해주세요`} />
+          <Hstack gap="sm">
+            <Input
+              placeholder={`"-"없이 숫자만 입력해주세요`}
+              className="grow"
+            />
+            <Button>인증</Button>
+          </Hstack>
         </Labeled>
         <Labeled>
           <Labeled.Title>전화번호 인증코드</Labeled.Title>
