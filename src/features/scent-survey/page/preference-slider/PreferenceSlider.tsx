@@ -1,12 +1,16 @@
 import clsx from "clsx"
 import "./preference-slider.css"
 
-type PreferenceSliderProps = {
+type PreferenceSliderItem = {
   order: number
   title: string
   description: string
   labels: [string, string, string, string, string]
   edgeLabels?: [string, string]
+}
+
+type PreferenceSliderProps = {
+  item: PreferenceSliderItem
   value: number
   onChange?: (value: number) => void
   className?: string
@@ -16,15 +20,13 @@ const POINTS = [0, 1, 2, 3, 4] as const
 const LAST_POINT_INDEX = POINTS.length - 1
 
 const PreferenceSlider = ({
-  order,
-  title,
-  description,
-  labels,
-  edgeLabels,
+  item,
   value,
   onChange,
   className,
 }: PreferenceSliderProps) => {
+  const { order, title, description, labels, edgeLabels } = item
+
   const percentage = (value / LAST_POINT_INDEX) * 100
   const selectedLabel = labels[value]
   const [leftEdgeLabel, rightEdgeLabel] = edgeLabels ?? [labels[0], labels[4]]
@@ -45,13 +47,13 @@ const PreferenceSlider = ({
       )}
     >
       <header className="flex items-start gap-sm">
-        <div className="flex mt-xs pt-xs h-xl w-xl shrink-0 items-center justify-center rounded-full bg-primary">
+        <div className="mt-xs flex h-xl w-xl shrink-0 items-center justify-center rounded-full bg-primary pt-xs">
           <span className="text-md font-bold text-card">{order}</span>
         </div>
 
         <div className="flex flex-col">
           <h3 className="text-lg font-bold text-text-primary">{title}</h3>
-          <p className=" text-md text-text-sub">{description}</p>
+          <p className="text-md text-text-sub">{description}</p>
         </div>
       </header>
 
@@ -112,6 +114,7 @@ const PreferenceSlider = ({
             aria-label={title}
             className="preference-slider absolute inset-0 z-40"
           />
+
           <output
             className="absolute top-full z-20 mt-sm -translate-x-1/2 whitespace-nowrap rounded-full border border-border bg-surface-container px-sm py-xs text-sm font-bold text-text-highlight shadow-sm transition-all duration-200 ease-out"
             style={{ left: `${percentage}%` }}

@@ -1,7 +1,7 @@
 import {
   BackButton,
   Button,
-  CenterContainer,
+  Container,
   PageIntro,
   Vstack,
 } from "@/shared/components"
@@ -39,7 +39,7 @@ const ScentSurvey = () => {
   }
 
   return (
-    <CenterContainer className="px-30 pt-16 pb-60">
+    <Container className="px-30 pt-16 pb-40">
       <Vstack className="w-full gap-lg">
         <PageIntro
           title="나만의 향 찾기"
@@ -50,12 +50,7 @@ const ScentSurvey = () => {
 
         {scentSurveyMockData.map((item, index) => (
           <PreferenceSlider
-            key={item.order}
-            order={item.order}
-            title={item.title}
-            description={item.description}
-            labels={item.labels}
-            edgeLabels={item.edgeLabels}
+            item={item}
             value={answers[index]}
             onChange={(value) => {
               handleChangeAnswer({ index, value })
@@ -71,7 +66,7 @@ const ScentSurvey = () => {
           나만의 향기 확인하기
         </Button>
       </Vstack>
-    </CenterContainer>
+    </Container>
   )
 }
 
