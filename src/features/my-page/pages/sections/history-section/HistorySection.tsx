@@ -5,11 +5,14 @@ import { useHistoryList } from "@/features/my-page/hooks/useHistoryList"
 import HistoryCard from "./history-card/HistoryCard"
 
 export default function HistorySection() {
-  const { historyList, isLoading } = useHistoryList()
+  const { data: historyList = [], isLoading, error } = useHistoryList()
   const hasItems = historyList.length > 0
 
   if (isLoading) {
     return <LoadingState />
+  }
+  if (error) {
+    return <div>기록을 불러오지 못했어요.</div>
   }
 
   return (

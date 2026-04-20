@@ -5,7 +5,7 @@ import { useFavoriteScents } from "../../../hooks/useFavoriteScents"
 import CollectionCard from "./collection-card/CollectionCard"
 
 export default function CollectionSection() {
-  const { favoriteScents, isLoading } = useFavoriteScents()
+  const { error, favoriteScents, isLoading } = useFavoriteScents()
 
   const hasItems = favoriteScents.length > 0
   const collectionList = favoriteScents.map((item) => ({
@@ -15,6 +15,9 @@ export default function CollectionSection() {
 
   if (isLoading) {
     return <LoadingState />
+  }
+  if (error) {
+    return <div>저장된 향기를 불러오지 못했어요.</div>
   }
 
   return (
