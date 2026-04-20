@@ -1,8 +1,10 @@
 import { Button, Hstack } from "@/shared/components"
 import type { WithButtonProps } from "@/shared/components/inputs/Button/Button"
 import type { DefaultButtonProps } from "@/shared/types"
+import { useLoaderData } from "@tanstack/react-router"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { useState } from "react"
+import ReviewCardInMain from "./review-card-in-main/ReviewCardInMain"
 
 const RoundButton = (props: DefaultButtonProps & WithButtonProps) => {
   return <Button padding="same" radius="full" style="ghost" {...props} />
@@ -10,11 +12,12 @@ const RoundButton = (props: DefaultButtonProps & WithButtonProps) => {
 
 const ReviewCarousel = () => {
   const [index, setIndex] = useState(0)
-  const TEMP_DATA_LENGTH = 10
+
+  const { reviewsInMain } = useLoaderData({ from: "/_wide/" })
   // TODO: API 받으면 data.length로 수정
   return (
     <div className="relative">
-      {TEMP_DATA_LENGTH > 2 && (
+      {reviewsInMain.length > 2 && (
         <Hstack gap="sm" className="absolute bottom-full right-0">
           <RoundButton
             onClick={() => setIndex((prev) => Math.max(0, prev - 1))}
@@ -23,7 +26,7 @@ const ReviewCarousel = () => {
           </RoundButton>
           <RoundButton
             onClick={() =>
-              setIndex((prev) => Math.min(TEMP_DATA_LENGTH - 2, prev + 1))
+              setIndex((prev) => Math.min(reviewsInMain.length - 2, prev + 1))
             }
           >
             <ChevronRight />
@@ -32,17 +35,9 @@ const ReviewCarousel = () => {
       )}
 
       <Hstack className="justify-start overflow-hidden">
-        {Array(TEMP_DATA_LENGTH)
-          .fill(0)
-          .map((_, ACTUAL_KEY_MUST_BE_USED) => (
-            <ReviewCardInMain
-              key={ACTUAL_KEY_MUST_BE_USED}
-              style={{
-                transform: `translateX(calc((-100% - 16px) * ${index}))`,
-                transition: "transform 300ms ease",
-              }}
-            />
-          ))}
+        {reviewsInMain.map((review) => (
+          <ReviewCardInMain key={review.id} review={review} index={index} />
+        ))}
       </Hstack>
     </div>
   )
