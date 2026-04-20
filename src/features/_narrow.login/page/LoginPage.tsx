@@ -1,11 +1,24 @@
 import NarrowTitleSection from "@/features/_narrow/components/narrow-title-section/NarrowTitleSection"
 import { headlessInstance } from "@/shared/api/axios-instance"
-import { Button, Input, Vstack } from "@/shared/components"
+import { Button, Hstack, Input, Vstack } from "@/shared/components"
 import Labeled from "@/shared/components/inputs/labeled/Labeled"
+import HOrVStack from "@/shared/components/layouts/HOrVStack/HOrVStack"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useMutation } from "@tanstack/react-query"
+import { Link } from "@tanstack/react-router"
+import clsx from "clsx"
 import { useForm } from "react-hook-form"
 import z from "zod"
+
+const DimLink = ({
+  to,
+  children,
+  className,
+}: React.ComponentProps<typeof Link>) => (
+  <Link to={to} className={clsx("text-sm text-text-sub", className)}>
+    {children}
+  </Link>
+)
 
 const loginSchema = z.object({
   email: z
@@ -52,7 +65,12 @@ const LoginPage = () => {
             placeholder="your@email.com"
             status={errors.email ? "error" : "none"}
           />
-          <Labeled.Message>{errors.email?.message}</Labeled.Message>
+          <Hstack className="justify-end">
+            <Labeled.Message className="grow">
+              {errors.email?.message}
+            </Labeled.Message>
+            <DimLink to="/find-email">이메일 찾기</DimLink>
+          </Hstack>
         </Labeled>
 
         <Labeled isError={Boolean(errors.password)}>
@@ -62,10 +80,26 @@ const LoginPage = () => {
             status={errors.password ? "error" : "none"}
             placeholder="비밀번호를 입력해주세요"
           />
-          <Labeled.Message>{errors.password?.message}</Labeled.Message>
+          <Hstack className="justify-end">
+            <Labeled.Message className="grow">
+              {errors.password?.message}
+            </Labeled.Message>
+            <DimLink to="/find-password">비밀번호 찾기</DimLink>
+          </Hstack>
         </Labeled>
 
         <Button className="mt-lg">로그인</Button>
+
+        <HOrVStack gap="sm" className="mt-lg">
+          <Button className="flex-1">test button</Button>
+          <Button className="flex-1">test button</Button>
+          <Button className="flex-1">test button</Button>
+        </HOrVStack>
+
+        <DimLink to="/signup" className="mx-auto">
+          아직 계정이 없으신가요?{" "}
+          <span className="font-semibold text-text-primary">회원가입</span>하기
+        </DimLink>
       </Vstack>
     </form>
   )
