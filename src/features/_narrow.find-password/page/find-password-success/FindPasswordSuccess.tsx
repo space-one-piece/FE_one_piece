@@ -8,7 +8,10 @@ const FindPasswordSuccess = () => {
   return (
     <Vstack gap="xl">
       <NarrowTitleSection title="비밀번호를 변경했습니다" />
-      <RoundBox className="bg-green-input flex justify-center items-center">
+      <RoundBox
+        padding="2xl"
+        className="bg-green-input flex justify-center items-center"
+      >
         이제 새로운 비밀번호로 로그인할 수 있습니다
       </RoundBox>
       <Button onClick={() => navigate({ to: "/login" })}>

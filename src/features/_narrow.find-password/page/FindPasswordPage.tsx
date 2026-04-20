@@ -10,7 +10,13 @@ import FindPasswordSuccess from "./find-password-success/FindPasswordSuccess"
 
 const findPasswordSchema = z
   .object({
-    new_password: z.string().min(1, "새 비밀번호를 입력하세요"),
+    new_password: z
+      .string()
+      .min(1, "새 비밀번호를 입력하세요")
+      .regex(
+        /^(?=.*[A-Za-z])(?=.*\d).{8,}$/,
+        "영문과 숫자를 포함해 8자리 이상을 입력해주세요"
+      ),
     new_password_confirm: z.string().min(1, "새 비밀번호를 다시 입력하세요"),
   })
   .refine((data) => data.new_password === data.new_password_confirm, {
@@ -52,8 +58,9 @@ const FindPasswordPage = () => {
           <Labeled.Title>새 비밀번호</Labeled.Title>
           <Input
             {...register("new_password")}
-            placeholder="새 비밀번호를 입력해주세요"
+            type="password"
             status={errors.new_password ? "error" : "none"}
+            placeholder="새 비밀번호를 입력해주세요"
           />
           <Labeled.Message>{errors.new_password?.message}</Labeled.Message>
         </Labeled>
@@ -62,10 +69,10 @@ const FindPasswordPage = () => {
           <Labeled.Title>새 비밀번호 확인</Labeled.Title>
           <Input
             {...register("new_password_confirm")}
+            type="password"
             status={errors.new_password_confirm ? "error" : "none"}
             placeholder="새 비밀번호를 다시 입력해주세요"
           />
-          <Button type="button">인증</Button>
           <Labeled.Message>
             {errors.new_password_confirm?.message}
           </Labeled.Message>
