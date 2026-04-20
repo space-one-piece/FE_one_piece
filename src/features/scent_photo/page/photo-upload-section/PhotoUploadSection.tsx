@@ -1,7 +1,24 @@
-import cn from "@/lib/utils"
-import { useRef, useState, type ChangeEvent } from "react"
+import {
+  useRef,
+  useState,
+  type ChangeEvent,
+  type Dispatch,
+  type SetStateAction,
+} from "react"
+import type { MobilePhotoStep } from "../../types/mobile-photo-step.types"
+import PhotoActionButton from "../photo-action-button/PhotoActionButton"
+import MobileCameraContent from "./mobile-camera-content/MobileCameraContent"
+import UploadPreviewBox from "./upload-preview-box/UploadPreviewBox"
 
-const WebPhotoUploadContent = () => {
+type PhotoUploadSectionProps = {
+  step: MobilePhotoStep
+  onStepChange: Dispatch<SetStateAction<MobilePhotoStep>>
+}
+
+const PhotoUploadSection = ({
+  step,
+  onStepChange,
+}: PhotoUploadSectionProps) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null)
   const [previewUrl, setPreviewUrl] = useState("")
 
@@ -18,43 +35,61 @@ const WebPhotoUploadContent = () => {
 
     const imageUrl = URL.createObjectURL(file)
     setPreviewUrl(imageUrl)
+    onStepChange("preview")
+  }
+
+  const handleCaptureImage = (imageUrl: string) => {
+    setPreviewUrl(imageUrl)
+    onStepChange("preview")
   }
 
   return (
     <>
-      <div
-        className={cn(
-          "w-full overflow-hidden rounded-xl bg-white",
-          previewUrl
-            ? "border border-transparent"
-            : "aspect-[4/3] min-h-64 border-2 border-dashed border-primary"
-        )}
-      >
-        {previewUrl ? (
-          <img
-            src={previewUrl}
-            alt="업로드한 미리보기 이미지"
-            className="h-full w-full object-cover"
-          />
-        ) : (
-          <div className="flex h-full flex-col items-center justify-center gap-sm p-lg text-center">
-            <h3 className="text-md font-bold text-text-primary">
-              이미지를 드래그하거나
-            </h3>
-            <p className="text-sm text-text-description">
-              아래 버튼을 눌러 업로드하세요
-            </p>
+      <section className="hidden md:flex md:flex-col gap-lg">
+        <UploadPreviewBox previewUrl={previewUrl} />
+        <PhotoActionButton type="button" onClick={handleOpenGallery}>
+          이미지 업로드
+        </PhotoActionButton>
+      </section>
+
+      <section className="md:hidden">
+        {step === "select" && (
+          <div className="flex flex-col gap-lg">
+            <UploadPreviewBox previewUrl={previewUrl} />
+            <PhotoActionButton type="button" onClick={handleOpenGallery}>
+              갤러리 열기
+            </PhotoActionButton>
+            <PhotoActionButton
+              type="button"
+              onClick={() => onStepChange("camera")}
+            >
+              카메라 열기
+            </PhotoActionButton>
           </div>
         )}
-      </div>
 
-      <button
-        type="button"
-        onClick={handleOpenGallery}
-        className="mt-md w-full cursor-pointer hover:bg-green-input transition-all duration-200 ease-out rounded-md border border-border bg-white px-md py-sm text-sm font-medium text-text-primary"
-      >
-        이미지 업로드
-      </button>
+        {step === "camera" && (
+          <MobileCameraContent
+            onCapture={handleCaptureImage}
+            onClose={() => onStepChange("select")}
+          />
+        )}
+
+        {step === "preview" && previewUrl && (
+          <div className="flex flex-col gap-lg">
+            <UploadPreviewBox previewUrl={previewUrl} />
+            <PhotoActionButton type="button" onClick={handleOpenGallery}>
+              다른 이미지 선택
+            </PhotoActionButton>
+            <PhotoActionButton
+              type="button"
+              onClick={() => onStepChange("camera")}
+            >
+              카메라로 다시 찍기
+            </PhotoActionButton>
+          </div>
+        )}
+      </section>
 
       <input
         ref={fileInputRef}
@@ -67,4 +102,4 @@ const WebPhotoUploadContent = () => {
   )
 }
 
-export default WebPhotoUploadContent
+export default PhotoUploadSection
