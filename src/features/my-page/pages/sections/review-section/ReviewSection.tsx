@@ -2,13 +2,13 @@ import EmptyStateImage from "@/assets/images/empty-state/empty-scent.svg"
 import { mockReviewList } from "@/features/my-page/mocks/review.mock"
 import { EmptyState } from "@/shared/components"
 
-import { useHistoryList } from "@/features/my-page/hooks/useHistoryList"
+import { useReviewList } from "@/features/my-page/hooks/useReviewList"
 import LoadingState from "@/shared/components/loading-state/LoadingState"
 import ReviewCard from "./review-card/ReviewCard"
 
 export default function ReviewSection() {
   const hasItems = mockReviewList.length > 0
-  const { error, isLoading } = useHistoryList()
+  const { data: reviewList, error, isLoading } = useReviewList()
 
   if (isLoading) {
     return <LoadingState />
@@ -22,14 +22,14 @@ export default function ReviewSection() {
       <h2 className="px-md text-center text-lg font-bold text-text-primary">
         내가 쓴 리뷰
         <span className="font-extrabold text-text-highlight">
-          {mockReviewList.length}
+          {reviewList?.length || 0}
         </span>
         개
       </h2>
 
       {hasItems ? (
         <div className="mt-md flex flex-col gap-md">
-          {mockReviewList.map(({ id, ...item }) => (
+          {reviewList?.map(({ id, ...item }) => (
             <ReviewCard key={id} {...item} />
           ))}
         </div>

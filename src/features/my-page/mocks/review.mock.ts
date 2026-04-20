@@ -1,5 +1,5 @@
 import type { ReviewCardProps } from "@/features/my-page/pages/sections/review-section/review-card/ReviewCard"
-type MockReviewItem = ReviewCardProps & {
+export type MockReviewItem = ReviewCardProps & {
   id: number
 }
 

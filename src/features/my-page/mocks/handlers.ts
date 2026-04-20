@@ -3,6 +3,7 @@ import { http, HttpResponse } from "msw"
 import { mockFavoriteScents } from "./favoriteScents.mock"
 import { mockHistoryList } from "./history.mock"
 import { mockUserProfile } from "./myPage.mock"
+import { mockReviewList } from "./review.mock"
 
 const BASE_URL = import.meta.env.VITE_BASE_URL
 
@@ -17,5 +18,9 @@ export const myPageHandlers = [
 
   http.get(`${BASE_URL}/analyses/`, () => {
     return HttpResponse.json(mockHistoryList)
+  }),
+
+  http.get(`${BASE_URL}/analyses/reviews/me/`, () => {
+    return HttpResponse.json(mockReviewList)
   }),
 ]
