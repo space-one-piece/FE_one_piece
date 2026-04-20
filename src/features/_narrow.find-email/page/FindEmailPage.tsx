@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useMutation } from "@tanstack/react-query"
 import { useForm } from "react-hook-form"
 import z from "zod"
+import FindEmailSuccess from "./find-email-success/FindEmailSuccess"
 
 const findEmailSchema = z.object({
   name: z.string().min(1, "이름을 입력해주세요"),
@@ -18,9 +19,10 @@ const findEmailSchema = z.object({
 
 type FindEmailSchema = z.input<typeof findEmailSchema>
 const FindEmailPage = () => {
-  const postMutation = useMutation({
+  const { data, mutate } = useMutation({
     mutationFn: (body: FindEmailSchema) =>
       // NOTE: api가 아직 나오지 않음
+      // NOTE: 현재는 404가 뜹니다
       plainInstance.post("/accounts/find-email", body),
   })
   const {
@@ -31,8 +33,11 @@ const FindEmailPage = () => {
 
   const onSubmit = (data: FindEmailSchema) => {
     console.log({ data })
-    postMutation.mutate(data)
+    mutate(data)
   }
+
+  // TODO: api 나오면 응답 타입 확인해야
+  if (data) return <FindEmailSuccess email={data.data as string} />
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -43,7 +48,7 @@ const FindEmailPage = () => {
         />
 
         <Labeled isError={Boolean(errors.name)}>
-          <Labeled.Title>이메일</Labeled.Title>
+          <Labeled.Title>이름</Labeled.Title>
           <Input
             {...register("name")}
             placeholder="이름을 입력해주세요"
