@@ -22,10 +22,11 @@ const reviews = [
 
 export const MainReviewMock: ReviewInMainDummy[] = Array.from(
   { length: 11 },
-  (_, i) => ({
-    thumbnail_url: imgUrls[i % imgUrls.length],
-    user_name: `더미유저${i + 1}`,
-    created_at: new Date(Date.now() - i * 86400000).toISOString(),
-    review: reviews[i % reviews.length],
+  (_, index) => ({
+    id: index,
+    thumbnail_url: imgUrls[index % imgUrls.length],
+    user_name: `더미유저${index + 1}`,
+    created_at: new Date(Date.now() - index * 86400000).toISOString(),
+    review: reviews[index % reviews.length],
   })
 )
