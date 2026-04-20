@@ -1,5 +1,5 @@
 import NarrowTitleSection from "@/features/_narrow/components/narrow-title-section/NarrowTitleSection"
-import { headlessInstance } from "@/shared/api/axios-instance"
+import { plainInstance } from "@/shared/api/axios-instance"
 import { Button, Hstack, Input, Vstack } from "@/shared/components"
 import Labeled from "@/shared/components/inputs/labeled/Labeled"
 import HOrVStack from "@/shared/components/layouts/HOrVStack/HOrVStack"
@@ -33,7 +33,7 @@ type LoginSchema = z.input<typeof loginSchema>
 const LoginPage = () => {
   const postMutation = useMutation({
     mutationFn: (body: LoginSchema) =>
-      headlessInstance.post("/accounts/login", body),
+      plainInstance.post("/accounts/login", body),
   })
   const {
     register,
