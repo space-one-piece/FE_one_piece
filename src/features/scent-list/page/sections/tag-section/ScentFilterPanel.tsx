@@ -1,5 +1,4 @@
 import { Funnel } from "lucide-react"
-import { useMemo, useState } from "react"
 
 import {
   scentFilterMockData,
@@ -8,35 +7,22 @@ import {
 import SelectedTagSection from "./SelectedTagSection"
 import TagGroupSection from "./TagGroupSection"
 
-const ScentFilterPanel = () => {
-  const [selectedItems, setSelectedItems] = useState<ScentFilterItem[]>([])
+type ScentFilterPanelProps = {
+  selectedItems: ScentFilterItem[]
+  onToggleItem: (item: ScentFilterItem) => void
+  onClearAll: () => void
+}
 
-  const selectedIds = useMemo(() => {
-    return selectedItems.map((item) => item.id)
-  }, [selectedItems])
-
-  const handleToggleItem = (item: ScentFilterItem) => {
-    const isSelected = selectedItems.some(
-      (selectedItem) => selectedItem.id === item.id
-    )
-
-    if (isSelected) {
-      setSelectedItems((prev) =>
-        prev.filter((selectedItem) => selectedItem.id !== item.id)
-      )
-      return
-    }
-
-    setSelectedItems((prev) => [...prev, item])
-  }
-
-  const handleClearAll = () => {
-    setSelectedItems([])
-  }
+const ScentFilterPanel = ({
+  selectedItems,
+  onToggleItem,
+  onClearAll,
+}: ScentFilterPanelProps) => {
+  const selectedIds = selectedItems.map((item) => item.id)
 
   return (
     <section className="w-full rounded-2xl bg-white p-xl shadow-sm">
-      <div className="flex items-center gap-xs pb-md">
+      <div className="flex items-center gap-xs pb-xl">
         <Funnel size={16} className="text-primary" />
         <p className="text-sm font-semibold text-text-sub">EXPLORE BY</p>
       </div>
@@ -54,18 +40,26 @@ const ScentFilterPanel = () => {
               )
 
               if (selectedItem) {
-                handleToggleItem(selectedItem)
+                onToggleItem(selectedItem)
               }
             }}
           />
         ))}
       </div>
 
-      <div className="pt-sm">
+      <div className="pt-xl">
         <SelectedTagSection
           items={selectedItems}
-          onRemove={(item) => handleToggleItem(item as ScentFilterItem)}
-          onClearAll={handleClearAll}
+          onRemove={(item) => {
+            const selectedItem = selectedItems.find(
+              (selected) => selected.id === item.id
+            )
+
+            if (selectedItem) {
+              onToggleItem(selectedItem)
+            }
+          }}
+          onClearAll={onClearAll}
         />
       </div>
     </section>
