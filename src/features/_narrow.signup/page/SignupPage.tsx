@@ -35,11 +35,13 @@ type SignupSchema = z.input<typeof signupSchema>
 
 const SignupPage = () => {
   const postMutation = useMutation({
-    mutationFn: (body: SignupSchema) => headlessInstance.post("/signup", body),
+    mutationFn: (body: SignupSchema) =>
+      headlessInstance.post("accounts/signup", body),
   })
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm({ resolver: zodResolver(signupSchema) })
 
@@ -53,9 +55,27 @@ const SignupPage = () => {
   // TODO: 현재 CORS 막혀 있음. 백엔드에 열어달라고 해야
   console.log({ errors })
 
+  const handleEmailVerification = async () => {
+    const email = watch().email
+    const response = await headlessInstance.post(
+      "/accounts/verification/send-email",
+      { email }
+    )
+    console.log({ response })
+  }
+  const handleTestRequest = async () => {
+    const response = await headlessInstance.get(
+      "https://pokeapi.co/api/v2/pokemon/ditto"
+    )
+    console.log({ response })
+  }
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Vstack gap="xl">
+        <Button type="button" onClick={handleTestRequest}>
+          test
+        </Button>
         <NarrowTitleSection
           title="공간의 완성, 향기의 조각"
           description="fragmnt에서 당신만의 향기 아카이브를 시작하세요"
@@ -70,7 +90,9 @@ const SignupPage = () => {
               className="grow"
               status={errors.email ? "error" : "none"}
             />
-            <Button>인증</Button>
+            <Button type="button" onClick={handleEmailVerification}>
+              인증
+            </Button>
           </Hstack>
           <Labeled.Message>{errors.email?.message}</Labeled.Message>
         </Labeled>
@@ -115,7 +137,7 @@ const SignupPage = () => {
               placeholder={`"-"없이 숫자만 입력해주세요`}
               className="grow"
             />
-            <Button>인증</Button>
+            <Button type="button">인증</Button>
           </Hstack>
           <Labeled.Message>{errors.phone?.message}</Labeled.Message>
         </Labeled>

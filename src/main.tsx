@@ -22,15 +22,15 @@ export type RouterContext = {
   queryClient: QueryClient
 }
 
-const enableMocking = async () => {
-  if (import.meta.env.DEV && import.meta.env.VITE_ENABLE_MSW === "true") {
-    const { worker } = await import("./shared/mocks/browser")
-
-    await worker.start({
-      onUnhandledRequest: "bypass",
-    })
-  }
-}
+// const enableMocking = async () => {
+//   if (import.meta.env.DEV && import.meta.env.VITE_ENABLE_MSW === "true") {
+//     const { worker } = await import("./shared/mocks/browser")
+//
+//     await worker.start({
+//       onUnhandledRequest: "bypass",
+//     })
+//   }
+// }
 
 const rootElement = document.getElementById("root")
 
@@ -39,13 +39,11 @@ if (!rootElement) {
 }
 
 if (!rootElement.innerHTML) {
-  enableMocking().then(() => {
-    const root = ReactDOM.createRoot(rootElement)
+  const root = ReactDOM.createRoot(rootElement)
 
-    root.render(
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-      </QueryClientProvider>
-    )
-  })
+  root.render(
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
+  )
 }
