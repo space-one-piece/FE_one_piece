@@ -1,21 +1,28 @@
 import EmptyStateImage from "@/assets/images/empty-state/empty-scent.svg"
-import { mockFavoriteScents } from "@/features/my-page/mocks/favoriteScents.mock"
 import { EmptyState } from "@/shared/components"
+import LoadingState from "@/shared/components/loading-state/LoadingState"
+import { useFavoriteScents } from "../../../hooks/useFavoriteScents"
 import CollectionCard from "./collection-card/CollectionCard"
 
 export default function CollectionSection() {
-  const hasItems = mockFavoriteScents.length > 0
-  const collectionList = mockFavoriteScents.map((item) => ({
+  const { favoriteScents, isLoading } = useFavoriteScents()
+
+  const hasItems = favoriteScents.length > 0
+  const collectionList = favoriteScents.map((item) => ({
     ...item,
     date: item.savedAt,
   }))
 
+  if (isLoading) {
+    return <LoadingState />
+  }
+
   return (
     <section>
       <h2 className="px-md text-center text-lg font-bold text-text-primary">
-        저장된 향기{" "}
+        저장된 향기
         <span className="font-extrabold text-text-highlight">
-          {mockFavoriteScents.length}
+          {favoriteScents.length}
         </span>
         개
       </h2>

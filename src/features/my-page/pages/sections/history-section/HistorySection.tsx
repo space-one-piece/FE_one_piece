@@ -1,25 +1,37 @@
-import { mockHistoryList } from "@/features/my-page/mocks/history.mock"
 import EmptyState from "@/shared/components/empty-state/EmptyState"
+import LoadingState from "@/shared/components/loading-state/LoadingState"
 
+import { useHistoryList } from "@/features/my-page/hooks/useHistoryList"
 import HistoryCard from "./history-card/HistoryCard"
 
 export default function HistorySection() {
-  const hasItems = mockHistoryList.length > 0
+  const { historyList, isLoading } = useHistoryList()
+  const hasItems = historyList.length > 0
+
+  if (isLoading) {
+    return <LoadingState />
+  }
 
   return (
     <section>
       <h2 className="px-md text-right text-md font-bold text-text-primary">
-        내 기록{" "}
+        내 기록
         <span className="font-extrabold text-primary">
-          {mockHistoryList.length}
+          {historyList.length}
         </span>
         개
       </h2>
 
       {hasItems ? (
         <div className="mt-md flex flex-col gap-md">
-          {mockHistoryList.map((item) => (
-            <HistoryCard key={item.id} {...item} />
+          {historyList.map((item) => (
+            <HistoryCard
+              key={item.id}
+              {...item}
+              onClick={() => {
+                console.log(`${item.title} clicked`)
+              }}
+            />
           ))}
         </div>
       ) : (
