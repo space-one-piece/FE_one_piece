@@ -16,6 +16,7 @@ import { Route as WideNotRealRouteImport } from './routes/_wide.not-real'
 import { Route as WideMyPageRouteImport } from './routes/_wide.my-page'
 import { Route as WideFindScentRouteImport } from './routes/_wide.find-scent'
 import { Route as NarrowSignupRouteImport } from './routes/_narrow.signup'
+import { Route as NarrowLoginRouteImport } from './routes/_narrow.login'
 import { Route as WideFindScentIndexRouteImport } from './routes/_wide.find-scent.index'
 import { Route as WideFindScentSurveyRouteImport } from './routes/_wide.find-scent.survey'
 import { Route as WideFindScentPhotoRouteImport } from './routes/_wide.find-scent.photo'
@@ -54,6 +55,11 @@ const NarrowSignupRoute = NarrowSignupRouteImport.update({
   path: '/signup',
   getParentRoute: () => NarrowRoute,
 } as any)
+const NarrowLoginRoute = NarrowLoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => NarrowRoute,
+} as any)
 const WideFindScentIndexRoute = WideFindScentIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -77,6 +83,7 @@ const WideFindScentKeywordRoute = WideFindScentKeywordRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof WideIndexRoute
+  '/login': typeof NarrowLoginRoute
   '/signup': typeof NarrowSignupRoute
   '/find-scent': typeof WideFindScentRouteWithChildren
   '/my-page': typeof WideMyPageRoute
@@ -88,6 +95,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof WideIndexRoute
+  '/login': typeof NarrowLoginRoute
   '/signup': typeof NarrowSignupRoute
   '/my-page': typeof WideMyPageRoute
   '/not-real': typeof WideNotRealRoute
@@ -100,6 +108,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_narrow': typeof NarrowRouteWithChildren
   '/_wide': typeof WideRouteWithChildren
+  '/_narrow/login': typeof NarrowLoginRoute
   '/_narrow/signup': typeof NarrowSignupRoute
   '/_wide/find-scent': typeof WideFindScentRouteWithChildren
   '/_wide/my-page': typeof WideMyPageRoute
@@ -114,6 +123,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/login'
     | '/signup'
     | '/find-scent'
     | '/my-page'
@@ -125,6 +135,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/login'
     | '/signup'
     | '/my-page'
     | '/not-real'
@@ -136,6 +147,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/_narrow'
     | '/_wide'
+    | '/_narrow/login'
     | '/_narrow/signup'
     | '/_wide/find-scent'
     | '/_wide/my-page'
@@ -203,6 +215,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NarrowSignupRouteImport
       parentRoute: typeof NarrowRoute
     }
+    '/_narrow/login': {
+      id: '/_narrow/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof NarrowLoginRouteImport
+      parentRoute: typeof NarrowRoute
+    }
     '/_wide/find-scent/': {
       id: '/_wide/find-scent/'
       path: '/'
@@ -235,10 +254,12 @@ declare module '@tanstack/react-router' {
 }
 
 interface NarrowRouteChildren {
+  NarrowLoginRoute: typeof NarrowLoginRoute
   NarrowSignupRoute: typeof NarrowSignupRoute
 }
 
 const NarrowRouteChildren: NarrowRouteChildren = {
+  NarrowLoginRoute: NarrowLoginRoute,
   NarrowSignupRoute: NarrowSignupRoute,
 }
 
