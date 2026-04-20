@@ -49,10 +49,7 @@ const FindPasswordPage = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Vstack gap="xl">
-        <NarrowTitleSection
-          title="이메일 찾기"
-          description="가입 시 등록한 정보를 입력해주세요"
-        />
+        <NarrowTitleSection title="비밀번호 재설정" />
 
         <Labeled isError={Boolean(errors.new_password)}>
           <Labeled.Title>새 비밀번호</Labeled.Title>
