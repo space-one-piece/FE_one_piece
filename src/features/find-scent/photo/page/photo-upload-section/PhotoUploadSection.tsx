@@ -1,5 +1,6 @@
 import { Hstack } from "@/shared/components"
 import {
+  useEffect,
   useRef,
   type ChangeEvent,
   type Dispatch,
@@ -24,6 +25,24 @@ const PhotoUploadSection = ({
   onStepChange,
 }: PhotoUploadSectionProps) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null)
+  const objectUrlRef = useRef<string | null>(null)
+
+  const revokeObjectUrl = () => {
+    if (objectUrlRef.current) {
+      URL.revokeObjectURL(objectUrlRef.current)
+      objectUrlRef.current = null
+    }
+  }
+
+  const updatePreviewUrl = (nextPreviewUrl: string, isObjectUrl = false) => {
+    revokeObjectUrl()
+
+    if (isObjectUrl) {
+      objectUrlRef.current = nextPreviewUrl
+    }
+
+    setPreviewUrl(nextPreviewUrl)
+  }
 
   const handleOpenGallery = () => {
     fileInputRef.current?.click()
@@ -37,18 +56,26 @@ const PhotoUploadSection = ({
     }
 
     const imageUrl = URL.createObjectURL(file)
-    setPreviewUrl(imageUrl)
+    updatePreviewUrl(imageUrl, true)
     onStepChange("preview")
+
+    event.target.value = ""
   }
 
   const handleCaptureImage = (imageUrl: string) => {
-    setPreviewUrl(imageUrl)
+    updatePreviewUrl(imageUrl)
     onStepChange("preview")
   }
 
+  useEffect(() => {
+    return () => {
+      revokeObjectUrl()
+    }
+  }, [])
+
   return (
     <>
-      <section className="hidden md:flex md:flex-col gap-lg">
+      <section className="hidden gap-lg md:flex md:flex-col">
         <UploadPreviewBox previewUrl={previewUrl} />
         <PhotoActionButton type="button" onClick={handleOpenGallery}>
           이미지 업로드

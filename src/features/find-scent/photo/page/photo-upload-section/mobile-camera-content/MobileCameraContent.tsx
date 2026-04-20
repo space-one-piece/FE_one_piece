@@ -30,6 +30,24 @@ const MobileCameraContent = ({
     }, 120)
   }
 
+  const getMediaStream = async (nextFacingMode: CameraFacingMode) => {
+    try {
+      return await navigator.mediaDevices.getUserMedia({
+        video: {
+          facingMode: { exact: nextFacingMode },
+        },
+        audio: false,
+      })
+    } catch {
+      return navigator.mediaDevices.getUserMedia({
+        video: {
+          facingMode: { ideal: nextFacingMode },
+        },
+        audio: false,
+      })
+    }
+  }
+
   const stopStream = useCallback(() => {
     streamRef.current?.getTracks().forEach((track) => {
       track.stop()
@@ -39,29 +57,14 @@ const MobileCameraContent = ({
 
   const startCamera = useCallback(
     async (nextFacingMode: CameraFacingMode) => {
-      try {
-        setIsLoading(true)
-        setErrorMessage("")
+      stopStream()
 
-        stopStream()
+      const stream = await getMediaStream(nextFacingMode)
 
-        const stream = await navigator.mediaDevices.getUserMedia({
-          video: {
-            facingMode: { ideal: nextFacingMode },
-          },
-          audio: false,
-        })
+      streamRef.current = stream
 
-        streamRef.current = stream
-
-        if (videoRef.current) {
-          videoRef.current.srcObject = stream
-          await videoRef.current.play()
-        }
-      } catch {
-        setErrorMessage("카메라를 불러오지 못했습니다. 권한을 확인해 주세요.")
-      } finally {
-        setIsLoading(false)
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream
       }
     },
     [stopStream]
@@ -98,7 +101,18 @@ const MobileCameraContent = ({
   }
 
   useEffect(() => {
-    startCamera(facingMode)
+    const setupCamera = async () => {
+      try {
+        setIsLoading(true)
+        setErrorMessage("")
+        await startCamera(facingMode)
+      } catch {
+        setErrorMessage("카메라를 불러오지 못했습니다. 권한을 확인해 주세요.")
+        setIsLoading(false)
+      }
+    }
+
+    void setupCamera()
 
     return () => {
       stopStream()
@@ -108,21 +122,24 @@ const MobileCameraContent = ({
   return (
     <section className="flex flex-col gap-md">
       <div className="relative overflow-hidden rounded-xl bg-black">
-        <div className="aspect-[3/4] w-full">
-          {isLoading && (
-            <div className="flex h-full items-center justify-center text-sm text-white">
-              카메라를 준비하는 중...
-            </div>
-          )}
-
+        <div className="aspect-3/4 w-full">
           {!errorMessage && (
             <video
               ref={videoRef}
               autoPlay
               playsInline
               muted
+              onLoadedMetadata={() => {
+                setIsLoading(false)
+              }}
               className="h-full w-full object-cover"
             />
+          )}
+
+          {isLoading && (
+            <div className="absolute inset-0 flex items-center justify-center bg-black text-sm text-white">
+              카메라를 준비하는 중...
+            </div>
           )}
 
           {errorMessage && (
