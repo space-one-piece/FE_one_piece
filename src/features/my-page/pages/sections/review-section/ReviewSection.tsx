@@ -1,14 +1,19 @@
 import EmptyStateImage from "@/assets/images/empty-state/empty-scent.svg"
-import { mockReviewList } from "@/features/my-page/mocks/review.mock"
 import { EmptyState } from "@/shared/components"
 
-import { useReviewList } from "@/features/my-page/hooks/useReviewList"
+import {
+  useDeleteReview,
+  useEditReview,
+  useReviewList,
+} from "@/features/my-page/hooks"
 import LoadingState from "@/shared/components/loading-state/LoadingState"
 import ReviewCard from "./review-card/ReviewCard"
 
 export default function ReviewSection() {
-  const hasItems = mockReviewList.length > 0
-  const { data: reviewList, error, isLoading } = useReviewList()
+  const { data: reviewList = [], error, isLoading } = useReviewList()
+  const { mutate: deleteMutate } = useDeleteReview()
+  const { mutate: editMutate } = useEditReview()
+  const hasItems = reviewList && reviewList.length > 0
 
   if (isLoading) {
     return <LoadingState />
@@ -29,8 +34,20 @@ export default function ReviewSection() {
 
       {hasItems ? (
         <div className="mt-md flex flex-col gap-md">
-          {reviewList?.map(({ id, ...item }) => (
-            <ReviewCard key={id} {...item} />
+          {reviewList?.map(({ reviewId, ...item }) => (
+            <ReviewCard
+              key={reviewId}
+              {...item}
+              onDelete={() => {
+                deleteMutate(reviewId)
+              }}
+              onEdit={() => {
+                editMutate({
+                  reviewId: reviewId,
+                  content: "수정된 내용", // 수정 모달 등
+                })
+              }}
+            />
           ))}
         </div>
       ) : (
