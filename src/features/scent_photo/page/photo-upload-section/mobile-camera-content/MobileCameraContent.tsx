@@ -1,5 +1,5 @@
 import { RefreshCw, X } from "lucide-react"
-import { useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import CameraIconButton from "./camera-icon-button/CameraIconButton"
 
 type CameraFacingMode = "user" | "environment"
@@ -20,7 +20,6 @@ const MobileCameraContent = ({
   const [facingMode, setFacingMode] = useState<CameraFacingMode>("environment")
   const [isLoading, setIsLoading] = useState(true)
   const [errorMessage, setErrorMessage] = useState("")
-
   const [isFlashActive, setIsFlashActive] = useState(false)
 
   const triggerFlash = () => {
@@ -31,39 +30,42 @@ const MobileCameraContent = ({
     }, 120)
   }
 
-  const stopStream = () => {
+  const stopStream = useCallback(() => {
     streamRef.current?.getTracks().forEach((track) => {
       track.stop()
     })
     streamRef.current = null
-  }
+  }, [])
 
-  const startCamera = async (nextFacingMode: CameraFacingMode) => {
-    try {
-      setIsLoading(true)
-      setErrorMessage("")
+  const startCamera = useCallback(
+    async (nextFacingMode: CameraFacingMode) => {
+      try {
+        setIsLoading(true)
+        setErrorMessage("")
 
-      stopStream()
+        stopStream()
 
-      const stream = await navigator.mediaDevices.getUserMedia({
-        video: {
-          facingMode: { ideal: nextFacingMode },
-        },
-        audio: false,
-      })
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: {
+            facingMode: { ideal: nextFacingMode },
+          },
+          audio: false,
+        })
 
-      streamRef.current = stream
+        streamRef.current = stream
 
-      if (videoRef.current) {
-        videoRef.current.srcObject = stream
-        await videoRef.current.play()
+        if (videoRef.current) {
+          videoRef.current.srcObject = stream
+          await videoRef.current.play()
+        }
+      } catch {
+        setErrorMessage("카메라를 불러오지 못했습니다. 권한을 확인해 주세요.")
+      } finally {
+        setIsLoading(false)
       }
-    } catch {
-      setErrorMessage("카메라를 불러오지 못했습니다. 권한을 확인해 주세요.")
-    } finally {
-      setIsLoading(false)
-    }
-  }
+    },
+    [stopStream]
+  )
 
   const handleSwitchCamera = () => {
     const nextFacingMode = facingMode === "environment" ? "user" : "environment"
@@ -101,7 +103,7 @@ const MobileCameraContent = ({
     return () => {
       stopStream()
     }
-  }, [facingMode])
+  }, [facingMode, startCamera, stopStream])
 
   return (
     <section className="flex flex-col gap-md">
@@ -131,7 +133,7 @@ const MobileCameraContent = ({
         </div>
 
         {isFlashActive && (
-          <div className="absolute inset-0 bg-white/80 pointer-events-none" />
+          <div className="pointer-events-none absolute inset-0 bg-white/80" />
         )}
 
         <CameraIconButton
@@ -156,7 +158,7 @@ const MobileCameraContent = ({
           type="button"
           onClick={handleCapture}
           disabled={Boolean(errorMessage) || isLoading}
-          className="shadow-lg flex h-18 w-18 items-center justify-center rounded-full border-4 border-white bg-surface-default transition-transform duration-150 active:scale-95 disabled:opacity-40"
+          className="flex h-18 w-18 items-center justify-center rounded-full border-4 border-white bg-surface-default shadow-lg transition-transform duration-150 active:scale-95 disabled:opacity-40"
           aria-label="사진 촬영"
         >
           <span className="h-14 w-14 rounded-full bg-white" />
