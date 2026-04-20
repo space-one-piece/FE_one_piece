@@ -1,13 +1,13 @@
 import { plainInstance } from "@/shared/api/axios-instance"
-import type { ReviewResult } from "@/shared/types/api/api.type"
 import type { QueryClient } from "@tanstack/react-query"
+import type { ReviewInMainDummy } from "../types/dummy.api.type"
 
 export const makeReviewsInMainQueryOptions = () => {
   return {
     queryKey: ["reviews-in-main"],
     queryFn: async () => {
       const response = await plainInstance.get("/question/mood/results")
-      return response.data as ReviewResult[]
+      return response.data as ReviewInMainDummy[]
     },
   }
 }
@@ -16,7 +16,6 @@ const mainLoaderFn = async (queryClient: QueryClient) => {
   const reviewsInMain = await queryClient.ensureQueryData(
     makeReviewsInMainQueryOptions()
   )
-  console.log({ reviewsInMain })
   return { reviewsInMain }
 }
 

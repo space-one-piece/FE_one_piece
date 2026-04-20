@@ -1,11 +1,12 @@
-import { RoundBox } from "@/shared/components"
-import type { ReviewResult } from "@/shared/types/api/api.type"
+import type { ReviewInMainDummy } from "@/features/_wide.index/types/dummy.api.type"
+import { Hstack, RoundBox, Vstack } from "@/shared/components"
 
 type ReviewCardInMainProps = {
-  review: ReviewResult
+  reviewInMain: ReviewInMainDummy
   index: number
 }
-const ReviewCardInMain = ({ review, index }: ReviewCardInMainProps) => {
+const ReviewCardInMain = ({ reviewInMain, index }: ReviewCardInMainProps) => {
+  const { created_at, user_name, thumbnail_url, review } = reviewInMain
   return (
     <RoundBox
       style={{
@@ -13,9 +14,22 @@ const ReviewCardInMain = ({ review, index }: ReviewCardInMainProps) => {
         transition: "transform 300ms ease",
       }}
       padding="none"
-      className="w-60 h-90 shrink-0 bg-amber-100"
+      className="w-60 h-90 shrink-0 overflow-hidden shadow-box bg-card"
     >
-      {JSON.stringify(review)}
+      <Vstack gap="none" className="h-full">
+        <img
+          src={thumbnail_url}
+          className="aspect-square object-cover w-full"
+        />
+
+        <Vstack className="justify-between p-lg flex-1">
+          <p className="font-thin">{`"${review}"`}</p>
+          <Hstack className="w-full justify-start items-center">
+            <p className="grow">{user_name}</p>
+            <p className="text-sm text-text-sub">{created_at.slice(0, 10)}</p>
+          </Hstack>
+        </Vstack>
+      </Vstack>
     </RoundBox>
   )
 }

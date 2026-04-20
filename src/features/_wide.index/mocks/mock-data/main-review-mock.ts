@@ -1,37 +1,31 @@
-import type { ReviewResult } from "@/shared/types/api/api.type"
-
-const scents = [
-  { id: 1, name: "허브", eng_name: "Herb" },
-  { id: 2, name: "시트러스", eng_name: "Citrus" },
-  { id: 3, name: "우드", eng_name: "Wood" },
-  { id: 4, name: "플로럴", eng_name: "Floral" },
-  { id: 5, name: "프루트", eng_name: "Fruit" },
-  { id: 6, name: "오리엔탈", eng_name: "Oriental" },
-  { id: 7, name: "그린", eng_name: "Green" },
-  { id: 8, name: "스파이시", eng_name: "Spicy" },
-  { id: 9, name: "아쿠아", eng_name: "Aqua" },
-  { id: 10, name: "머스크", eng_name: "Musk" },
-]
+import type { ReviewInMainDummy } from "../../types/dummy.api.type"
 
 const imgUrls = [
-  "https://natyral-atc.com/cdn/shop/products/TussilagoFarfara_11.png?v=1671542936",
-  "https://cdn.zyrosite.com/cdn-ecommerce/store_01HV0WWTEVMQZS3X5Q6B77ACH9%2Fassets%2F1724244446246-Rosemary_(Rosmarinus_officinalis)_2.jpg",
+  "https://placehold.co/600x400",
+  "https://placehold.co/400",
+  "https://placehold.co/600x400/000000/FFF",
 ]
 
-export const MainReviewMock: ReviewResult[] = Array.from(
+const reviews = [
+  "정말 좋아요! 향이 오래 지속됩니다.",
+  "제 skin과 잘 맞습니다. 강추!",
+  "남자친구에게 선물했더니 너무 좋아해요.",
+  "첫 향이 살짝 느끼했는데 가라 앉으니 너무 좋습니다.",
+  "가격 대비 만족스러워요. 재구매 의사 있습니다.",
+  "산뜻한 향이라 일상에서 쓰기 좋아요.",
+  "좋은 향입니다.身边的人都说好闻",
+  "여름에 쓰기 좋은 시트러스 향이네요.",
+  "包装精美，送人也很合适。",
+  "드라마에서 봐서 샀는데 기대 이상입니다.",
+  "학교장에서 쓰기엔 좀 강한 편이에요.",
+]
+
+export const MainReviewMock: ReviewInMainDummy[] = Array.from(
   { length: 11 },
-  (_, i) => {
-    const scent = scents[i % scents.length]
-    return {
-      id: i + 1,
-      created_at: new Date(Date.now() - i * 86400000).toISOString(),
-      recommended_scent: {
-        id: scent.id,
-        name: scent.name,
-        eng_name: scent.eng_name,
-        thumbnail_url: imgUrls[i % imgUrls.length],
-      },
-      type: "whatever",
-    }
-  }
+  (_, i) => ({
+    thumbnail_url: imgUrls[i % imgUrls.length],
+    user_name: `더미유저${i + 1}`,
+    created_at: new Date(Date.now() - i * 86400000).toISOString(),
+    review: reviews[i % reviews.length],
+  })
 )

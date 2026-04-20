@@ -14,7 +14,6 @@ const ReviewCarousel = () => {
   const [index, setIndex] = useState(0)
 
   const { reviewsInMain } = useLoaderData({ from: "/_wide/" })
-  // TODO: API 받으면 data.length로 수정
   return (
     <div className="relative">
       {reviewsInMain.length > 2 && (
@@ -34,9 +33,13 @@ const ReviewCarousel = () => {
         </Hstack>
       )}
 
-      <Hstack className="justify-start overflow-hidden">
+      <Hstack className="justify-start overflow-x-hidden pb-sm">
         {reviewsInMain.map((review) => (
-          <ReviewCardInMain key={review.id} review={review} index={index} />
+          <ReviewCardInMain
+            key={review.id}
+            reviewInMain={review}
+            index={index}
+          />
         ))}
       </Hstack>
     </div>
