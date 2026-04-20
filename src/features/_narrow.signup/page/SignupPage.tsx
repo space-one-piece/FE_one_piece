@@ -1,9 +1,10 @@
 import NarrowTitleSection from "@/features/_narrow/components/narrow-title-section/NarrowTitleSection"
-import { headlessInstance } from "@/shared/api/axios-instance"
+import { plainInstance } from "@/shared/api/axios-instance"
 import { Button, Hstack, Input, Vstack } from "@/shared/components"
 import Labeled from "@/shared/components/inputs/labeled/Labeled"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useMutation } from "@tanstack/react-query"
+import axios from "axios"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 
@@ -36,7 +37,7 @@ type SignupSchema = z.input<typeof signupSchema>
 const SignupPage = () => {
   const postMutation = useMutation({
     mutationFn: (body: SignupSchema) =>
-      headlessInstance.post("accounts/signup", body),
+      plainInstance.post("accounts/signup", body),
   })
   const {
     register,
@@ -57,15 +58,11 @@ const SignupPage = () => {
 
   const handleEmailVerification = async () => {
     const email = watch().email
-    const response = await headlessInstance.post(
-      "/accounts/verification/send-email",
-      { email }
-    )
-    console.log({ response })
-  }
-  const handleTestRequest = async () => {
-    const response = await headlessInstance.get(
-      "https://pokeapi.co/api/v2/pokemon/ditto"
+    const response = await axios.post(
+      "https://fragmnt.pics/api/v1/accounts/verification/send-email",
+      {
+        email,
+      }
     )
     console.log({ response })
   }
@@ -73,9 +70,6 @@ const SignupPage = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Vstack gap="xl">
-        <Button type="button" onClick={handleTestRequest}>
-          test
-        </Button>
         <NarrowTitleSection
           title="공간의 완성, 향기의 조각"
           description="fragmnt에서 당신만의 향기 아카이브를 시작하세요"
