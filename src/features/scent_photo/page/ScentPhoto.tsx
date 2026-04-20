@@ -12,6 +12,9 @@ import PhotoUploadSection from "./photo-upload-section/PhotoUploadSection"
 
 const ScentPhoto = () => {
   const [step, setStep] = useState<MobilePhotoStep>("select")
+  const [previewUrl, setPreviewUrl] = useState("")
+
+  const hasImage = Boolean(previewUrl)
   const isCameraStep = step === "camera"
 
   return (
@@ -23,10 +26,15 @@ const ScentPhoto = () => {
           backButton={<BackButton />}
         />
 
-        <PhotoUploadSection step={step} onStepChange={setStep} />
+        <PhotoUploadSection
+          step={step}
+          previewUrl={previewUrl}
+          setPreviewUrl={setPreviewUrl}
+          onStepChange={setStep}
+        />
 
         {!isCameraStep && <PhotoTipsSection />}
-        {!isCameraStep && <Button>이미지 분석하기</Button>}
+        {!isCameraStep && <Button disabled={!hasImage}>이미지 분석하기</Button>}
       </Vstack>
     </Container>
   )

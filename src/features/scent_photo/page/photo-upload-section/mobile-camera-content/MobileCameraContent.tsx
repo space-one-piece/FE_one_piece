@@ -156,7 +156,7 @@ const MobileCameraContent = ({
           type="button"
           onClick={handleCapture}
           disabled={Boolean(errorMessage) || isLoading}
-          className="flex h-18 w-18 items-center justify-center rounded-full border-4 border-white bg-surface-default transition-transform duration-150 active:scale-95 disabled:opacity-40"
+          className="shadow-lg flex h-18 w-18 items-center justify-center rounded-full border-4 border-white bg-surface-default transition-transform duration-150 active:scale-95 disabled:opacity-40"
           aria-label="사진 촬영"
         >
           <span className="h-14 w-14 rounded-full bg-white" />

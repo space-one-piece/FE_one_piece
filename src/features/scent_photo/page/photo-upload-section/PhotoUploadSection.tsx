@@ -1,6 +1,6 @@
+import { Hstack } from "@/shared/components"
 import {
   useRef,
-  useState,
   type ChangeEvent,
   type Dispatch,
   type SetStateAction,
@@ -12,15 +12,18 @@ import UploadPreviewBox from "./upload-preview-box/UploadPreviewBox"
 
 type PhotoUploadSectionProps = {
   step: MobilePhotoStep
+  previewUrl: string
+  setPreviewUrl: Dispatch<SetStateAction<string>>
   onStepChange: Dispatch<SetStateAction<MobilePhotoStep>>
 }
 
 const PhotoUploadSection = ({
   step,
+  previewUrl,
+  setPreviewUrl,
   onStepChange,
 }: PhotoUploadSectionProps) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null)
-  const [previewUrl, setPreviewUrl] = useState("")
 
   const handleOpenGallery = () => {
     fileInputRef.current?.click()
@@ -56,15 +59,17 @@ const PhotoUploadSection = ({
         {step === "select" && (
           <div className="flex flex-col gap-lg">
             <UploadPreviewBox previewUrl={previewUrl} />
-            <PhotoActionButton type="button" onClick={handleOpenGallery}>
-              갤러리 열기
-            </PhotoActionButton>
-            <PhotoActionButton
-              type="button"
-              onClick={() => onStepChange("camera")}
-            >
-              카메라 열기
-            </PhotoActionButton>
+            <Hstack>
+              <PhotoActionButton type="button" onClick={handleOpenGallery}>
+                갤러리 열기
+              </PhotoActionButton>
+              <PhotoActionButton
+                type="button"
+                onClick={() => onStepChange("camera")}
+              >
+                카메라 열기
+              </PhotoActionButton>
+            </Hstack>
           </div>
         )}
 
@@ -78,15 +83,17 @@ const PhotoUploadSection = ({
         {step === "preview" && previewUrl && (
           <div className="flex flex-col gap-lg">
             <UploadPreviewBox previewUrl={previewUrl} />
-            <PhotoActionButton type="button" onClick={handleOpenGallery}>
-              다른 이미지 선택
-            </PhotoActionButton>
-            <PhotoActionButton
-              type="button"
-              onClick={() => onStepChange("camera")}
-            >
-              카메라로 다시 찍기
-            </PhotoActionButton>
+            <Hstack>
+              <PhotoActionButton type="button" onClick={handleOpenGallery}>
+                다른 이미지 선택
+              </PhotoActionButton>
+              <PhotoActionButton
+                type="button"
+                onClick={() => onStepChange("camera")}
+              >
+                카메라로 다시 찍기
+              </PhotoActionButton>
+            </Hstack>
           </div>
         )}
       </section>
