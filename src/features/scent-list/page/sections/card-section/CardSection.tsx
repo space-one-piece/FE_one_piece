@@ -1,5 +1,6 @@
+import EmptyStateImage from "@/assets/images/empty-state/empty-scent.svg"
 import type { ScentCardItem } from "@/features/scent-list/mocks/scent-card.mock"
-import { ArchiveCard } from "@/shared/components"
+import { ArchiveCard, EmptyState } from "@/shared/components"
 
 type CardSectionProps = {
   items: ScentCardItem[]
@@ -8,9 +9,12 @@ type CardSectionProps = {
 export default function CardSection({ items }: CardSectionProps) {
   if (items.length === 0) {
     return (
-      <section className="py-2xl text-center text-text-sub">
-        조건에 맞는 향수가 없어요.
-      </section>
+      <EmptyState
+        imageSrc={EmptyStateImage}
+        title="조건에 맞는 향기 목록을 불러올 수 없습니다."
+        description="필터 설정을 변경하거나 나중에 다시 시도해보세요."
+        className="border-none"
+      />
     )
   }
 
