@@ -9,6 +9,7 @@ import { Link } from "@tanstack/react-router"
 import clsx from "clsx"
 import { useForm } from "react-hook-form"
 import z from "zod"
+import SocialLoginButton from "./social-login-button/SocialLoginButton"
 
 const DimLink = ({
   to,
@@ -91,9 +92,9 @@ const LoginPage = () => {
         <Button className="mt-lg">로그인</Button>
 
         <HOrVStack gap="sm" className="mt-lg">
-          <Button className="flex-1">test button</Button>
-          <Button className="flex-1">test button</Button>
-          <Button className="flex-1">test button</Button>
+          <SocialLoginButton provider="kakao" />
+          <SocialLoginButton provider="google" />
+          <SocialLoginButton provider="naver" />
         </HOrVStack>
 
         <DimLink to="/signup" className="mx-auto">
