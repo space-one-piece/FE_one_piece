@@ -37,7 +37,7 @@ const FindEmailPage = () => {
   }
 
   // TODO: api 나오면 응답 타입 확인해야
-  if (data) return <FindEmailSuccess email={data.data as string} />
+  if (data) return <FindEmailSuccess email={data.data.email as string} />
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

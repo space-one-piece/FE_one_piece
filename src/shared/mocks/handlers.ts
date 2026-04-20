@@ -1,3 +1,4 @@
+import { findEmailHandlers } from "@/features/_narrow.find-email/mocks/handlers"
 import { mainPageHandlers } from "@/features/_wide.index/mocks/main-page-handler"
 import { myPageHandlers } from "@/features/my-page/mocks/handlers"
 import { http, HttpResponse } from "msw"
@@ -9,4 +10,6 @@ export const handlers = [
   }),
   ...myPageHandlers,
   ...mainPageHandlers,
+
+  ...findEmailHandlers,
 ]

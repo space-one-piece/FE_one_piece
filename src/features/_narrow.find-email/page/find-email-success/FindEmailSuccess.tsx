@@ -12,7 +12,7 @@ const FindEmailSuccess = ({ email }: FindEmailSuccessProps) => {
     <Vstack gap="xl">
       <NarrowTitleSection title="이메일을 찾았습니다" />
       <RoundBox className="bg-green-input">
-        <Vstack>
+        <Vstack className="items-center">
           <p className="text-text-sub text-sm">Your email address</p>
           <p>{email}</p>
         </Vstack>
