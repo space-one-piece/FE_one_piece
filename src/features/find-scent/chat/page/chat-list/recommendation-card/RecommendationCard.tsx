@@ -1,5 +1,6 @@
 import { Button, Hstack, RoundBox, Tag, Vstack } from "@/shared/components"
 import type { RecommendationCardData } from "../../../types/message.types"
+import RecommendationActionButton from "./recommendation-button/RecommendationActionButton"
 
 type RecommendationCardProps = RecommendationCardData
 
@@ -44,12 +45,8 @@ const RecommendationCard = ({
             <Button className="w-full">자세히 보기</Button>
 
             <Hstack>
-              <button className="h-8 w-full rounded-md border font-bold text-text-highlight border-border cursor-pointer hover:bg-green-input">
-                저장하기
-              </button>
-              <button className="h-8 w-full rounded-md border font-bold text-text-highlight border-border cursor-pointer hover:bg-green-input">
-                다시 추천
-              </button>
+              <RecommendationActionButton>저장하기</RecommendationActionButton>
+              <RecommendationActionButton>다시 추천</RecommendationActionButton>
             </Hstack>
           </div>
         </section>
