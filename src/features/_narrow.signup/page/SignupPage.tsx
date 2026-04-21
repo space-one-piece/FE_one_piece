@@ -4,7 +4,13 @@ import Labeled from "@/shared/components/inputs/labeled/Labeled"
 import useSignup from "./use-signup/use-signup"
 
 const SignupPage = () => {
-  const { errors, register, submitForm, handleEmailVerification } = useSignup()
+  const {
+    errors,
+    register,
+    submitForm,
+    handleEmailVerification,
+    handlePhoneVerification,
+  } = useSignup()
 
   return (
     <form onSubmit={submitForm}>
@@ -60,19 +66,21 @@ const SignupPage = () => {
           <Labeled.Message>{errors.name?.message}</Labeled.Message>
         </Labeled>
 
-        <Labeled isError={Boolean(errors.phone)}>
+        <Labeled isError={Boolean(errors.phone_number)}>
           <Labeled.Title>전화번호</Labeled.Title>
           <Hstack gap="sm">
             <Input
-              {...register("phone")}
-              status={errors.phone ? "error" : "none"}
-              type="number"
+              {...register("phone_number")}
+              status={errors.phone_number ? "error" : "none"}
+              // type="number"
               placeholder={`"-"없이 숫자만 입력해주세요`}
               className="grow"
             />
-            <Button type="button">인증</Button>
+            <Button type="button" onClick={handlePhoneVerification}>
+              인증
+            </Button>
           </Hstack>
-          <Labeled.Message>{errors.phone?.message}</Labeled.Message>
+          <Labeled.Message>{errors.phone_number?.message}</Labeled.Message>
         </Labeled>
 
         <Labeled isError={Boolean(errors.phoneVerification)}>

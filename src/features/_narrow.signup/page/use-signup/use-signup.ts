@@ -1,7 +1,6 @@
 import { plainInstance } from "@/shared/api/axios-instance"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useMutation } from "@tanstack/react-query"
-import axios from "axios"
 import { useForm } from "react-hook-form"
 import z from "zod"
 
@@ -22,7 +21,7 @@ const signupSchema = z.object({
       "영문과 숫자를 포함해 8자리 이상을 입력해주세요"
     ),
   name: z.string().min(1, "이름을 입력해주세요"),
-  phone: z.string().min(1, "전화번호를 입력해주세요"),
+  phone_number: z.string().min(1, "전화번호를 입력해주세요"),
   phoneVerification: z
     .string()
     .min(6, "6자리의 인증번호를 입력해주세요")
@@ -56,16 +55,31 @@ const useSignup = () => {
   // TODO: verification 로직 추후 작성되면 한 번 더 정리해야
   const handleEmailVerification = async () => {
     const email = watch().email
-    const response = await axios.post(
+    await plainInstance.post(
       "https://fragmnt.pics/api/v1/accounts/verification/send-email",
       {
         email,
       }
     )
-    console.log({ response })
   }
 
-  return { register, submitForm, errors, handleEmailVerification }
+  const handlePhoneVerification = async () => {
+    const phone_number = watch().phone_number
+    await plainInstance.post(
+      "https://fragmnt.pics/api/v1/accounts/verification/send-sms",
+      {
+        phone_number,
+      }
+    )
+  }
+
+  return {
+    register,
+    submitForm,
+    errors,
+    handleEmailVerification,
+    handlePhoneVerification,
+  }
 }
 
 export default useSignup
