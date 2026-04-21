@@ -19,7 +19,9 @@ const providerToButtonInfo: Record<Provider, ButtonInfo> = {
   kakao: {
     src: KakaoSrc,
     label: "카카오로 로그인",
-    onClick: () => {}, // TODO: need to fill in
+    onClick: () => {
+      window.location.href = "https://www.google.com"
+    }, // TODO: need to fill in
   },
   naver: {
     src: NaverSrc,
