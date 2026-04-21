@@ -1,40 +1,46 @@
 import { Tag } from "@/shared/components"
 import NoteSectionCard from "@/shared/components/note-section/NoteSectionCard"
+import type { FragranceDetailData } from "@/shared/types/scent-types/scent.type"
 import { Sun, Tag as TagIcon } from "lucide-react"
-import { fragranceDetailMock as data } from "../../../mocks/fragranceDetail.mock"
 
-const NoteCard = () => {
-  const note = data.notes
+type NoteCardProps = {
+  notes: FragranceDetailData["notes"]
+  tags: FragranceDetailData["tags"]
+  seasons: FragranceDetailData["seasons"]
+}
+
+const NoteCard = ({ notes, tags, seasons }: NoteCardProps) => {
   const noteSections = [
     {
       labelEn: "TOP NOTES",
       labelKo: "탑 노트",
       description: "첫 인상을 결정하는 가벼운 향기",
-      tags: note.top,
+      tags: notes.top,
     },
     {
       labelEn: "MIDDLE NOTES",
       labelKo: "미들 노트",
       description: "향의 중심을 이루는 핵심 향기",
-      tags: note.middle,
+      tags: notes.middle,
     },
     {
       labelEn: "BASE NOTE",
       labelKo: "베이스 노트",
       description: "오래 지속되는 깊은 여운",
-      tags: note.base,
+      tags: notes.base,
     },
   ]
+
   return (
-    <div className="flex flex-col gap-lg mt-2xl items-center justify-center">
+    <div className="mt-2xl flex flex-col items-center justify-center gap-lg">
       {/* text */}
-      <div className="flex flex-col  items-center justify-center">
+      <div className="flex flex-col items-center justify-center">
         <div className="text-md font-light">SCENT PYRAMID</div>
         <div className="text-lg font-bold">Note Composition</div>
       </div>
 
       {/* notes */}
-      <div className="flex flex-col gap-md w-full">
+      <div className="flex w-full flex-col gap-md">
         {noteSections.map((section) => (
           <div
             key={section.labelEn}
@@ -46,29 +52,30 @@ const NoteCard = () => {
       </div>
 
       {/* bottom */}
-      <div className="flex justify-between gap-6 px-4 py-6">
+      <div className="flex w-full justify-between gap-2xl px-2xl pt-2xl">
         {/* tags */}
-        <div className="flex flex-1 flex-col gap-3">
-          <div className="flex items-center gap-2 font-semibold">
+        <div className="flex flex-1 flex-col gap-md">
+          <div className="flex items-center gap-2 text-lg font-bold">
             <TagIcon size={16} />
             <span>Tags</span>
           </div>
 
           <div className="flex flex-wrap gap-2">
-            {data.tags.map((tag) => (
+            {tags.map((tag) => (
               <Tag key={tag} label={tag} size="sm" variant="soft" />
             ))}
           </div>
         </div>
+
         {/* seasons */}
         <div className="flex flex-1 flex-col gap-3">
-          <div className="flex items-center gap-2 font-semibold">
+          <div className="flex items-center gap-2 text-lg font-bold">
             <Sun size={16} />
             <span>Season</span>
           </div>
 
           <div className="flex flex-wrap gap-2">
-            {data.seasons.map((season) => (
+            {seasons.map((season) => (
               <Tag key={season} label={season} size="sm" variant="selected" />
             ))}
           </div>

@@ -22,7 +22,7 @@ const ArchiveCard = ({
   const [isError, setIsError] = useState(false)
 
   return (
-    <article className="flex w-full flex-col gap-xs rounded-lg border border-border bg-card p-lg shadow-box hover:shadow-hover hover:bg-gray-5 transition">
+    <article className="flex w-full flex-col gap-md rounded-lg border border-border bg-card p-lg shadow-box hover:shadow-hover hover:bg-gray-5 transition">
       <div className="h-[200px] w-full overflow-hidden rounded-md flex items-center justify-center">
         {imageSrc && !isError ? (
           <img
