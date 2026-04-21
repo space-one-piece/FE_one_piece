@@ -7,6 +7,8 @@ type AuthStoreState = {
 
   refreshToken: string | null
   setRefreshToken: (refreshToken: string | null) => void
+
+  logout: () => void
 }
 
 const useAuthStore = create<AuthStoreState>()(
@@ -17,6 +19,12 @@ const useAuthStore = create<AuthStoreState>()(
 
       refreshToken: null,
       setRefreshToken: (refreshToken) => set({ refreshToken }),
+
+      logout: () => {
+        // TODO: 로그아웃 요청도 보내야 합니다
+        // TODO: 추후 profile을 저장하면 그것도 지워야 합니다
+        set({ accessToken: null, refreshToken: null })
+      },
     }),
     {
       name: "fragmnt store",
