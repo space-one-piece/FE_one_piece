@@ -1,4 +1,9 @@
-import { CenterContainer, Container, Vstack } from "@/shared/components"
+import {
+  BackButton,
+  CenterContainer,
+  Container,
+  Vstack,
+} from "@/shared/components"
 
 import { useSearch } from "@tanstack/react-router"
 import { fragranceDetailMock } from "../mocks/fragranceDetail.mock"
@@ -17,13 +22,14 @@ const ScentDetail = () => {
   }
 
   return (
-    <CenterContainer className="w-full py-2xl">
+    <CenterContainer className="w-full">
       <Container
         width="xl"
         isPadded
         className="min-h-screen max-w-container-xl bg-surface-default"
       >
         <Vstack className="mx-2xl">
+          <BackButton />
           <TopCard data={scent} />
           <ProfileCard profile={scent.profile} />
           <NoteCard
