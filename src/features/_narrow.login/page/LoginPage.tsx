@@ -5,7 +5,7 @@ import HOrVStack from "@/shared/components/layouts/HOrVStack/HOrVStack"
 import { Link } from "@tanstack/react-router"
 import clsx from "clsx"
 import SocialLoginButton from "./social-login-button/SocialLoginButton"
-import useLogin from "./use-login/useLogin"
+import useLogin from "./use-login/use-login"
 
 const DimLink = ({
   to,
