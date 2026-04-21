@@ -1,4 +1,5 @@
 import { plainInstance } from "@/shared/api/axios-instance"
+import useAuthStore from "@/shared/api/use-auth-store"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useMutation } from "@tanstack/react-query"
 import { useForm } from "react-hook-form"
@@ -14,10 +15,23 @@ const loginSchema = z.object({
 
 type LoginSchema = z.input<typeof loginSchema>
 
+type LoginResponse = {
+  access: string
+  refresh: string
+}
+
 const useLogin = () => {
+  const setAccessToken = useAuthStore((state) => state.setAccessToken)
+  const setRefreshToken = useAuthStore((state) => state.setRefreshToken)
+
   const { mutate } = useMutation({
     mutationFn: (body: LoginSchema) =>
-      plainInstance.post("/accounts/login", body),
+      plainInstance.post<LoginResponse>("/accounts/login", body),
+    onSuccess(data) {
+      const { access, refresh } = data.data
+      setAccessToken(access)
+      setRefreshToken(refresh)
+    },
   })
 
   const {
