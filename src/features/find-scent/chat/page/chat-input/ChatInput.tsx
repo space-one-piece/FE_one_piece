@@ -1,15 +1,50 @@
 import { Send } from "lucide-react"
+import { useState, type ChangeEvent, type KeyboardEvent } from "react"
 
-const ChatInput = () => {
+type ChatInputProps = {
+  onSendMessage: (text: string) => void
+}
+
+const ChatInput = ({ onSendMessage }: ChatInputProps) => {
+  const [inputValue, setInputValue] = useState("")
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setInputValue(event.target.value)
+  }
+
+  const handleSend = () => {
+    const trimmedValue = inputValue.trim()
+
+    if (!trimmedValue) {
+      return
+    }
+
+    onSendMessage(trimmedValue)
+    setInputValue("")
+  }
+
+  const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      handleSend()
+    }
+  }
+
   return (
-    <section className="flex border-t border-border p-lg gap-md">
+    <section className="flex gap-md border-t border-border p-lg">
       <input
         type="text"
-        className="w-full border border-border rounded-md bg-green-input px-lg"
+        value={inputValue}
+        onChange={handleChange}
+        onKeyDown={handleKeyDown}
+        className="w-full rounded-md border border-border bg-green-input px-lg outline-none transition-colors focus:border-text-primary"
         placeholder="메세지를 입력해주세요"
       />
-      <button className="rounded-md flex justify-center items-center bg-primary w-11 h-10 text-white">
-        <Send />
+      <button
+        type="button"
+        onClick={handleSend}
+        className="flex h-10 w-11 items-center justify-center rounded-md bg-primary text-white"
+      >
+        <Send size={18} />
       </button>
     </section>
   )
