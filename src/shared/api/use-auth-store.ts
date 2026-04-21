@@ -1,5 +1,6 @@
 import { create } from "zustand"
 import { createJSONStorage, persist } from "zustand/middleware"
+import type { Profile } from "../types"
 
 type AuthStoreState = {
   accessToken: string | null
@@ -7,6 +8,9 @@ type AuthStoreState = {
 
   refreshToken: string | null
   setRefreshToken: (refreshToken: string | null) => void
+
+  profile: Profile | null
+  setProfile: (profile: Profile | null) => void
 
   logout: () => void
 }
@@ -19,6 +23,9 @@ const useAuthStore = create<AuthStoreState>()(
 
       refreshToken: null,
       setRefreshToken: (refreshToken) => set({ refreshToken }),
+
+      profile: null,
+      setProfile: (profile) => set({ profile }),
 
       logout: () => {
         // TODO: 로그아웃 요청도 보내야 합니다

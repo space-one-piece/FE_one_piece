@@ -1,5 +1,7 @@
 import { plainInstance } from "@/shared/api/axios-instance"
 import useAuthStore from "@/shared/api/use-auth-store"
+import type { Profile } from "@/shared/types"
+// import type { Profile } from "@/shared/types"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useMutation } from "@tanstack/react-query"
 import { useForm } from "react-hook-form"
@@ -20,17 +22,37 @@ type LoginResponse = {
   refresh: string
 }
 
+const login = async (body: LoginSchema) => {
+  const loginResponse = await plainInstance.post<LoginResponse>(
+    "/accounts/login",
+    body
+  )
+  const { access, refresh } = loginResponse.data
+
+  const profileResponse = await plainInstance.get("/accounts/me/profile", {
+    headers: {
+      Authorization: `Bearer ${access}`,
+    },
+  })
+  const profile = profileResponse.data as Profile
+
+  return { access, refresh, profile }
+}
+
 const useLogin = () => {
   const setAccessToken = useAuthStore((state) => state.setAccessToken)
   const setRefreshToken = useAuthStore((state) => state.setRefreshToken)
+  const setProfile = useAuthStore((state) => state.setProfile)
 
   const { mutate } = useMutation({
-    mutationFn: (body: LoginSchema) =>
-      plainInstance.post<LoginResponse>("/accounts/login", body),
-    onSuccess(data) {
-      const { access, refresh } = data.data
+    mutationFn: (body: LoginSchema) => login(body),
+    onSuccess({ access, refresh, profile }) {
       setAccessToken(access)
       setRefreshToken(refresh)
+      setProfile(profile)
+
+      // TODO: MUST DELETE BEFORE PUBLISH
+      console.log({ access, refresh, profile })
     },
   })
 
@@ -41,7 +63,6 @@ const useLogin = () => {
   } = useForm({ resolver: zodResolver(loginSchema) })
 
   const onSubmit = (data: LoginSchema) => {
-    console.log({ data })
     mutate(data)
   }
 
