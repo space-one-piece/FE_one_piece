@@ -1,8 +1,10 @@
 import GoogleSrc from "@/assets/images/login/google.svg"
 import KakaoSrc from "@/assets/images/login/kakao.svg"
 import NaverSrc from "@/assets/images/login/naver.svg"
+import { BASE_URL } from "@/shared/env/env-vars"
 import { cva } from "class-variance-authority"
 import clsx from "clsx"
+
 type Provider = "kakao" | "google" | "naver"
 
 type ButtonInfo = {
@@ -20,7 +22,8 @@ const providerToButtonInfo: Record<Provider, ButtonInfo> = {
     src: KakaoSrc,
     label: "카카오로 로그인",
     onClick: () => {
-      window.location.href = "https://www.google.com"
+      // plainInstance.get("/accounts/social-login/kakao")
+      window.location.href = `${BASE_URL}/accounts/social-login/kakao`
     }, // TODO: need to fill in
   },
   naver: {
@@ -49,11 +52,12 @@ type SocialLoginButtonProps = {
   provider: Provider
 }
 const SocialLoginButton = ({ provider }: SocialLoginButtonProps) => {
-  const { src, label } = providerToButtonInfo[provider]
+  const { src, label, onClick } = providerToButtonInfo[provider]
   return (
     <button
       type="button"
       className={clsx(socialLoginButtonVariant({ provider }))}
+      onClick={onClick}
     >
       <img src={src} alt="소셜 로그인 로고" className="size-5" />
       <p className="mx-auto">{label}</p>
