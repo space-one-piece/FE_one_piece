@@ -20,6 +20,11 @@ export type ChatMessage =
   | {
       id: number
       role: "assistant"
+      type: "typing"
+    }
+  | {
+      id: number
+      role: "assistant"
       type: "recommendation"
       data: RecommendationCardData
     }

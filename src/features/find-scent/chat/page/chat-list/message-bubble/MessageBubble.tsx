@@ -10,7 +10,7 @@ const MessageBubble = ({ role, text }: MessageBubbleProps) => {
 
   return (
     <div
-      className={clsx("flex w-full", {
+      className={clsx("message-enter flex w-full", {
         "justify-end": role === "user",
         "justify-start": isAssistant,
       })}

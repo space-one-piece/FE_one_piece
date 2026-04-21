@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react"
 import type { ChatMessage } from "../../types/message.types"
 import MessageBubble from "./message-bubble/MessageBubble"
 import RecommendationCard from "./recommendation-card/RecommendationCard"
+import TypingBubble from "./typing-bubble/TypingBubble"
 type ChatListProps = {
   messages: ChatMessage[]
 }
@@ -32,7 +33,12 @@ const ChatList = ({ messages }: ChatListProps) => {
             />
           )
         }
-        return <RecommendationCard key={message.id} data={message.data} />
+
+        if (message.type === "typing") {
+          return <TypingBubble key={message.id} />
+        }
+
+        return <RecommendationCard key={message.id} {...message.data} />
       })}
     </section>
   )
