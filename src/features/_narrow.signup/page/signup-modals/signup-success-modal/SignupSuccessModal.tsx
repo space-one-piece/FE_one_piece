@@ -9,7 +9,11 @@ const SignupSuccessModal = () => {
   const navigate = useNavigate()
 
   const handleClick = () => {
+<<<<<<< HEAD
     navigate({ to: "/login", search: { reason: undefined }, replace: true })
+=======
+    navigate({ to: "/login", replace: true })
+>>>>>>> a7cf0d8 (feat: 성공 실패 모달 제작 (#151))
     setModalKey(null)
   }
 

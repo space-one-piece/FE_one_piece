@@ -3,6 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useMutation } from "@tanstack/react-query"
 import { useForm } from "react-hook-form"
 import z from "zod"
+import useSignupStore from "../../store/use-signup-store"
 
 const signupSchema = z.object({
   email: z
@@ -35,9 +36,12 @@ const signupSchema = z.object({
 type SignupSchema = z.input<typeof signupSchema>
 
 const useSignup = () => {
+  const setModalKey = useSignupStore((state) => state.setModalKey)
   const { mutate } = useMutation({
     mutationFn: (body: SignupSchema) =>
       plainInstance.post("accounts/signup", body),
+    onSuccess: () => setModalKey("success"),
+    onError: () => setModalKey("error"),
   })
 
   const {
@@ -48,12 +52,16 @@ const useSignup = () => {
   } = useForm({ resolver: zodResolver(signupSchema) })
 
   const onSubmit = (data: SignupSchema) => {
-    mutate(data)
+    console.log({ data })
+    // mutate(data) // TODO: 회원가입 API에서 gender가 빠지면 이걸 사용합니다
+
+    // TODO: 회원가입 api 에서 gender가 빠지면 아래를 삭제합니다
+    const body = { ...data, gender: "M" }
+    mutate(body)
   }
 
   const submitForm = handleSubmit(onSubmit)
 
-  // TODO: verification 로직 추후 작성되면 한 번 더 정리해야
   const handleEmailVerification = async () => {
     const email = watch().email
     await plainInstance.post(
