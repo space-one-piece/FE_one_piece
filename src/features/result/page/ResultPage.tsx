@@ -1,5 +1,6 @@
 import { CenterContainer, Container, Vstack } from "@/shared/components"
 import AISection from "./sections/ai-section/AISection"
+import BottomSection from "./sections/bottom-section/BottomSection"
 import TopCardSection from "./sections/card-section/TopCardSection"
 import ScentSection from "./sections/scent-section/ScentSection"
 
@@ -24,6 +25,7 @@ const ResultPage = () => {
           <TopCardSection />
           <AISection />
           <ScentSection />
+          <BottomSection />
         </Vstack>
       </Container>
     </CenterContainer>
