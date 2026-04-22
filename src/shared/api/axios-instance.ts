@@ -48,14 +48,15 @@ instance.interceptors.response.use(
 
     try {
       // NOTE: 재발급 성공
-      const response = await plainInstance.post("/accounts/me/refresh", {
+      const refreshResponse = await plainInstance.post("/accounts/me/refresh", {
         refresh: refreshToken,
       })
-      const { access, refresh } = response.data
+      const { access, refresh } = refreshResponse.data
       setAccessToken(access)
       setRefreshToken(refresh)
 
-      await headOnlyInstance.request(error.config)
+      const response = await headOnlyInstance.request(error.config)
+      return response
     } catch (error) {
       // NOTE: 재발급 실패 -> 추가 요청 없이 로그아웃
       console.log({ error })
