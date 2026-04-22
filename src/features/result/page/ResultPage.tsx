@@ -1,6 +1,7 @@
 import { CenterContainer, Container, Vstack } from "@/shared/components"
 import AISection from "./sections/ai-section/AISection"
 import TopCardSection from "./sections/card-section/TopCardSection"
+import ScentSection from "./sections/scent-section/ScentSection"
 
 const ResultPage = () => {
   return (
@@ -22,6 +23,7 @@ const ResultPage = () => {
           </p>
           <TopCardSection />
           <AISection />
+          <ScentSection />
         </Vstack>
       </Container>
     </CenterContainer>
