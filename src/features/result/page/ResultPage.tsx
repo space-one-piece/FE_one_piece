@@ -1,7 +1,8 @@
 import { CenterContainer, Container, Vstack } from "@/shared/components"
+import AISection from "./sections/ai-section/AISection"
 import TopCardSection from "./sections/card-section/TopCardSection"
 
-export default function ResultPage() {
+const ResultPage = () => {
   return (
     <CenterContainer className="w-full py-2xl">
       <Container
@@ -20,8 +21,11 @@ export default function ResultPage() {
             더해보세요
           </p>
           <TopCardSection />
+          <AISection />
         </Vstack>
       </Container>
     </CenterContainer>
   )
 }
+
+export default ResultPage

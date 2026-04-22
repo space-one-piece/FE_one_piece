@@ -16,7 +16,7 @@ type ResultTopCardProps = {
   className?: string
 }
 
-export default function ResultTopCard({
+const ResultTopCard = ({
   imageSrc,
   imageAlt = "추천 향 이미지",
   category,
@@ -25,11 +25,11 @@ export default function ResultTopCard({
   description,
   tags,
   className = "",
-}: ResultTopCardProps) {
+}: ResultTopCardProps) => {
   return (
     <section
       className={cn(
-        "w-full rounded-lg border border-border bg-white p-sm shadow-sm my-2xl",
+        "w-full rounded-lg border border-border bg-white p-sm shadow-sm my-xl",
         className
       )}
     >
@@ -100,3 +100,5 @@ export default function ResultTopCard({
     </section>
   )
 }
+
+export default ResultTopCard
