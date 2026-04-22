@@ -1,11 +1,11 @@
 import { ArchiveCard } from "@/shared/components"
-import type { FragranceDetailData } from "@/shared/types/scent-types/scent.type"
+import type { ScentDetail } from "@/shared/types/scent-types/scent.type"
 
 import PlaceCard from "./place-card/PlaceCard"
 
 type BottomCardProps = {
-  recommendedPlaces: FragranceDetailData["recommendedPlaces"]
-  similarScents: FragranceDetailData["similarScents"]
+  recommendedPlaces: ScentDetail["recommended_places"]
+  similarScents: ScentDetail["similar_scents"]
 }
 
 const BottomCard = ({ recommendedPlaces, similarScents }: BottomCardProps) => {
@@ -20,11 +20,11 @@ const BottomCard = ({ recommendedPlaces, similarScents }: BottomCardProps) => {
       <div className="grid w-full grid-cols-2 gap-4">
         {recommendedPlaces.map((place) => (
           <PlaceCard
-            key={place.id}
-            imageSrc={place.imageSrc}
+            key={place.name}
+            imageSrc={place.imageUrl}
             title={place.name}
             description={place.description}
-            matchRate={place.matchRate}
+            matchRate={place.matchScore}
           />
         ))}
       </div>
@@ -36,14 +36,14 @@ const BottomCard = ({ recommendedPlaces, similarScents }: BottomCardProps) => {
       </div>
 
       <div className="grid w-full grid-cols-3 gap-4">
-        {similarScents.map((scent) => (
+        {similarScents.map((scentId) => (
           <ArchiveCard
-            key={scent.id}
-            title={scent.name}
-            imageAlt={scent.name}
-            imageSrc={scent.imageSrc}
-            tags={scent.tags}
-            description={scent.description}
+            key={scentId}
+            title={`Scent #${scentId}`}
+            imageAlt={`Scent ${scentId}`}
+            imageSrc=""
+            tags={[]}
+            description="유사한 향 정보는 추후 제공될 예정입니다."
           />
         ))}
       </div>

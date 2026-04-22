@@ -1,108 +1,67 @@
-import type { FragranceDetailData } from "@/shared/types/scent-types/scent.type"
+import type { ScentDetailResponse } from "@/shared/types/scent-types/scent.type"
 
-export const fragranceDetailMock: FragranceDetailData[] = [
-  {
+export const fragranceDetailMock: ScentDetailResponse = {
+  scent: {
     id: 1,
-    category: "WOODY",
-    nameKo: "블라썸 드림",
-    nameEn: "Blossom Dream",
-    imageSrc: "",
+    name: "그린 포즈",
+    eng_name: "Green Pause",
     description:
-      "체리 블라썸과 머스크, 바닐라 향의 완벽한 조화. 로맨틱하고 여성스러운 분위기를 연출합니다.",
-    accords: ["머스크", "파우더리", "플로럴", "우디", "포근한"],
-    isBookmarked: true,
-    saveCount: 128,
-
+      "잠시 창문을 열고 식물의 숨을 들이마시는 순간을 닮은 향입니다. 생기 있지만 과하게 날카롭지 않아 공간에 자연스러운 여유를 만들어 줍니다.",
+    categories: "green",
+    tags: ["싱그러운", "자연스러운", "환기되는", "편안한"],
+    keywords: ["플랜테리어", "산책", "싱그러움"],
+    intensity: 61,
+    is_bestseller: false,
+    scent_notes: {
+      top: {
+        items: ["그린 리프", "바질", "베르가못"],
+        title: "탑 노트",
+        description: "싱그럽게 열리는 초록빛 향",
+      },
+      middle: {
+        items: ["무화과잎", "세이지", "갈바넘"],
+        title: "미들 노트",
+        description: "식물의 결이 살아 있는 향",
+      },
+      base: {
+        items: ["시더우드", "머스크", "모스"],
+        title: "베이스 노트",
+        description: "자연스럽게 잔향을 남기는 향",
+      },
+    },
     profile: {
-      overallIntensity: 60,
-      metrics: [
-        { label: "상쾌함", value: 21, leftText: "은은함", rightText: "산뜻함" },
-        { label: "온기", value: 68, leftText: "차가움", rightText: "따뜻함" },
-        {
-          label: "부드러움",
-          value: 48,
-          leftText: "날카로움",
-          rightText: "부드러움",
-        },
-        {
-          label: "깊이감",
-          value: 82,
-          leftText: "가벼움",
-          rightText: "깊이 깊음",
-        },
-        { label: "달콤함", value: 78, leftText: "드라이", rightText: "달콤함" },
-      ],
+      depth: 43,
+      warmth: 28,
+      softness: 46,
+      freshness: 79,
+      sweetness: 17,
     },
-
-    notes: {
-      top: ["베르가못", "체리 블라썸", "블랙커런트"],
-      middle: ["화이트 로즈", "피오니", "파우더 머스크"],
-      base: ["샌달우드", "머스크", "바닐라"],
-    },
-
-    tags: ["꽃향", "부드러운", "달콤한", "깨끗한", "차분한", "로맨틱"],
-    seasons: ["가을", "겨울"],
-
-    recommendedPlaces: [
+    season: ["spring", "summer"],
+    recommended_places: [
       {
-        id: 1,
         name: "Living Room",
-        description: "가볍게 쉬어가는 따뜻한 오후의 공간",
-        imageSrc:
+        imageUrl:
           "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=80",
-        matchRate: 95,
+        matchScore: 95,
+        description: "식물이 많은 거실과 잘 어울리는 향",
       },
       {
-        id: 2,
-        name: "Bedroom",
-        description: "포근하고 안정감 있는 무드",
-        imageSrc:
+        name: "Sunroom",
+        imageUrl:
           "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=80",
-        matchRate: 92,
+        matchScore: 92,
+        description: "햇살과 초록빛이 머무는 공간",
       },
       {
-        id: 3,
-        name: "Reading Room",
-        description: "조용히 집중하기 좋은 공간",
-        imageSrc:
+        name: "Workspace",
+        imageUrl:
           "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=80",
-        matchRate: 89,
-      },
-      {
-        id: 4,
-        name: "Cafe Corner",
-        description: "햇살이 드는 감성적인 자리",
-        imageSrc:
-          "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=80",
-        matchRate: 87,
+        matchScore: 88,
+        description: "숨이 트이는 느낌을 주는 작업 공간",
       },
     ],
-
-    similarScents: [
-      {
-        id: 1,
-        name: "소프트 머스크",
-        imageSrc:
-          "https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=800&q=80",
-        tags: ["우디", "머스크"],
-        description: "은은한 머스크와 따뜻한 잔향이 특징인 향수",
-      },
-      {
-        id: 2,
-        name: "화이트 블룸",
-        imageSrc:
-          "https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=800&q=80",
-        tags: ["플로럴", "파우더리"],
-        description: "부드러운 꽃향과 깨끗한 잔향이 조화로운 향수",
-      },
-      {
-        id: 3,
-        name: "베이지 페탈",
-        imageSrc:
-          "https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=800&q=80",
-        tags: ["머스크", "달콤한"],
-        description: "포근하고 여성스러운 분위기의 플로럴 머스크",
-      },
-    ],
+    similar_scents: [15, 22, 23],
+    thumbnail_url: "",
+    created_at: "2026-04-15T04:55:42.311990Z",
   },
-]
+}

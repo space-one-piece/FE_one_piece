@@ -1,22 +1,24 @@
 import { Button, EmptyImage, Tag } from "@/shared/components"
-import type { FragranceDetailData } from "@/shared/types/scent-types/scent.type"
+import type { ScentDetailResponse } from "@/shared/types/scent-types/scent.type"
 import { BookmarkIcon, Share2 } from "lucide-react"
 
 type TopCardProps = {
-  data: FragranceDetailData
+  data: ScentDetailResponse
 }
 
 const TopCard = ({ data }: TopCardProps) => {
+  const scent = data.scent
+
   return (
     <div className="flex flex-col items-center justify-center gap-md">
       <div className="mb-md">
-        <Tag label={data.category} size="sm" variant="outlined" />
+        <Tag label={scent.categories} size="sm" variant="outlined" />
       </div>
 
-      {data.imageSrc ? (
+      {scent.thumbnail_url ? (
         <img
-          src={data.imageSrc}
-          alt={data.nameEn}
+          src={scent.thumbnail_url}
+          alt={scent.eng_name}
           className="mb-md aspect-square w-[220px] rounded-xl object-cover"
         />
       ) : (
@@ -25,21 +27,19 @@ const TopCard = ({ data }: TopCardProps) => {
         </div>
       )}
 
-      <div className="text-xl font-bold">{data.nameKo}</div>
-      <div className="text-sm text-text-sub">{data.nameEn}</div>
+      <div className="text-xl font-bold">{scent.name}</div>
+      <div className="text-sm text-text-sub">{scent.eng_name}</div>
 
       <div className="mt-md text-center text-text-primary">
-        {data.description}
+        {scent.description}
       </div>
 
-      {/* tags */}
       <div className="m-md flex flex-wrap justify-center gap-md">
-        {data.tags.map((tag) => (
+        {scent.tags.map((tag) => (
           <Tag key={tag} label={tag} size="sm" variant="soft" />
         ))}
       </div>
 
-      {/* buttons */}
       <div className="mt-md flex items-center justify-center gap-lg">
         <Button size="lg" radius="full">
           <BookmarkIcon size={18} />내 향기로 저장

@@ -15,9 +15,9 @@ import TopCard from "./sections/top-section/TopCard"
 
 const ScentDetail = () => {
   const { id } = useSearch({ from: "/_wide/scent-detail" })
-  const scent = fragranceDetailMock.find((item) => item.id === id)
+  const scent = fragranceDetailMock.scent
 
-  if (!scent) {
+  if (scent.id !== id) {
     return <div>해당 향기 정보를 찾을 수 없습니다.</div>
   }
 
@@ -30,16 +30,18 @@ const ScentDetail = () => {
       >
         <Vstack className="mx-2xl">
           <BackButton />
-          <TopCard data={scent} />
-          <ProfileCard profile={scent.profile} />
+          <TopCard data={fragranceDetailMock} />
+          <ProfileCard intensity={scent.intensity} profile={scent.profile} />
+
           <NoteCard
-            notes={scent.notes}
+            notes={scent.scent_notes}
             tags={scent.tags}
-            seasons={scent.seasons}
+            seasons={scent.season}
           />
+
           <BottomCard
-            recommendedPlaces={scent.recommendedPlaces}
-            similarScents={scent.similarScents}
+            recommendedPlaces={scent.recommended_places}
+            similarScents={scent.similar_scents}
           />
         </Vstack>
       </Container>

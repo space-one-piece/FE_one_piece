@@ -1,4 +1,3 @@
-// TODO: 백엔드에서 타입 보내주면 수정해야됨...
 import type { BaseImageCardProps } from "@/shared/types"
 
 export type SimilarScentProps = BaseImageCardProps & {
@@ -13,43 +12,50 @@ export type ProfileMetric = {
   rightText: string
 }
 
+export type ScentNote = {
+  items: string[]
+  title: string
+  description: string
+}
+
+export type ScentProfile = {
+  depth: number
+  warmth: number
+  softness: number
+  freshness: number
+  sweetness: number
+}
+
 export type RecommendedPlace = {
-  id: number
   name: string
-  description: string
-  imageSrc: string
-  matchRate: number
-}
-
-export type SimilarScent = {
-  id: number
-  name: string
-  imageSrc: string
-  tags: string[]
+  imageUrl: string
+  matchScore: number
   description: string
 }
 
-export type FragranceDetailData = {
+export type ScentDetail = {
   id: number
-  category: string
-  nameKo: string
-  nameEn: string
-  imageSrc?: string
+  name: string
+  eng_name: string
   description: string
-  accords: string[]
-  isBookmarked: boolean
-  saveCount: number
-  profile: {
-    overallIntensity: number
-    metrics: ProfileMetric[]
-  }
-  notes: {
-    top: string[]
-    middle: string[]
-    base: string[]
-  }
+  categories: string
   tags: string[]
-  seasons: string[]
-  recommendedPlaces: RecommendedPlace[]
-  similarScents: SimilarScent[]
+  keywords: string[]
+  intensity: number
+  is_bestseller: boolean
+  scent_notes: {
+    top: ScentNote
+    middle: ScentNote
+    base: ScentNote
+  }
+  profile: ScentProfile
+  season: string[]
+  recommended_places: RecommendedPlace[]
+  similar_scents: number[]
+  thumbnail_url: string
+  created_at: string
+}
+
+export type ScentDetailResponse = {
+  scent: ScentDetail
 }
