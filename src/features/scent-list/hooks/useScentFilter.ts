@@ -6,6 +6,8 @@ import type { ScentCardItem } from "../types/scent-card.type"
 export const useScentFilter = (initialData: ScentCardItem[]) => {
   const [selectedItems, setSelectedItems] = useState<ScentFilterItem[]>([])
 
+  const safeData = Array.isArray(initialData) ? initialData : []
+
   const toggleItem = (item: ScentFilterItem) => {
     setSelectedItems((prev) => {
       const isSelected = prev.some((v) => v.id === item.id)
@@ -23,17 +25,12 @@ export const useScentFilter = (initialData: ScentCardItem[]) => {
   }
 
   const filteredItems = useMemo(() => {
-    if (selectedItems.length === 0) return initialData
+    if (selectedItems.length === 0) return safeData
 
-    return initialData.filter((card) =>
-      selectedItems.every((selected) =>
-        card.tags.some(
-          (tag) =>
-            tag.category === selected.category && tag.name === selected.name
-        )
-      )
+    return safeData.filter((card) =>
+      selectedItems.every((selected) => card.tags.includes(selected.name))
     )
-  }, [selectedItems, initialData])
+  }, [selectedItems, safeData])
 
   return {
     selectedItems,

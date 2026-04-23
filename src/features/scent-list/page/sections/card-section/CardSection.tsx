@@ -28,7 +28,7 @@ export default function CardSection({ items }: CardSectionProps) {
           key={item.id}
           imageSrc={item.imageUrl}
           imageAlt={item.name}
-          tags={item.tags.map((tag) => tag.name)}
+          tags={item.tags}
           title={item.name}
           description={item.description}
           onClick={() =>
