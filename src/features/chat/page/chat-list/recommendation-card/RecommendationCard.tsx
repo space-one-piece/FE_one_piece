@@ -17,7 +17,7 @@ const RecommendationCard = ({
 
   return (
     <RoundBox
-      className="message-enter w-full max-w-[440px] bg-white"
+      className="ml-10 border border-border message-enter w-full max-w-[440px] bg-white"
       padding="none"
     >
       <Vstack gap="none">
@@ -49,7 +49,7 @@ const RecommendationCard = ({
           </ul>
 
           <div className="flex flex-col gap-md">
-            <Button className="w-full">자세히 보기</Button>
+            <Button className="w-full">추천 결과 자세히 보기</Button>
 
             <Hstack>
               <RecommendationActionButton>저장하기</RecommendationActionButton>
