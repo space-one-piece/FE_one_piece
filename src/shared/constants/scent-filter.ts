@@ -1,4 +1,4 @@
-export type ScentFilterCategory = "mood" | "season" | "notes" | "intensity"
+export type ScentFilterCategory = "category" | "season" | "intensity"
 
 export type ScentFilterItem = {
   id: number
@@ -12,42 +12,40 @@ export type ScentFilterSection = {
   options: ScentFilterItem[]
 }
 
-export const scentFilterMockData: ScentFilterSection[] = [
+export const scentFilterData: ScentFilterSection[] = [
   {
-    title: "MOOD",
-    category: "mood",
+    title: "CATEGORY",
+    category: "category",
     options: [
-      { id: 1, name: "어두운", category: "mood" },
-      { id: 2, name: "산뜻한", category: "mood" },
+      { id: 1, name: "floral", category: "category" },
+      { id: 2, name: "woody", category: "category" },
+      { id: 3, name: "citrus", category: "category" },
+      { id: 4, name: "musk", category: "category" },
+      { id: 5, name: "green", category: "category" },
+      { id: 6, name: "powdery", category: "category" },
+      { id: 7, name: "spicy", category: "category" },
+      { id: 8, name: "aquatic", category: "category" },
+      { id: 9, name: "fruity", category: "category" },
+      { id: 10, name: "amber", category: "category" },
     ],
   },
   {
     title: "SEASON",
     category: "season",
     options: [
-      { id: 3, name: "봄", category: "season" },
-      { id: 4, name: "여름", category: "season" },
-      { id: 5, name: "가을", category: "season" },
-      { id: 6, name: "겨울", category: "season" },
-    ],
-  },
-  {
-    title: "NOTES",
-    category: "notes",
-    options: [
-      { id: 7, name: "로즈", category: "notes" },
-      { id: 8, name: "바닐라", category: "notes" },
-      { id: 9, name: "우드", category: "notes" },
-      { id: 10, name: "시트러스", category: "notes" },
+      { id: 11, name: "spring", category: "season" },
+      { id: 12, name: "summer", category: "season" },
+      { id: 13, name: "autumn", category: "season" },
+      { id: 14, name: "winter", category: "season" },
     ],
   },
   {
     title: "INTENSITY",
     category: "intensity",
     options: [
-      { id: 11, name: "약한", category: "intensity" },
-      { id: 12, name: "보통", category: "intensity" },
-      { id: 13, name: "진한", category: "intensity" },
+      { id: 15, name: "약함", category: "intensity" },
+      { id: 16, name: "보통", category: "intensity" },
+      { id: 17, name: "강함", category: "intensity" },
     ],
   },
 ]

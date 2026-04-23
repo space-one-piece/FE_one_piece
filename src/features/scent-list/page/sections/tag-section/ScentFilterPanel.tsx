@@ -1,7 +1,7 @@
 import { Funnel } from "lucide-react"
 
 import {
-  scentFilterMockData,
+  scentFilterData,
   type ScentFilterItem,
 } from "@/shared/constants/scent-filter"
 import SelectedTagSection from "./SelectedTagSection"
@@ -11,12 +11,14 @@ type ScentFilterPanelProps = {
   selectedItems: ScentFilterItem[]
   onToggleItem: (item: ScentFilterItem) => void
   onClearAll: () => void
+  totalCount: number
 }
 
 const ScentFilterPanel = ({
   selectedItems,
   onToggleItem,
   onClearAll,
+  totalCount,
 }: ScentFilterPanelProps) => {
   const selectedIds = selectedItems.map((item) => item.id)
 
@@ -28,7 +30,7 @@ const ScentFilterPanel = ({
       </div>
 
       <div className="grid grid-cols-2 gap-x-xl gap-y-xl">
-        {scentFilterMockData.map((section) => (
+        {scentFilterData.map((section) => (
           <TagGroupSection
             key={section.category}
             title={section.title}
@@ -61,6 +63,11 @@ const ScentFilterPanel = ({
           }}
           onClearAll={onClearAll}
         />
+        {selectedItems.length > 0 && (
+          <span className="text-sm font-medium text-primary">
+            Total: {totalCount} scents
+          </span>
+        )}
       </div>
     </section>
   )

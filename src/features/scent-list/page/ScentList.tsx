@@ -39,6 +39,7 @@ export default function ScentList() {
           selectedItems={selectedItems}
           onToggleItem={handleToggleItem}
           onClearAll={handleClearAll}
+          totalCount={filteredCards.length}
         />
 
         {isLoading ? (

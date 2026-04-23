@@ -2,11 +2,10 @@ import { useMemo, useState } from "react"
 
 import type { ScentFilterItem } from "@/shared/constants/scent-filter"
 import type { ScentCardItem } from "../types/scent-card.type"
+import { getIntensityLabel } from "../utils/getIntensityLabel"
 
 export const useScentFilter = (initialData: ScentCardItem[]) => {
   const [selectedItems, setSelectedItems] = useState<ScentFilterItem[]>([])
-
-  const safeData = Array.isArray(initialData) ? initialData : []
 
   const toggleItem = (item: ScentFilterItem) => {
     setSelectedItems((prev) => {
@@ -25,12 +24,30 @@ export const useScentFilter = (initialData: ScentCardItem[]) => {
   }
 
   const filteredItems = useMemo(() => {
+    const safeData = Array.isArray(initialData) ? initialData : []
+
     if (selectedItems.length === 0) return safeData
 
     return safeData.filter((card) =>
-      selectedItems.every((selected) => card.tags.includes(selected.name))
+      selectedItems.every((selected) => {
+        if (selected.category === "category") {
+          return card.category === selected.name
+        }
+
+        if (selected.category === "season") {
+          return card.season.includes(
+            selected.name as (typeof card.season)[number]
+          )
+        }
+
+        if (selected.category === "intensity") {
+          return getIntensityLabel(card.intensity) === selected.name
+        }
+
+        return true
+      })
     )
-  }, [selectedItems, safeData])
+  }, [selectedItems, initialData])
 
   return {
     selectedItems,
