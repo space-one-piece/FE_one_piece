@@ -20,17 +20,7 @@ export type ScentCardItem = {
   description: string
   imageUrl: string
   tags: string[]
-  category:
-    | "floral"
-    | "woody"
-    | "citrus"
-    | "musk"
-    | "green"
-    | "powdery"
-    | "spicy"
-    | "aquatic"
-    | "fruity"
-    | "amber"
-  season: ("spring" | "summer" | "autumn" | "winter")[]
+  category: ScentCategory
+  season: ScentSeason[]
   intensity: number
 }

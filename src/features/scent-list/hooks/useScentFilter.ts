@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react"
 
 import type { ScentFilterItem } from "@/shared/constants/scent-filter"
-import type { ScentCardItem } from "../types/scent-card.type"
+import type { ScentCardItem, ScentSeason } from "../types/scent-card.type"
 import { getIntensityLabel } from "../utils/getIntensityLabel"
 
 export const useScentFilter = (initialData: ScentCardItem[]) => {
@@ -35,9 +35,7 @@ export const useScentFilter = (initialData: ScentCardItem[]) => {
         }
 
         if (selected.category === "season") {
-          return card.season.includes(
-            selected.name as (typeof card.season)[number]
-          )
+          return card.season.includes(selected.name as ScentSeason)
         }
 
         if (selected.category === "intensity") {
