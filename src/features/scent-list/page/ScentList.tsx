@@ -1,6 +1,9 @@
+// TODO: 스크롤하면서 로딩 (Network)
+
 import Feather from "@/assets/images/scent-list/Feather.svg"
 import { CenterContainer, Container, Hstack, Vstack } from "@/shared/components"
 
+import LoadingState from "@/shared/components/loading-state/LoadingState"
 import { useScentFilter } from "../hooks/useScentFilter"
 import { useScentsQuery } from "../hooks/useScentQuery"
 import CardSection from "./sections/card-section/CardSection"
@@ -43,11 +46,9 @@ export default function ScentList() {
         />
 
         {isLoading ? (
-          <div className="py-2xl text-center text-text-sub">
-            향기 목록을 불러오는 중입니다...
-          </div>
+          <LoadingState />
         ) : isError ? (
-          <div className="py-2xl text-center text-red-500">
+          <div className="py-2xl text-center text-error">
             {(error as Error).message || "향기 목록을 불러오지 못했습니다."}
           </div>
         ) : (
