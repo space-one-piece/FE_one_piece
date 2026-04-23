@@ -13,7 +13,12 @@ const RoundButton = (props: DefaultButtonProps & WithButtonProps) => {
 const ReviewCarousel = () => {
   const [index, setIndex] = useState(0)
 
-  const { reviewsInMain } = useLoaderData({ from: "/_wide/" })
+  const { data, error } = useLoaderData({ from: "/_wide/" })
+  console.log({ data, error })
+  if (error) return <p>{JSON.stringify(error)}</p>
+
+  const reviewsInMain = data.reviewsInMain
+
   return (
     <div className="relative">
       {reviewsInMain.length > 2 && (
