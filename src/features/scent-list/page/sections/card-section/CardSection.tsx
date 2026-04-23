@@ -7,7 +7,7 @@ type CardSectionProps = {
   items: ScentCardItem[]
 }
 
-export default function CardSection({ items }: CardSectionProps) {
+export const CardSection = ({ items }: CardSectionProps) => {
   const navigate = useNavigate()
 
   if (items.length === 0) {

@@ -4,8 +4,8 @@ import {
   scentFilterData,
   type ScentFilterItem,
 } from "@/shared/constants/scent-filter"
-import SelectedTagSection from "./SelectedTagSection"
-import TagGroupSection from "./TagGroupSection"
+import { SelectedTagSection } from "./SelectedTagSection"
+import { TagGroupSection } from "./TagGroupSection"
 
 type ScentFilterPanelProps = {
   selectedItems: ScentFilterItem[]
@@ -14,7 +14,7 @@ type ScentFilterPanelProps = {
   totalCount: number
 }
 
-const ScentFilterPanel = ({
+export const ScentFilterPanel = ({
   selectedItems,
   onToggleItem,
   onClearAll,
@@ -72,5 +72,3 @@ const ScentFilterPanel = ({
     </section>
   )
 }
-
-export default ScentFilterPanel
