@@ -1,7 +1,7 @@
 import EmptyStateImage from "@/assets/images/empty-state/empty-scent.svg"
-import type { ScentCardItem } from "@/features/scent-list/mocks/scent-card.mock"
 import { ArchiveCard, EmptyState } from "@/shared/components"
 import { useNavigate } from "@tanstack/react-router"
+import type { ScentCardItem } from "../../../types/scent-card.type"
 
 type CardSectionProps = {
   items: ScentCardItem[]

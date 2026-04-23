@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react"
 
-import type { ScentCardItem } from "@/features/scent-list/mocks/scent-card.mock"
-import type { ScentFilterItem } from "@/features/scent-list/mocks/scent-filter.mock"
+import type { ScentFilterItem } from "@/shared/constants/scent-filter"
+import type { ScentCardItem } from "../types/scent-card.type"
 
 export const useScentFilter = (initialData: ScentCardItem[]) => {
   const [selectedItems, setSelectedItems] = useState<ScentFilterItem[]>([])

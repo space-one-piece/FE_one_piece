@@ -1,15 +1,4 @@
-import type { ScentFilterCategory } from "./scent-filter.mock"
-
-export type ScentCardItem = {
-  id: number
-  name: string
-  description: string
-  imageUrl: string
-  tags: {
-    category: ScentFilterCategory
-    name: string
-  }[]
-}
+import type { ScentCardItem } from "../types/scent-card.type"
 
 export const scentCardMockData: ScentCardItem[] = [
   {

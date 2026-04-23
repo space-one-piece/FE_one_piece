@@ -3,7 +3,7 @@ import { Funnel } from "lucide-react"
 import {
   scentFilterMockData,
   type ScentFilterItem,
-} from "@/features/scent-list/mocks/scent-filter.mock"
+} from "@/shared/constants/scent-filter"
 import SelectedTagSection from "./SelectedTagSection"
 import TagGroupSection from "./TagGroupSection"
 
