@@ -20,5 +20,10 @@ export const useUpdateUserProfile = () => {
         }
       )
     },
+    onSettled: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["my-page", "userProfile"],
+      })
+    },
   })
 }
