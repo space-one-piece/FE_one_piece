@@ -1,16 +1,12 @@
 import {
   CalendarDays,
-<<<<<<< HEAD
   Check,
-=======
->>>>>>> 07f8a1f (feat: user profile API 연결 (#175))
   Mail,
   Pencil,
   Phone,
   Sparkles,
   UserRound,
 } from "lucide-react"
-<<<<<<< HEAD
 import { useState } from "react"
 
 import { cn } from "@/lib/utils"
@@ -19,12 +15,6 @@ import { formatDate } from "@/shared/utils/date"
 import { useUpdateUserProfile } from "../../hooks/useUpdateUserProfileMutation"
 import type { UpdateUserProfileRequest, UserProfile } from "../../types"
 import EditField from "./edit-field/EditField"
-=======
-
-import { cn } from "@/lib/utils"
-import { Button, EmptyImage } from "@/shared/components"
-import type { UserProfile } from "../../types"
->>>>>>> 07f8a1f (feat: user profile API 연결 (#175))
 import UserCard from "./user-card/UserCard"
 
 type UserSectionProps = {
@@ -42,6 +32,7 @@ export default function UserSection({ user, className }: UserSectionProps) {
   })
 
   const { mutate, isPending } = useUpdateUserProfile()
+
   const handleEditStart = () => {
     setForm({
       name: user.name,
@@ -59,6 +50,7 @@ export default function UserSection({ user, className }: UserSectionProps) {
         [key]: value,
       }))
     }
+
   const handleSubmit = () => {
     mutate(form, {
       onSuccess: () => {
@@ -70,7 +62,6 @@ export default function UserSection({ user, className }: UserSectionProps) {
   return (
     <section className={cn("w-full", className)}>
       <div className="flex flex-col items-center gap-xs">
-<<<<<<< HEAD
         {user.profile_image_url ? (
           <img
             src={user.profile_image_url}
@@ -80,9 +71,6 @@ export default function UserSection({ user, className }: UserSectionProps) {
         ) : (
           <EmptyImage type="avatar" />
         )}
-=======
-        {user.profileImageUrl ?? <EmptyImage type="avatar" />}
->>>>>>> 07f8a1f (feat: user profile API 연결 (#175))
 
         <h2 className="mt-lg text-xl font-bold text-text-primary">
           {user.name}
@@ -98,11 +86,7 @@ export default function UserSection({ user, className }: UserSectionProps) {
           AI 이미지 생성하기
         </Button>
 
-<<<<<<< HEAD
         <p className="mt-xs text-sm text-text-sub">{user.email}</p>
-=======
-        <p className="mt-xs text-sm text-text-sub">@{user.email}</p>
->>>>>>> 07f8a1f (feat: user profile API 연결 (#175))
       </div>
 
       <div className="mt-xl flex items-center gap-xs">
