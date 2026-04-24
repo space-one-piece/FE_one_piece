@@ -1,7 +1,14 @@
-import { CalendarDays, Mail, Pencil, Phone, UserRound } from "lucide-react"
+import {
+  CalendarDays,
+  Mail,
+  Pencil,
+  Phone,
+  Sparkles,
+  UserRound,
+} from "lucide-react"
 
 import { cn } from "@/lib/utils"
-import { EmptyImage } from "@/shared/components"
+import { Button, EmptyImage } from "@/shared/components"
 import type { UserProfile } from "../../types"
 import UserCard from "./user-card/UserCard"
 
@@ -18,14 +25,24 @@ export default function UserSection({
 }: UserSectionProps) {
   return (
     <section className={cn("w-full", className)}>
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center gap-xs">
         {user.profileImageUrl ?? <EmptyImage type="avatar" />}
 
         <h2 className="mt-lg text-xl font-bold text-text-primary">
           {user.userName}
         </h2>
 
-        <p className="mt-xs text-sm text-text-sub">@{user.userId}</p>
+        <Button
+          style="outlined"
+          padding="same"
+          radius="full"
+          className="text-sm"
+        >
+          <Sparkles size={16} />
+          AI 이미지 생성하기
+        </Button>
+
+        <p className="mt-xs text-sm text-text-sub">@{user.email}</p>
       </div>
 
       <div className="mt-xl flex items-center gap-xs">
