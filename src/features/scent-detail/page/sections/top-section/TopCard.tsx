@@ -7,7 +7,7 @@ type TopCardProps = {
 }
 
 const TopCard = ({ data }: TopCardProps) => {
-  const scent = data.scent
+  const scent = data.data
 
   return (
     <div className="flex flex-col items-center justify-center gap-md">
