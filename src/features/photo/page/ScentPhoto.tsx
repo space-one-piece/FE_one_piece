@@ -52,10 +52,6 @@ const ScentPhoto = () => {
       if (!uploadResponse.ok) {
         throw new Error("이미지 업로드에 실패했습니다.")
       }
-
-      console.log(uploadUrlData.img_url)
-      console.log(uploadUrlData.key)
-      console.log(uploadUrlData.resource_id)
     } finally {
       setIsUploadingToS3(false)
     }
