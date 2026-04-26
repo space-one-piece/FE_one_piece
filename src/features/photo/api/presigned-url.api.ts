@@ -2,7 +2,7 @@ import { instance } from "@/shared/api/axios-instance"
 import type {
   PostAnalysisUploadUrlRequest,
   PostAnalysisUploadUrlResponse,
-} from "../types/mobile-photo-step.types"
+} from "../types/analysis-upload-url.type"
 
 export const postAnalysisUploadUrl = async ({
   file_name,
