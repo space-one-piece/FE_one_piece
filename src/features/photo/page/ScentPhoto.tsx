@@ -8,6 +8,7 @@ import {
 import LoadingState from "@/shared/components/loading-state/LoadingState"
 import { useNavigate } from "@tanstack/react-router"
 import { useState } from "react"
+import { uploadImageToS3 } from "../api/image-analysis.api"
 import { usePostAnalysisUploadUrl } from "../hooks/usePostAnalysisUploadUrl"
 import { usePostImageAnalysis } from "../hooks/usePostImageAnalysis"
 import type { MobilePhotoStep } from "../types/mobile-photo-step.types"
@@ -37,33 +38,31 @@ const ScentPhoto = () => {
   }
 
   const handleAnalyzeImage = async () => {
-    if (!selectedFile) return
+    if (!selectedFile) {
+      return
+    }
 
     try {
+      setIsUploadingToS3(true)
+
       const uploadUrlData = await postAnalysisUploadUrl({
         file_name: selectedFile.name,
       })
-      setIsUploadingToS3(true)
 
-      const uploadResponse = await fetch(uploadUrlData.presigned_url, {
-        method: "PUT",
-        headers: {
-          "Content-Type": selectedFile.type,
-        },
-        body: selectedFile,
+      await uploadImageToS3({
+        presignedUrl: uploadUrlData.presigned_url,
+        file: selectedFile,
       })
-
-      if (!uploadResponse.ok) {
-        throw new Error("이미지 업로드에 실패했습니다.")
-      }
 
       const analysisResult = await postImageAnalysis({
         image_key: uploadUrlData.key,
       })
+
       sessionStorage.setItem(
         "imageAnalysisResult",
         JSON.stringify(analysisResult)
       )
+
       navigate({
         to: "/find-scent/result/$resultId",
         params: {
@@ -74,7 +73,6 @@ const ScentPhoto = () => {
       setIsUploadingToS3(false)
     }
   }
-
   if (isSubmitting) {
     return (
       <Container className="py-60">
