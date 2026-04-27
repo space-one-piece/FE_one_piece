@@ -27,7 +27,7 @@ export const myPageHandlers = [
   http.delete(`${BASE_URL}/analyses/:reviewId/review`, (req) => {
     const { reviewId } = req.params
     const index = mockReviewList.findIndex(
-      (review) => review.reviewId === Number(reviewId)
+      (review) => review.id === Number(reviewId)
     )
     if (index !== -1) {
       mockReviewList.splice(index, 1)
@@ -44,14 +44,14 @@ export const myPageHandlers = [
       const { content } = (await request.json()) as { content: string }
 
       const review = mockReviewList.find(
-        (review) => review.reviewId === Number(reviewId)
+        (review) => review.id === Number(reviewId)
       )
 
       if (!review) {
         return new HttpResponse(null, { status: 404 })
       }
 
-      review.content = content
+      review.review = content
       return new HttpResponse(null, { status: 204 })
     }
   ),
