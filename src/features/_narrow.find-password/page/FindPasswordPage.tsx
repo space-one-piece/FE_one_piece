@@ -1,6 +1,7 @@
 import NarrowTitleSection from "@/features/_narrow/components/narrow-title-section/NarrowTitleSection"
 import { Button, Input, Vstack } from "@/shared/components"
 import Labeled from "@/shared/components/inputs/labeled/Labeled"
+import PasswordInput from "@/shared/components/inputs/password-input/PasswordInput"
 import FindPasswordSuccess from "./find-password-success/FindPasswordSuccess"
 import useFindPassword from "./use-find-password/use-find-password"
 
@@ -53,10 +54,9 @@ const FindPasswordPage = () => {
         </Labeled>
         <Labeled isError={Boolean(errors.new_password)}>
           <Labeled.Title>새 비밀번호</Labeled.Title>
-          <Input
+          <PasswordInput
             {...register("new_password")}
-            type="password"
-            status={errors.new_password ? "error" : "none"}
+            isError={Boolean(errors.new_password)}
             placeholder="새 비밀번호를 입력해주세요"
           />
           <Labeled.Message>{errors.new_password?.message}</Labeled.Message>
@@ -64,10 +64,9 @@ const FindPasswordPage = () => {
 
         <Labeled isError={Boolean(errors.new_password_confirm)}>
           <Labeled.Title>새 비밀번호 확인</Labeled.Title>
-          <Input
+          <PasswordInput
             {...register("new_password_confirm")}
-            type="password"
-            status={errors.new_password_confirm ? "error" : "none"}
+            isError={Boolean(errors.new_password_confirm)}
             placeholder="새 비밀번호를 다시 입력해주세요"
           />
           <Labeled.Message>
