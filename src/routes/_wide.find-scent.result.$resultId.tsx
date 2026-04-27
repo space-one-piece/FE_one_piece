@@ -27,15 +27,27 @@ const normalizeSearchId = (value: unknown) => {
 
 const ResultRoute = () => {
   const { resultId } = Route.useParams()
-  const { type, sessionId } = Route.useSearch()
+  const search = Route.useSearch()
 
-  return <ResultPage resultId={resultId} type={type} sessionId={sessionId} />
+  return (
+    <ResultPage
+      resultId={resultId}
+      type={search.type}
+      sessionId={"sessionId" in search ? search.sessionId : undefined}
+    />
+  )
 }
 
 export const Route = createFileRoute("/_wide/find-scent/result/$resultId")({
   validateSearch: (search: Record<string, unknown>) => {
+    const type = isResultType(search.type) ? search.type : "image"
+
+    if (type !== "chat") {
+      return { type }
+    }
+
     return {
-      type: isResultType(search.type) ? search.type : "image",
+      type,
       sessionId: normalizeSearchId(search.sessionId),
     }
   },
