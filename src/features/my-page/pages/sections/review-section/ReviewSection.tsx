@@ -44,7 +44,7 @@ export const ReviewSection = () => {
 
       <section>
         <h2 className="px-md text-center text-lg font-bold text-text-primary">
-          내가 쓴 리뷰{" "}
+          {"내가 쓴 리뷰 "}
           <span className="font-extrabold text-text-highlight">
             {reviewList.length}
           </span>
