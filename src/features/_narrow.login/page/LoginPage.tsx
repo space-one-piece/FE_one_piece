@@ -38,7 +38,7 @@ const LoginPage = () => {
   return (
     <div>
       {showToast && (
-        <div className="fixed right-6 top-6 z-50">
+        <div className="fixed top-6 left-0 right-0 z-50 flex justify-center">
           <div className="relative">
             <Toast variant="error" message="로그인이 필요한 서비스입니다." />
           </div>

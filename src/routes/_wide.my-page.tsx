@@ -1,4 +1,4 @@
-import MyPage from "@/features/my-page/pages/MyPage"
+import { MyPage } from "@/features/my-page/MyPage"
 import useAuthStore from "@/shared/api/use-auth-store"
 import { createFileRoute, redirect } from "@tanstack/react-router"
 
