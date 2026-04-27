@@ -8,7 +8,10 @@ type BottomCardProps = {
   similarScents: ScentDetail["similar_scents"]
 }
 
-const BottomCard = ({ recommendedPlaces, similarScents }: BottomCardProps) => {
+const BottomCard = ({
+  recommendedPlaces = [],
+  similarScents = [],
+}: BottomCardProps) => {
   return (
     <div className="mt-2xl flex flex-col items-center justify-center gap-2xl">
       {/* 1. Recommend Place */}
@@ -35,15 +38,15 @@ const BottomCard = ({ recommendedPlaces, similarScents }: BottomCardProps) => {
         <div className="text-lg font-bold">Similar Scents</div>
       </div>
 
-      <div className="grid w-full grid-cols-3 gap-4">
-        {similarScents.map((scentId) => (
+      <div className="grid w-full grid-cols-2 gap-4">
+        {similarScents.map((scent) => (
           <ArchiveCard
-            key={scentId}
-            title={`Scent #${scentId}`}
-            imageAlt={`Scent ${scentId}`}
-            imageSrc=""
-            tags={[]}
-            description="유사한 향 정보는 추후 제공될 예정입니다."
+            key={scent.id}
+            title={scent.name}
+            imageAlt={scent.name}
+            imageSrc={scent.thumbnail_url}
+            tags={scent.tags}
+            description={scent.description}
           />
         ))}
       </div>
