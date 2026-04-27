@@ -1,4 +1,5 @@
 import NarrowTitleSection from "@/features/_narrow/components/narrow-title-section/NarrowTitleSection"
+import { instance } from "@/shared/api/axios-instance"
 import { Button, Hstack, Input, Toast, Vstack } from "@/shared/components"
 import Labeled from "@/shared/components/inputs/labeled/Labeled"
 import PasswordInput from "@/shared/components/inputs/password-input/PasswordInput"
@@ -46,6 +47,12 @@ const LoginPage = () => {
       )}
       <form onSubmit={submitForm}>
         <Vstack gap="xl">
+          <Button
+            type="button"
+            onClick={() => instance.post("/accounts/me/refresh")}
+          >
+            refresh without body
+          </Button>
           <NarrowTitleSection
             title="공간의 완성, 향기의 조각"
             description="fragmnt에서 당신만의 향기 아카이브를 시작하세요"

@@ -25,7 +25,8 @@ type LoginResponse = {
 const login = async (body: LoginSchema) => {
   const loginResponse = await plainInstance.post<LoginResponse>(
     "/accounts/login",
-    body
+    body,
+    { withCredentials: true }
   )
   const { access, refresh } = loginResponse.data
 
