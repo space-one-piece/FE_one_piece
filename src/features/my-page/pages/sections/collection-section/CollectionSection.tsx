@@ -23,7 +23,7 @@ export default function CollectionSection() {
   return (
     <section>
       <h2 className="px-md text-center text-lg font-bold text-text-primary">
-        저장된 향기
+        저장된 향기{" "}
         <span className="font-extrabold text-text-highlight">
           {favoriteScents.length}
         </span>

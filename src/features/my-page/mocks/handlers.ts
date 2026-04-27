@@ -20,7 +20,7 @@ export const myPageHandlers = [
     return HttpResponse.json(mockHistoryList)
   }),
 
-  http.get(`${BASE_URL}/analyses/reviews/me`, () => {
+  http.get(`${BASE_URL}/analyses/reviews`, () => {
     return HttpResponse.json(mockReviewList)
   }),
 
@@ -37,7 +37,6 @@ export const myPageHandlers = [
     }
   }),
 
-  // TODO: 실제 API 명세 보고 수정 필요, 수정 모달 띄우는 text area 구현 필요
   http.patch(
     `${BASE_URL}/analyses/:reviewId/review`,
     async ({ request, params }) => {

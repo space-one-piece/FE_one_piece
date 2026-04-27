@@ -16,7 +16,7 @@ export default function HistorySection() {
   return (
     <section>
       <h2 className="px-md text-right text-md font-bold text-text-primary">
-        내 기록
+        내 기록{" "}
         <span className="font-extrabold text-primary">
           {historyList.length}
         </span>

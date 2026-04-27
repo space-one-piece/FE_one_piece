@@ -2,7 +2,7 @@ import { instance } from "@/shared/api/axios-instance"
 import type { MockReviewItem } from "../mocks/review.mock"
 
 export const getReviewList = async (): Promise<MockReviewItem[]> => {
-  const { data } = await instance.get("/analyses/reviews/me")
+  const { data } = await instance.get("/analyses/reviews")
   return data
 }
 
