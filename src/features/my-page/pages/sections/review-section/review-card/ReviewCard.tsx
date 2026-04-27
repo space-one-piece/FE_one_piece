@@ -13,6 +13,8 @@ export type ReviewCardProps = {
   date: string
   onDelete?: () => void
   className?: string
+  onEditSuccess?: () => void
+  onEditError?: () => void
 }
 
 export const ReviewCard = ({
@@ -23,6 +25,8 @@ export const ReviewCard = ({
   content,
   date,
   onDelete,
+  onEditSuccess,
+  onEditError,
   className,
 }: ReviewCardProps) => {
   const safeRating = Math.max(0, Math.min(5, rating))
@@ -39,6 +43,10 @@ export const ReviewCard = ({
       {
         onSuccess: () => {
           setIsEditing(false)
+          onEditSuccess?.()
+        },
+        onError: () => {
+          onEditError?.()
         },
       }
     )

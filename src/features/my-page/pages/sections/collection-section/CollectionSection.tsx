@@ -4,7 +4,7 @@ import LoadingState from "@/shared/components/loading-state/LoadingState"
 import { useFavoriteScents } from "../../../hooks/useFavoriteScents"
 import CollectionCard from "./collection-card/CollectionCard"
 
-export default function CollectionSection() {
+export const CollectionSection = () => {
   const { error, favoriteScents, isLoading } = useFavoriteScents()
 
   const hasItems = favoriteScents.length > 0

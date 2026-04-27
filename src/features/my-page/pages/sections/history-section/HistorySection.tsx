@@ -5,7 +5,7 @@ import { useHistoryList } from "@/features/my-page/hooks/useHistoryList"
 import { formatDate } from "@/shared/utils/date"
 import HistoryCard from "./history-card/HistoryCard"
 
-export default function HistorySection() {
+export const HistorySection = () => {
   const { data: historyList = [], isLoading, error } = useHistoryList()
   const hasItems = historyList.length > 0
 

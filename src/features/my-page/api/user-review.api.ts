@@ -6,8 +6,16 @@ export const getReviewList = async (): Promise<ReviewItem[]> => {
   return data
 }
 
-export const deleteReview = async (reviewId: number): Promise<void> => {
-  await instance.delete(`/analyses/${reviewId}/review`)
+export const deleteReview = async ({
+  reviewId,
+  type,
+}: {
+  reviewId: number
+  type: string
+}): Promise<void> => {
+  await instance.delete(`/analyses/reviews/${reviewId}`, {
+    params: { type },
+  })
 }
 
 export const editReview = async ({
