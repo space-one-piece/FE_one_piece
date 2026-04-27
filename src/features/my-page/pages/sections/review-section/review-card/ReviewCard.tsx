@@ -6,6 +6,7 @@ import { useState } from "react"
 
 export type ReviewCardProps = {
   reviewId: number
+  type: string
   title: string
   rating: number
   content: string
@@ -16,6 +17,7 @@ export type ReviewCardProps = {
 
 export const ReviewCard = ({
   reviewId,
+  type,
   title,
   rating,
   content,
@@ -31,7 +33,8 @@ export const ReviewCard = ({
     editReview(
       {
         reviewId,
-        content: editedContent,
+        type,
+        review: editedContent,
       },
       {
         onSuccess: () => {

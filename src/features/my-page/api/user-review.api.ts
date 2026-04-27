@@ -1,7 +1,7 @@
 import { instance } from "@/shared/api/axios-instance"
-import type { MockReviewItem } from "../mocks/review.mock"
+import type { ReviewItem } from "../mocks/review.mock"
 
-export const getReviewList = async (): Promise<MockReviewItem[]> => {
+export const getReviewList = async (): Promise<ReviewItem[]> => {
   const { data } = await instance.get("/analyses/reviews")
   return data
 }
@@ -12,10 +12,18 @@ export const deleteReview = async (reviewId: number): Promise<void> => {
 
 export const editReview = async ({
   reviewId,
-  content,
+  type,
+  review,
 }: {
   reviewId: number
-  content: string
+  type: string
+  review: string
 }): Promise<void> => {
-  await instance.patch(`/analyses/${reviewId}/review`, { content })
+  await instance.patch(
+    `/analyses/reviews/${reviewId}`,
+    { review },
+    {
+      params: { type },
+    }
+  )
 }

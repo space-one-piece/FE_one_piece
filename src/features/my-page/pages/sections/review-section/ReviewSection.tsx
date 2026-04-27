@@ -3,6 +3,7 @@ import { EmptyState } from "@/shared/components"
 
 import { useDeleteReview, useReviewList } from "@/features/my-page/hooks"
 import LoadingState from "@/shared/components/loading-state/LoadingState"
+import { formatDate } from "@/shared/utils/date"
 import { ReviewCard } from "./review-card/ReviewCard"
 
 export default function ReviewSection() {
@@ -29,14 +30,16 @@ export default function ReviewSection() {
 
       {hasItems ? (
         <div className="mt-md flex flex-col gap-md">
-          {reviewList?.map(({ reviewId, ...item }) => (
+          {reviewList?.map((item) => (
             <ReviewCard
-              reviewId={reviewId}
-              key={reviewId}
-              {...item}
-              onDelete={() => {
-                deleteMutate(reviewId)
-              }}
+              key={item.id}
+              reviewId={item.id}
+              type={item.type}
+              title={item.eng_name}
+              rating={item.rating}
+              content={item.review}
+              date={formatDate(item.created_at)}
+              onDelete={() => deleteMutate(item.id)}
             />
           ))}
         </div>
