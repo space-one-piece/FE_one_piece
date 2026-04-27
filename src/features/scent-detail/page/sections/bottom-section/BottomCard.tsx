@@ -1,5 +1,6 @@
 import { ArchiveCard } from "@/shared/components"
 import type { ScentDetail } from "@/shared/types/scent-types/scent.type"
+import { useNavigate } from "@tanstack/react-router"
 
 import PlaceCard from "./place-card/PlaceCard"
 
@@ -12,6 +13,8 @@ const BottomCard = ({
   recommendedPlaces = [],
   similarScents = [],
 }: BottomCardProps) => {
+  const navigate = useNavigate()
+
   return (
     <div className="mt-2xl flex flex-col items-center justify-center gap-2xl">
       {/* 1. Recommend Place */}
@@ -47,6 +50,14 @@ const BottomCard = ({
             imageSrc={scent.thumbnail_url}
             tags={scent.tags}
             description={scent.description}
+            onClick={() => {
+              navigate({
+                to: "/scent-detail",
+                search: {
+                  id: scent.id,
+                },
+              })
+            }}
           />
         ))}
       </div>
