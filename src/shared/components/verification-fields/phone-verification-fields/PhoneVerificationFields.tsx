@@ -23,6 +23,12 @@ const PhoneVerificationFields = ({
     phoneSecondMutate,
   } = usePhoneVerification(useFormReturn)
 
+  const secondInputStatus = errors.phone_token
+    ? "error"
+    : phoneSecondData
+      ? "success"
+      : "none"
+
   return (
     <>
       <Labeled isError={Boolean(errors.phone_number)}>
@@ -53,13 +59,7 @@ const PhoneVerificationFields = ({
         <Labeled.Body>
           <Input
             {...register("phone_token")}
-            status={
-              errors.phone_token
-                ? "error"
-                : phoneSecondData
-                  ? "success"
-                  : "none"
-            }
+            status={secondInputStatus}
             placeholder="6자리 코드를 입력해주세요"
           />
           <Button

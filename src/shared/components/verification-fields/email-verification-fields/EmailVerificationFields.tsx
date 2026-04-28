@@ -23,6 +23,12 @@ const EmailVerificationFields = ({
     emailSecondMutate,
   } = useEmailVerification(useFormReturn)
 
+  const secondInputStatus = errors.email_token
+    ? "error"
+    : emailSecondData
+      ? "success"
+      : "none"
+
   return (
     <>
       <Labeled isError={Boolean(errors.email)}>
@@ -50,13 +56,7 @@ const EmailVerificationFields = ({
         <Labeled.Body>
           <Input
             {...register("email_token")}
-            status={
-              errors.email_token
-                ? "error"
-                : emailSecondData
-                  ? "success"
-                  : "none"
-            }
+            status={secondInputStatus}
             placeholder="6자리 코드를 입력해주세요"
           />
           <Button
