@@ -25,7 +25,7 @@ const useEmailVerification = (useFormReturns: ReturnType<typeof useForm>) => {
     onError: (error) => {
       setError("email", {
         type: "custom",
-        message: error.response.data.detail,
+        message: error.response.data.error_detail,
       })
     },
   })

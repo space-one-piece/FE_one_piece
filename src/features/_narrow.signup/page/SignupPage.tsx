@@ -2,24 +2,18 @@ import NarrowTitleSection from "@/features/_narrow/components/narrow-title-secti
 import { Button, Input, Vstack } from "@/shared/components"
 import Labeled from "@/shared/components/inputs/labeled/Labeled"
 import PasswordInput from "@/shared/components/inputs/password-input/PasswordInput"
-import {
-  useEmailVerification,
-  usePhoneVerification,
-} from "@/shared/utils/use-verifications"
+import EmailVerificationFields from "@/shared/components/verification-fields/email-verification-fields/EmailVerificationFields"
+import { usePhoneVerification } from "@/shared/utils/use-verifications"
 import SignupModals from "./signup-modals/SignupModals"
 import useSignup from "./use-signup/use-signup"
 
 const SignupPage = () => {
-  const { errors, register, submitForm, useFormReturns } = useSignup()
-
   const {
-    emailFirstData,
-    emailFirstMutate,
-    emailFirstIsPending,
-    emailSecondMutate,
-    emailSecondData,
-    emailSecondIsPending,
-  } = useEmailVerification(useFormReturns)
+    errors,
+    register,
+    submitForm,
+    useFormReturns: useFormReturn,
+  } = useSignup()
 
   const {
     phoneFirstData,
@@ -28,7 +22,7 @@ const SignupPage = () => {
     phoneSecondMutate,
     phoneSecondData,
     phoneSecondIsPending,
-  } = usePhoneVerification(useFormReturns)
+  } = usePhoneVerification(useFormReturn)
 
   console.log({ phoneFirstData })
 
@@ -41,51 +35,7 @@ const SignupPage = () => {
             description="fragmnt에서 당신만의 향기 아카이브를 시작하세요"
           />
 
-          <Labeled isError={Boolean(errors.email)}>
-            <Labeled.Title>이메일</Labeled.Title>
-            <Labeled.Body>
-              <Input
-                {...register("email")}
-                placeholder="your@email.com"
-                status={errors.email ? "error" : "none"}
-              />
-              <Button
-                type="button"
-                onClick={() => emailFirstMutate()}
-                disabled={emailFirstIsPending}
-              >
-                인증
-              </Button>
-            </Labeled.Body>
-            <Labeled.Message>{errors.email?.message}</Labeled.Message>
-            <Labeled.Message>{emailFirstData?.data.detail}</Labeled.Message>
-          </Labeled>
-
-          <Labeled isError={Boolean(errors.email_token)}>
-            <Labeled.Title>이메일 인증코드</Labeled.Title>
-            <Labeled.Body>
-              <Input
-                {...register("email_token")}
-                status={
-                  errors.email_token
-                    ? "error"
-                    : emailSecondData
-                      ? "success"
-                      : "none"
-                }
-                placeholder="6자리 코드를 입력해주세요"
-              />
-              <Button
-                type="button"
-                onClick={() => emailSecondMutate()}
-                disabled={emailSecondIsPending}
-              >
-                확인
-              </Button>
-            </Labeled.Body>
-            <Labeled.Message>{errors.email_token?.message}</Labeled.Message>
-            <Labeled.Message>{emailSecondData?.data.detail}</Labeled.Message>
-          </Labeled>
+          <EmailVerificationFields useFormReturn={useFormReturn} />
 
           <Labeled isError={Boolean(errors.password)}>
             <Labeled.Title>비밀번호</Labeled.Title>
