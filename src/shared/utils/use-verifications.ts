@@ -20,8 +20,11 @@ const useEmailVerification = (useFormReturns: ReturnType<typeof useForm>) => {
         }
       )
     },
+    onSuccess: () => {
+      clearErrors("email")
+    },
     onError: (error) => {
-      setError("email_token", {
+      setError("email", {
         type: "custom",
         message: error.response.data.detail,
       })
@@ -74,6 +77,7 @@ const usePhoneVerification = (useFormReturns: ReturnType<typeof useForm>) => {
     data: phoneFirstData,
     error: phoneFirstError,
     mutate: phoneFirstMutate,
+    isPending: phoneFirstIsPending,
   } = useMutation({
     mutationFn: async () => {
       const phone_number = watch().phone_number
@@ -84,10 +88,13 @@ const usePhoneVerification = (useFormReturns: ReturnType<typeof useForm>) => {
         }
       )
     },
+    onSuccess: () => {
+      clearErrors("phone_number")
+    },
     onError(error) {
-      setError("phone_token", {
+      setError("phone_number", {
         type: "custom",
-        message: error.response.data.detail,
+        message: error.response.data.error_detail,
       })
     },
   })
@@ -96,6 +103,7 @@ const usePhoneVerification = (useFormReturns: ReturnType<typeof useForm>) => {
     data: phoneSecondData,
     error: phoneSecondError,
     mutate: phoneSecondMutate,
+    isPending: phoneSecondIsPending,
   } = useMutation({
     mutationFn: async () => {
       const phone_number = watch().phone_number
@@ -123,9 +131,11 @@ const usePhoneVerification = (useFormReturns: ReturnType<typeof useForm>) => {
     phoneFirstData,
     phoneFirstError,
     phoneFirstMutate,
+    phoneFirstIsPending,
     phoneSecondData,
     phoneSecondError,
     phoneSecondMutate,
+    phoneSecondIsPending,
   }
 }
 

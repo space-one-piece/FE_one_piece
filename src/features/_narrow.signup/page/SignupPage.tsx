@@ -21,10 +21,16 @@ const SignupPage = () => {
     emailSecondIsPending,
   } = useEmailVerification(useFormReturns)
 
-  const { phoneFirstMutate, phoneSecondMutate, phoneSecondData } =
-    usePhoneVerification(useFormReturns)
+  const {
+    phoneFirstData,
+    phoneFirstMutate,
+    phoneFirstIsPending,
+    phoneSecondMutate,
+    phoneSecondData,
+    phoneSecondIsPending,
+  } = usePhoneVerification(useFormReturns)
 
-  console.log({ emailFirstData })
+  console.log({ phoneFirstData })
 
   return (
     <>
@@ -110,11 +116,16 @@ const SignupPage = () => {
                 type="number"
                 placeholder={`"-"없이 숫자만 입력해주세요`}
               />
-              <Button type="button" onClick={() => phoneFirstMutate()}>
+              <Button
+                type="button"
+                onClick={() => phoneFirstMutate()}
+                disabled={phoneFirstIsPending}
+              >
                 인증
               </Button>
             </Labeled.Body>
             <Labeled.Message>{errors.phone_number?.message}</Labeled.Message>
+            <Labeled.Message>{phoneFirstData?.data.detail}</Labeled.Message>
           </Labeled>
 
           <Labeled isError={Boolean(errors.phone_token)}>
@@ -131,11 +142,16 @@ const SignupPage = () => {
                 }
                 placeholder="6자리 코드를 입력해주세요"
               />
-              <Button type="button" onClick={() => phoneSecondMutate()}>
+              <Button
+                type="button"
+                onClick={() => phoneSecondMutate()}
+                disabled={phoneSecondIsPending}
+              >
                 확인
               </Button>
             </Labeled.Body>
             <Labeled.Message>{errors.phone_token?.message}</Labeled.Message>
+            <Labeled.Message>{phoneSecondData?.data.detail}</Labeled.Message>
           </Labeled>
 
           <Labeled isError={Boolean(errors.birthday)}>
