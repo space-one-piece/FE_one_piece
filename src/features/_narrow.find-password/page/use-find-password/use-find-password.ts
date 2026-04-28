@@ -49,6 +49,7 @@ const useFindPassword = () => {
       email: data.email,
       token: data.email_token,
       new_password: data.new_password,
+      new_password_confirm: data.new_password_confirm,
     }
     mutate(body)
   }
