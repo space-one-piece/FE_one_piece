@@ -29,9 +29,8 @@ const login = async (body: LoginSchema) => {
   const { access } = loginResponse.data
 
   const profileResponse = await plainInstance.get("/accounts/me/profile", {
-    headers: {
-      Authorization: `Bearer ${access}`,
-    },
+    headers: { Authorization: `Bearer ${access}` },
+    withCredentials: true,
   })
   const profile = profileResponse.data as Profile
 
