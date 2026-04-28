@@ -7,7 +7,7 @@ import {
 } from "@/features/my-page/pages/sections"
 import Tab, { type TabKey } from "./tab/Tab"
 
-export const TabSection = () => {
+export default function TabSection() {
   const [activeTab, setActiveTab] = useState<TabKey>("collection")
 
   return (

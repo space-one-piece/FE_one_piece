@@ -12,11 +12,11 @@ export const myPageHandlers = [
     return HttpResponse.json(mockUserProfile)
   }),
 
-  http.get(`${BASE_URL}/analyses/feedback`, () => {
+  http.get(`${BASE_URL}/accounts/favorite-scents`, () => {
     return HttpResponse.json(mockFavoriteScents)
   }),
 
-  http.get(`${BASE_URL}/analyses/history`, () => {
+  http.get(`${BASE_URL}/analyses`, () => {
     return HttpResponse.json(mockHistoryList)
   }),
 

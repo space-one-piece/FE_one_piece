@@ -19,11 +19,11 @@ export const updateMyProfile = async (
 }
 
 export const getFavoriteScents = async (): Promise<FavoriteScent[]> => {
-  const { data } = await instance.get("/analyses/feedback")
+  const { data } = await instance.get("/accounts/favorite-scents")
   return data
 }
 
 export const getHistoryList = async (): Promise<HistoryItem[]> => {
-  const { data } = await instance.get("/analyses/history")
+  const { data } = await instance.get("/analyses")
   return data
 }
