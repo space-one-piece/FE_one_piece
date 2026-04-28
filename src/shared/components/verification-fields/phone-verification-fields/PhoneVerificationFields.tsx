@@ -1,14 +1,15 @@
-import { useForm } from "react-hook-form"
+import type { Path, UseFormReturn } from "react-hook-form"
 import { Button, Input } from "../../inputs"
 import Labeled from "../../inputs/labeled/Labeled"
+import type { PhoneFields } from "../types/use-form-return.type"
 import usePhoneVerification from "./use-phone-verification-fields/use-phone-verification-fields"
 
-type PhoneVerificationFieldsProps = {
-  useFormReturn: ReturnType<typeof useForm>
+type PhoneVerificationFieldsProps<TFieldValues extends PhoneFields> = {
+  useFormReturn: UseFormReturn<TFieldValues>
 }
-const PhoneVerificationFields = ({
+const PhoneVerificationFields = <TFieldValues extends PhoneFields>({
   useFormReturn,
-}: PhoneVerificationFieldsProps) => {
+}: PhoneVerificationFieldsProps<TFieldValues>) => {
   const {
     register,
     formState: { errors },
@@ -35,7 +36,7 @@ const PhoneVerificationFields = ({
         <Labeled.Title>전화번호</Labeled.Title>
         <Labeled.Body>
           <Input
-            {...register("phone_number")}
+            {...register("phone_number" as Path<TFieldValues>)}
             status={errors.phone_number ? "error" : "none"}
             type="number"
             placeholder={`"-"없이 숫자만 입력해주세요`}
@@ -58,7 +59,7 @@ const PhoneVerificationFields = ({
         <Labeled.Title>전화번호 인증코드</Labeled.Title>
         <Labeled.Body>
           <Input
-            {...register("phone_token")}
+            {...register("phone_token" as Path<TFieldValues>)}
             status={secondInputStatus}
             placeholder="6자리 코드를 입력해주세요"
           />

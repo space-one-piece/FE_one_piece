@@ -1,8 +1,11 @@
 import { plainInstance } from "@/shared/api/axios-instance"
 import { useMutation } from "@tanstack/react-query"
-import { useForm } from "react-hook-form"
+import type { Path, UseFormReturn } from "react-hook-form"
+import type { PhoneFields } from "../../types/use-form-return.type"
 
-const usePhoneVerification = (useFormReturns: ReturnType<typeof useForm>) => {
+const usePhoneVerification = <TFieldValues extends PhoneFields>(
+  useFormReturns: UseFormReturn<TFieldValues>
+) => {
   const { watch, setError, clearErrors } = useFormReturns
   const {
     data: phoneFirstData,
@@ -19,10 +22,10 @@ const usePhoneVerification = (useFormReturns: ReturnType<typeof useForm>) => {
       )
     },
     onSuccess: () => {
-      clearErrors("phone_number")
+      clearErrors("phone_number" as Path<TFieldValues>)
     },
     onError(error) {
-      setError("phone_number", {
+      setError("phone_number" as Path<TFieldValues>, {
         type: "custom",
         message: error.response.data.error_detail,
       })
@@ -46,10 +49,10 @@ const usePhoneVerification = (useFormReturns: ReturnType<typeof useForm>) => {
       )
     },
     onSuccess: () => {
-      clearErrors("phone_token")
+      clearErrors("phone_token" as Path<TFieldValues>)
     },
     onError(error) {
-      setError("phone_token", {
+      setError("phone_token" as Path<TFieldValues>, {
         type: "custom",
         message: error.response.data.detail,
       })

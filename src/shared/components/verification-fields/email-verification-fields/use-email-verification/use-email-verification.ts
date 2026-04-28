@@ -1,8 +1,11 @@
 import { plainInstance } from "@/shared/api/axios-instance"
 import { useMutation } from "@tanstack/react-query"
-import { useForm } from "react-hook-form"
+import type { Path, UseFormReturn } from "react-hook-form"
+import type { EmailFields } from "../../types/use-form-return.type"
 
-const useEmailVerification = (useFormReturns: ReturnType<typeof useForm>) => {
+const useEmailVerification = <TFieldValues extends EmailFields>(
+  useFormReturns: UseFormReturn<TFieldValues>
+) => {
   const { watch, setError, clearErrors } = useFormReturns
 
   const {
@@ -20,10 +23,10 @@ const useEmailVerification = (useFormReturns: ReturnType<typeof useForm>) => {
       )
     },
     onSuccess: () => {
-      clearErrors("email")
+      clearErrors("email" as Path<TFieldValues>)
     },
     onError: (error) => {
-      setError("email", {
+      setError("email" as Path<TFieldValues>, {
         type: "custom",
         message: error.response.data.error_detail,
       })
@@ -47,10 +50,10 @@ const useEmailVerification = (useFormReturns: ReturnType<typeof useForm>) => {
       )
     },
     onSuccess: () => {
-      clearErrors("email_token")
+      clearErrors("email_token" as Path<TFieldValues>)
     },
     onError(error) {
-      setError("email_token", {
+      setError("email_token" as Path<TFieldValues>, {
         type: "custom",
         message: error.response.data.detail,
       })

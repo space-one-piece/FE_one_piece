@@ -1,14 +1,15 @@
-import { useForm } from "react-hook-form"
+import type { Path, UseFormReturn } from "react-hook-form"
 import { Button, Input } from "../../inputs"
 import Labeled from "../../inputs/labeled/Labeled"
+import type { EmailFields } from "../types/use-form-return.type"
 import useEmailVerification from "./use-email-verification/use-email-verification"
 
-type EmailVerificationFieldsProps = {
-  useFormReturn: ReturnType<typeof useForm>
+type EmailVerificationFieldsProps<TFieldValues extends EmailFields> = {
+  useFormReturn: UseFormReturn<TFieldValues>
 }
-const EmailVerificationFields = ({
+const EmailVerificationFields = <TFieldValues extends EmailFields>({
   useFormReturn,
-}: EmailVerificationFieldsProps) => {
+}: EmailVerificationFieldsProps<TFieldValues>) => {
   const {
     register,
     formState: { errors },
@@ -35,7 +36,7 @@ const EmailVerificationFields = ({
         <Labeled.Title>이메일</Labeled.Title>
         <Labeled.Body>
           <Input
-            {...register("email")}
+            {...register("email" as Path<TFieldValues>)}
             placeholder="your@email.com"
             status={errors.email ? "error" : "none"}
           />
@@ -55,7 +56,7 @@ const EmailVerificationFields = ({
         <Labeled.Title>이메일 인증코드</Labeled.Title>
         <Labeled.Body>
           <Input
-            {...register("email_token")}
+            {...register("email_token" as Path<TFieldValues>)}
             status={secondInputStatus}
             placeholder="6자리 코드를 입력해주세요"
           />
