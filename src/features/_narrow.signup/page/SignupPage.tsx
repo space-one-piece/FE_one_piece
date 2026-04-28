@@ -2,19 +2,29 @@ import NarrowTitleSection from "@/features/_narrow/components/narrow-title-secti
 import { Button, Input, Vstack } from "@/shared/components"
 import Labeled from "@/shared/components/inputs/labeled/Labeled"
 import PasswordInput from "@/shared/components/inputs/password-input/PasswordInput"
+import {
+  useEmailVerification,
+  usePhoneVerification,
+} from "@/shared/utils/use-verifications"
 import SignupModals from "./signup-modals/SignupModals"
 import useSignup from "./use-signup/use-signup"
 
 const SignupPage = () => {
+  const { errors, register, submitForm, useFormReturns } = useSignup()
+
   const {
-    errors,
-    register,
-    submitForm,
-    handleEmailVerificationFirst,
-    handleEmailVerificationSecond,
-    handlePhoneVerificationFirst,
-    handlePhoneVerificationSecond,
-  } = useSignup()
+    emailFirstData,
+    emailFirstMutate,
+    emailFirstIsPending,
+    emailSecondMutate,
+    emailSecondData,
+    emailSecondIsPending,
+  } = useEmailVerification(useFormReturns)
+
+  const { phoneFirstMutate, phoneSecondMutate, phoneSecondData } =
+    usePhoneVerification(useFormReturns)
+
+  console.log({ emailFirstData })
 
   return (
     <>
@@ -33,11 +43,16 @@ const SignupPage = () => {
                 placeholder="your@email.com"
                 status={errors.email ? "error" : "none"}
               />
-              <Button type="button" onClick={handleEmailVerificationFirst}>
+              <Button
+                type="button"
+                onClick={() => emailFirstMutate()}
+                disabled={emailFirstIsPending}
+              >
                 인증
               </Button>
             </Labeled.Body>
             <Labeled.Message>{errors.email?.message}</Labeled.Message>
+            <Labeled.Message>{emailFirstData?.data.detail}</Labeled.Message>
           </Labeled>
 
           <Labeled isError={Boolean(errors.email_token)}>
@@ -45,14 +60,25 @@ const SignupPage = () => {
             <Labeled.Body>
               <Input
                 {...register("email_token")}
-                status={errors.email_token ? "error" : "none"}
+                status={
+                  errors.email_token
+                    ? "error"
+                    : emailSecondData
+                      ? "success"
+                      : "none"
+                }
                 placeholder="6자리 코드를 입력해주세요"
               />
-              <Button type="button" onClick={handleEmailVerificationSecond}>
+              <Button
+                type="button"
+                onClick={() => emailSecondMutate()}
+                disabled={emailSecondIsPending}
+              >
                 확인
               </Button>
             </Labeled.Body>
             <Labeled.Message>{errors.email_token?.message}</Labeled.Message>
+            <Labeled.Message>{emailSecondData?.data.detail}</Labeled.Message>
           </Labeled>
 
           <Labeled isError={Boolean(errors.password)}>
@@ -84,7 +110,7 @@ const SignupPage = () => {
                 type="number"
                 placeholder={`"-"없이 숫자만 입력해주세요`}
               />
-              <Button type="button" onClick={handlePhoneVerificationFirst}>
+              <Button type="button" onClick={() => phoneFirstMutate()}>
                 인증
               </Button>
             </Labeled.Body>
@@ -96,10 +122,16 @@ const SignupPage = () => {
             <Labeled.Body>
               <Input
                 {...register("phone_token")}
-                status={errors.phone_token ? "error" : "none"}
+                status={
+                  errors.phone_token
+                    ? "error"
+                    : phoneSecondData
+                      ? "success"
+                      : "none"
+                }
                 placeholder="6자리 코드를 입력해주세요"
               />
-              <Button type="button" onClick={handlePhoneVerificationSecond}>
+              <Button type="button" onClick={() => phoneSecondMutate()}>
                 확인
               </Button>
             </Labeled.Body>

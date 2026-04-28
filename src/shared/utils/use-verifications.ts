@@ -3,23 +3,24 @@ import { useForm } from "react-hook-form"
 import { plainInstance } from "../api/axios-instance"
 
 const useEmailVerification = (useFormReturns: ReturnType<typeof useForm>) => {
-  const { watch, setError } = useFormReturns
+  const { watch, setError, clearErrors } = useFormReturns
 
   const {
     data: emailFirstData,
     error: emailFirstError,
     mutate: emailFirstMutate,
+    isPending: emailFirstIsPending,
   } = useMutation({
     mutationFn: async () => {
       const email = watch().email
-      await plainInstance.post(
+      return await plainInstance.post(
         "https://fragmnt.pics/api/v1/accounts/verification/send-email",
         {
           email,
         }
       )
     },
-    onError(error) {
+    onError: (error) => {
       setError("email_token", {
         type: "custom",
         message: error.response.data.detail,
@@ -31,17 +32,21 @@ const useEmailVerification = (useFormReturns: ReturnType<typeof useForm>) => {
     data: emailSecondData,
     error: emailSecondError,
     mutate: emailSecondMutate,
+    isPending: emailSecondIsPending,
   } = useMutation({
     mutationFn: async () => {
       const email = watch().email
       const email_token = watch().email_token
-      await plainInstance.post(
+      return await plainInstance.post(
         "https://fragmnt.pics/api/v1/accounts/verification/verify-email",
         {
           email,
           code: email_token,
         }
       )
+    },
+    onSuccess: () => {
+      clearErrors("email_token")
     },
     onError(error) {
       setError("email_token", {
@@ -55,14 +60,16 @@ const useEmailVerification = (useFormReturns: ReturnType<typeof useForm>) => {
     emailFirstData,
     emailFirstError,
     emailFirstMutate,
+    emailFirstIsPending,
     emailSecondData,
     emailSecondError,
     emailSecondMutate,
+    emailSecondIsPending,
   }
 }
 
 const usePhoneVerification = (useFormReturns: ReturnType<typeof useForm>) => {
-  const { watch, setError } = useFormReturns
+  const { watch, setError, clearErrors } = useFormReturns
   const {
     data: phoneFirstData,
     error: phoneFirstError,
@@ -70,7 +77,7 @@ const usePhoneVerification = (useFormReturns: ReturnType<typeof useForm>) => {
   } = useMutation({
     mutationFn: async () => {
       const phone_number = watch().phone_number
-      await plainInstance.post(
+      return await plainInstance.post(
         "https://fragmnt.pics/api/v1/accounts/verification/send-sms",
         {
           phone_number,
@@ -93,13 +100,16 @@ const usePhoneVerification = (useFormReturns: ReturnType<typeof useForm>) => {
     mutationFn: async () => {
       const phone_number = watch().phone_number
       const phone_token = watch().phone_token
-      await plainInstance.post(
+      return await plainInstance.post(
         "https://fragmnt.pics/api/v1/accounts/verification/verify-sms",
         {
           phone_number,
           code: phone_token,
         }
       )
+    },
+    onSuccess: () => {
+      clearErrors("phone_token")
     },
     onError(error) {
       setError("phone_token", {

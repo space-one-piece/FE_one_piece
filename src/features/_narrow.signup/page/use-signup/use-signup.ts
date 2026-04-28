@@ -44,12 +44,13 @@ const useSignup = () => {
     onError: () => setModalKey("error"),
   })
 
+  const useFormReturns = useForm({ resolver: zodResolver(signupSchema) })
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm({ resolver: zodResolver(signupSchema) })
+  } = useFormReturns
 
   const onSubmit = (data: SignupSchema) => {
     console.log({ data })
@@ -113,6 +114,7 @@ const useSignup = () => {
     handleEmailVerificationSecond,
     handlePhoneVerificationFirst,
     handlePhoneVerificationSecond,
+    useFormReturns,
   }
 }
 
