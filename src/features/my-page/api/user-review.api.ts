@@ -6,21 +6,6 @@ export const getReviewList = async (): Promise<ReviewItem[]> => {
   return data
 }
 
-// 리뷰 상세 페이지 (추후 연결 예정)
-export const getReviewDetail = async ({
-  reviewId,
-  type,
-}: {
-  reviewId: number
-  type: string
-}): Promise<ReviewItem> => {
-  const { data } = await instance.get(`/analyses/reviews/${reviewId}`, {
-    params: { type },
-  })
-
-  return data
-}
-
 export const deleteReview = async ({
   reviewId,
   type,
