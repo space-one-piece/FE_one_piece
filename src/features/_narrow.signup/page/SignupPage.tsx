@@ -3,7 +3,7 @@ import { Button, Input, Vstack } from "@/shared/components"
 import Labeled from "@/shared/components/inputs/labeled/Labeled"
 import PasswordInput from "@/shared/components/inputs/password-input/PasswordInput"
 import EmailVerificationFields from "@/shared/components/verification-fields/email-verification-fields/EmailVerificationFields"
-import { usePhoneVerification } from "@/shared/utils/use-verifications"
+import PhoneVerificationFields from "@/shared/components/verification-fields/phone-verification-fields/PhoneVerificationFields"
 import SignupModals from "./signup-modals/SignupModals"
 import useSignup from "./use-signup/use-signup"
 
@@ -14,17 +14,6 @@ const SignupPage = () => {
     submitForm,
     useFormReturns: useFormReturn,
   } = useSignup()
-
-  const {
-    phoneFirstData,
-    phoneFirstMutate,
-    phoneFirstIsPending,
-    phoneSecondMutate,
-    phoneSecondData,
-    phoneSecondIsPending,
-  } = usePhoneVerification(useFormReturn)
-
-  console.log({ phoneFirstData })
 
   return (
     <>
@@ -57,52 +46,7 @@ const SignupPage = () => {
             <Labeled.Message>{errors.name?.message}</Labeled.Message>
           </Labeled>
 
-          <Labeled isError={Boolean(errors.phone_number)}>
-            <Labeled.Title>전화번호</Labeled.Title>
-            <Labeled.Body>
-              <Input
-                {...register("phone_number")}
-                status={errors.phone_number ? "error" : "none"}
-                type="number"
-                placeholder={`"-"없이 숫자만 입력해주세요`}
-              />
-              <Button
-                type="button"
-                onClick={() => phoneFirstMutate()}
-                disabled={phoneFirstIsPending}
-              >
-                인증
-              </Button>
-            </Labeled.Body>
-            <Labeled.Message>{errors.phone_number?.message}</Labeled.Message>
-            <Labeled.Message>{phoneFirstData?.data.detail}</Labeled.Message>
-          </Labeled>
-
-          <Labeled isError={Boolean(errors.phone_token)}>
-            <Labeled.Title>전화번호 인증코드</Labeled.Title>
-            <Labeled.Body>
-              <Input
-                {...register("phone_token")}
-                status={
-                  errors.phone_token
-                    ? "error"
-                    : phoneSecondData
-                      ? "success"
-                      : "none"
-                }
-                placeholder="6자리 코드를 입력해주세요"
-              />
-              <Button
-                type="button"
-                onClick={() => phoneSecondMutate()}
-                disabled={phoneSecondIsPending}
-              >
-                확인
-              </Button>
-            </Labeled.Body>
-            <Labeled.Message>{errors.phone_token?.message}</Labeled.Message>
-            <Labeled.Message>{phoneSecondData?.data.detail}</Labeled.Message>
-          </Labeled>
+          <PhoneVerificationFields useFormReturn={useFormReturn} />
 
           <Labeled isError={Boolean(errors.birthday)}>
             <Labeled.Title>생년월일</Labeled.Title>
