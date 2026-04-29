@@ -10,8 +10,6 @@ const SignupErrorModal = () => {
   const handleClick = () => setModalKey(null)
   const errorMessage = Object.entries(signupError.response.data)[0][1]
 
-  console.log({ signupError })
-
   return (
     <Modal isOpen={modalKey === "error"} onClose={() => setModalKey(null)}>
       <ModalContent>
