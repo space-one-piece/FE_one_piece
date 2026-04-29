@@ -20,17 +20,10 @@ const findEmailSchema = z
   })
 
 type FindEmailSchema = z.input<typeof findEmailSchema>
-type FindEmailBody = {
-  name: string
-  phone_number: string
-  // TODO: 필드면이 sms_uuid_token으로 바뀌면 따라 바꿔야
-  // TODO: 필드명 수정되면 이 타입 말고 schema 쓰면 됨
-  sms_token: string | undefined
-}
 
 const useFindEmail = () => {
   const { data, mutate } = useMutation({
-    mutationFn: (body: FindEmailBody) =>
+    mutationFn: (body: FindEmailSchema) =>
       // NOTE: api가 아직 나오지 않음
       // NOTE: 현재는 404가 뜹니다
       plainInstance.post("/accounts/find-email", body),
@@ -44,12 +37,7 @@ const useFindEmail = () => {
   } = useForm({ resolver: zodResolver(findEmailSchema) })
 
   const onSubmit = (data: FindEmailSchema) => {
-    const body: FindEmailBody = {
-      name: data.name,
-      phone_number: data.phone_number,
-      sms_token: data.sms_uuid_token,
-    }
-    mutate(body)
+    mutate(data)
   }
 
   const submitForm = handleSubmit(onSubmit)

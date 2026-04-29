@@ -34,18 +34,10 @@ const findPasswordSchema = z
   })
 
 type FindPasswordSchema = z.input<typeof findPasswordSchema>
-type FindPasswordBody = {
-  email: string
-  // TODO: 여기 필드명이 email_uuid_token으로 변경되면 따라 수정해야
-  // TODO: 필드명 수정되면 이 타입 말고 schema 쓰면 됨
-  token: string | undefined
-  new_password: string
-  new_password_confirm: string
-}
 
 const useFindPassword = () => {
   const { data, mutate } = useMutation({
-    mutationFn: (body: FindPasswordBody) =>
+    mutationFn: (body: FindPasswordSchema) =>
       // NOTE: api가 아직 나오지 않음
       // NOTE: 현재는 404가 뜹니다
       plainInstance.post("/accounts/chang-password", body),
@@ -59,13 +51,7 @@ const useFindPassword = () => {
   } = useForm({ resolver: zodResolver(findPasswordSchema) })
 
   const onSubmit = (data: FindPasswordSchema) => {
-    const body: FindPasswordBody = {
-      email: data.email,
-      token: data.email_uuid_token,
-      new_password: data.new_password,
-      new_password_confirm: data.new_password_confirm,
-    }
-    mutate(body)
+    mutate(data)
   }
 
   const submitForm = handleSubmit(onSubmit)
