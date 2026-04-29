@@ -22,10 +22,15 @@ const findPasswordSchema = z
         "영문과 숫자를 포함해 8자리 이상을 입력해주세요"
       ),
     new_password_confirm: z.string().min(1, "새 비밀번호를 다시 입력하세요"),
+    email_uuid_token: z.string().optional(),
   })
   .refine((data) => data.new_password === data.new_password_confirm, {
     message: "비밀번호가 일치하지 않습니다",
     path: ["new_password_confirm"],
+  })
+  .refine((data) => data.email_uuid_token, {
+    message: "확인 버튼을 눌러 이메일 인증코드를 확인해주세요",
+    path: ["email_token"],
   })
 
 type FindPasswordSchema = z.input<typeof findPasswordSchema>
@@ -38,6 +43,7 @@ const useFindPassword = () => {
       plainInstance.post("/accounts/chang-password", body),
   })
   const {
+    setValue,
     watch,
     register,
     handleSubmit,
@@ -47,7 +53,8 @@ const useFindPassword = () => {
   const onSubmit = (data: FindPasswordSchema) => {
     const body = {
       email: data.email,
-      token: data.email_token,
+      // TODO: 여기 필드명이 email_uuid_token으로 변경되면 따라 수정해야
+      token: data.email_uuid_token,
       new_password: data.new_password,
       new_password_confirm: data.new_password_confirm,
     }
@@ -68,13 +75,16 @@ const useFindPassword = () => {
   const handleEmailVerificationSecond = async () => {
     const email = watch().email
     const email_token = watch().email_token
-    await plainInstance.post(
-      "https://fragmnt.pics/api/v1/accounts/verification/verify-email",
-      {
-        email,
-        code: email_token,
-      }
-    )
+    const response = await plainInstance.post<{
+      detail: string
+      token: string
+    }>("https://fragmnt.pics/api/v1/accounts/verification/verify-email", {
+      email,
+      code: email_token,
+    })
+
+    const token = response.data.token
+    setValue("email_uuid_token", token)
   }
 
   return {
