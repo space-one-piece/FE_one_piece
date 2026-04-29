@@ -128,7 +128,7 @@ export const UserSection = ({ user, className }: UserSectionProps) => {
           onClick={() =>
             createAiProfileImage(undefined, {
               onSuccess: (data) => {
-                setPreviewImage(data.message)
+                setPreviewImage(data.profile_image_url)
               },
             })
           }
