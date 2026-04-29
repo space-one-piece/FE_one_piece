@@ -1,6 +1,6 @@
 import type { DivProps } from "@/shared/types"
 import { Vstack } from "../../layouts"
-import LabeledBody from "./labeled-body/LabeldedBody"
+import LabeledBody from "./labeled-body/LabeledBody"
 import { LabeledContextProvider } from "./labeled-context/labeled-context"
 import LabeledMessage from "./labeled-message/LabeledMessage"
 import LabeledTitle from "./labeled-title/LabeledTitle"
