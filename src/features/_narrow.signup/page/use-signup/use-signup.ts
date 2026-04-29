@@ -39,7 +39,6 @@ const useSignup = () => {
     mutationFn: (body: SignupSchema) =>
       plainInstance.post("accounts/signup", body),
   })
-
   const {
     register,
     handleSubmit,
