@@ -8,6 +8,9 @@ const SignupErrorModal = () => {
   const signupError = useSignupStore((state) => state.signupError)
 
   const handleClick = () => setModalKey(null)
+
+  if (!signupError?.response?.data) return null
+
   const errorMessage = Object.entries(signupError.response.data)[0][1]
 
   return (

@@ -44,7 +44,7 @@ const useSignup = () => {
       plainInstance.post("accounts/signup", body),
     onSuccess: () => setModalKey("success"),
     onError: () => setModalKey("error"),
-    onSettled: (_data, error: AxiosError) => {
+    onSettled: (_data, error: AxiosError | null) => {
       setSignupError(error)
     },
   })
