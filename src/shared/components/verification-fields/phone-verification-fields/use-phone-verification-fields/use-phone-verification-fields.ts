@@ -4,10 +4,11 @@ import type { AxiosError } from "axios"
 import type { UseFormReturn } from "react-hook-form"
 import type { PhoneFields } from "../../types/use-form-return.type"
 
-const usePhoneVerification = (
-  useFormReturns: UseFormReturn<PhoneFields & Record<string, unknown>>
+const usePhoneVerification = <TFieldValues extends PhoneFields>(
+  useFormReturns: UseFormReturn<TFieldValues>
 ) => {
-  const { watch, setError, clearErrors, setValue } = useFormReturns
+  const { watch, setError, clearErrors, setValue } =
+    useFormReturns as unknown as UseFormReturn<PhoneFields> // NOTE: 타입을 강제해서 이 이하에서는 type assertion이 필요 없게 합니다
   const {
     data: phoneFirstData,
     mutate: phoneFirstMutate,

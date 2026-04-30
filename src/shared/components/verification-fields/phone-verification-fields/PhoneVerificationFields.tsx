@@ -4,16 +4,16 @@ import Labeled from "../../inputs/labeled/Labeled"
 import type { PhoneFields } from "../types/use-form-return.type"
 import usePhoneVerification from "./use-phone-verification-fields/use-phone-verification-fields"
 
-type PhoneVerificationFieldsProps = {
-  useFormReturn: UseFormReturn<PhoneFields & Record<string, unknown>>
+type PhoneVerificationFieldsProps<TFieldValues extends PhoneFields> = {
+  useFormReturn: UseFormReturn<TFieldValues>
 }
-const PhoneVerificationFields = ({
+const PhoneVerificationFields = <TFieldValues extends PhoneFields>({
   useFormReturn,
-}: PhoneVerificationFieldsProps) => {
+}: PhoneVerificationFieldsProps<TFieldValues>) => {
   const {
     register,
     formState: { errors },
-  } = useFormReturn
+  } = useFormReturn as unknown as UseFormReturn<PhoneFields> // NOTE: 타입을 강제해서 이 이하에서는 type assertion이 필요 없게 합니다
 
   const {
     phoneFirstData,

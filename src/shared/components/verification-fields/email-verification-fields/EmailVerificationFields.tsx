@@ -4,16 +4,16 @@ import Labeled from "../../inputs/labeled/Labeled"
 import type { EmailFields } from "../types/use-form-return.type"
 import useEmailVerification from "./use-email-verification/use-email-verification"
 
-type EmailVerificationFieldsProps = {
-  useFormReturn: UseFormReturn<EmailFields & Record<string, unknown>>
+type EmailVerificationFieldsProps<TFieldValues extends EmailFields> = {
+  useFormReturn: UseFormReturn<TFieldValues>
 }
-const EmailVerificationFields = ({
+const EmailVerificationFields = <TFieldValues extends EmailFields>({
   useFormReturn,
-}: EmailVerificationFieldsProps) => {
+}: EmailVerificationFieldsProps<TFieldValues>) => {
   const {
     register,
     formState: { errors },
-  } = useFormReturn
+  } = useFormReturn as unknown as UseFormReturn<EmailFields> // NOTE: 타입을 강제해서 이 이하에서는 type assertion이 필요 없게 합니다
 
   const {
     emailFirstData,
