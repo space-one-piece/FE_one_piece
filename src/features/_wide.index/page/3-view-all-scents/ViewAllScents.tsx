@@ -1,4 +1,4 @@
-import { Button, Hstack } from "@/shared/components"
+import { Button } from "@/shared/components"
 import { useNavigate } from "@tanstack/react-router"
 import { Compass } from "lucide-react"
 import { handleScroll } from "../../utils/handle-scroll/handle-scroll"
@@ -24,17 +24,22 @@ const ViewAllScents = () => {
           </>
         }
       />
-      <Hstack gap="none">
+      <div className="grid grid-cols-2">
         <Button
           style="outlined"
+          className="justify-self-end"
           onClick={() => navigate({ to: "/scent-list" })}
         >
           View all
         </Button>
-        <Button style="ghost" onClick={() => handleScroll("#main-quick-start")}>
+        <Button
+          style="ghost"
+          onClick={() => handleScroll("#main-quick-start")}
+          className="justify-self-start"
+        >
           Scroll
         </Button>
-      </Hstack>
+      </div>
     </SectionVstack>
   )
 }

@@ -1,5 +1,5 @@
 import useAuthStore from "@/shared/api/use-auth-store"
-import { Button, Hstack, RoundBox, Vstack } from "@/shared/components"
+import { Button, RoundBox, Vstack } from "@/shared/components"
 import HOrVStack from "@/shared/components/layouts/HOrVStack/HOrVStack"
 import { useNavigate } from "@tanstack/react-router"
 import {
@@ -85,15 +85,23 @@ const QuickStart = () => {
         />
       </HOrVStack>
 
-      <Hstack gap="none">
-        <Button style="outlined" onClick={handleStartClick}>
+      <div className="grid grid-cols-2">
+        <Button
+          style="outlined"
+          onClick={handleStartClick}
+          className="justify-self-end"
+        >
           Start now
         </Button>
-        <Button style="ghost" onClick={() => handleScroll("#main-faq")}>
+        <Button
+          style="ghost"
+          onClick={() => handleScroll("#main-faq")}
+          className="justify-self-start"
+        >
           Learn more
           <ChevronRight />
         </Button>
-      </Hstack>
+      </div>
     </SectionVstack>
   )
 }
