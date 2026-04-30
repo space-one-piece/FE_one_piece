@@ -1,9 +1,13 @@
 import { Button, Hstack } from "@/shared/components"
+import { useNavigate } from "@tanstack/react-router"
 import { Compass } from "lucide-react"
+import { handleScroll } from "../../utils/handle-scroll/handle-scroll"
 import SectionVstack from "../section-container/SectionContainer"
 import TitleSection from "../title-section/TitleSection"
 
 const ViewAllScents = () => {
+  const navigate = useNavigate()
+
   return (
     <SectionVstack className="items-center">
       <Compass size={60} className="text-text-sub" />
@@ -21,8 +25,15 @@ const ViewAllScents = () => {
         }
       />
       <Hstack gap="none">
-        <Button style="outlined">View all</Button>
-        <Button style="ghost">Scroll</Button>
+        <Button
+          style="outlined"
+          onClick={() => navigate({ to: "/scent-list" })}
+        >
+          View all
+        </Button>
+        <Button style="ghost" onClick={() => handleScroll("#main-quick-start")}>
+          Scroll
+        </Button>
       </Hstack>
     </SectionVstack>
   )
