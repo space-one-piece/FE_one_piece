@@ -27,7 +27,7 @@ const makeNavigationButtonConfigs = (
     { pathname: "/find-scent", label: "Search", Icon: Sparkles },
   ]
 
-  const conditionalConfig = accessToken
+  const conditionalConfig: NavigationButtonConfig = accessToken
     ? { pathname: "/my-page", label: "My Page", Icon: User }
     : { pathname: "/login", label: "Login", Icon: LogIn }
 
