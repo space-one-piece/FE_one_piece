@@ -44,7 +44,7 @@ const usePhoneVerification = <TFieldValues extends PhoneFields>(
       const phone_token = watch().phone_token
       return await plainInstance.post<{
         detail: string
-        sms_uuid_token: string
+        sms_token: string
       }>("https://fragmnt.pics/api/v1/accounts/verification/verify-sms", {
         phone_number,
         code: phone_token,
@@ -52,7 +52,7 @@ const usePhoneVerification = <TFieldValues extends PhoneFields>(
     },
     onSuccess: (response) => {
       clearErrors("phone_token")
-      setValue("sms_uuid_token", response.data.sms_uuid_token)
+      setValue("sms_uuid_token", response.data.sms_token)
     },
     onError(error: AxiosError<{ detail: string }>) {
       setError("phone_token", {

@@ -26,6 +26,7 @@ const useEmailVerification = <TFieldValues extends EmailFields>(
     },
     onSuccess: () => {
       clearErrors("email")
+      setValue("email_token", undefined)
     },
     onError: (error: AxiosError<{ error_detail: string }>) => {
       setError("email", {
@@ -45,7 +46,7 @@ const useEmailVerification = <TFieldValues extends EmailFields>(
       const email_token = watch().email_token
       return await plainInstance.post<{
         detail: string
-        email_uuid_token: string
+        token: string
       }>("https://fragmnt.pics/api/v1/accounts/verification/verify-email", {
         email,
         code: email_token,
@@ -53,7 +54,7 @@ const useEmailVerification = <TFieldValues extends EmailFields>(
     },
     onSuccess: (response) => {
       clearErrors("email_token")
-      setValue("email_uuid_token", response.data.email_uuid_token)
+      setValue("email_uuid_token", response.data.token)
     },
     onError(error: AxiosError<{ detail: string }>) {
       setError("email_token", {
