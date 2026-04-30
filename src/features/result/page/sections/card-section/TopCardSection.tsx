@@ -79,6 +79,7 @@ const TopCardSection = ({ result, type }: TopCardSectionProps) => {
     postWebShareMutate(
       {
         resultId: result.id,
+        type,
       },
       {
         onSuccess: async ({ web_share_url }) => {
