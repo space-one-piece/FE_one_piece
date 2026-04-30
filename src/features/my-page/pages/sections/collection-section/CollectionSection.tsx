@@ -67,7 +67,11 @@ export const CollectionSection = () => {
 
   return (
     <>
-      {toast && <Toast message={toast.message} variant={toast.variant} />}
+      {toast && (
+        <div className="fixed bottom-20 left-1/2 z-50 -translate-x-1/2">
+          <Toast message={toast.message} variant={toast.variant} />
+        </div>
+      )}
       <section>
         <h2 className="px-md text-center text-lg font-bold text-text-primary">
           {"저장된 향기 "}
