@@ -1,13 +1,13 @@
 import { plainInstance } from "@/shared/api/axios-instance"
 import { useMutation } from "@tanstack/react-query"
 import type { AxiosError } from "axios"
-import type { Path, UseFormReturn } from "react-hook-form"
+import type { UseFormReturn } from "react-hook-form"
 import type { EmailFields } from "../../types/use-form-return.type"
 
-const useEmailVerification = <TFieldValues extends EmailFields>(
-  useFormReturns: UseFormReturn<TFieldValues>
+const useEmailVerification = (
+  useFormReturns: UseFormReturn<EmailFields & Record<string, unknown>>
 ) => {
-  const { watch, setError, clearErrors } = useFormReturns
+  const { watch, setError, clearErrors, setValue } = useFormReturns
 
   const {
     data: emailFirstData,
@@ -16,7 +16,7 @@ const useEmailVerification = <TFieldValues extends EmailFields>(
   } = useMutation({
     mutationFn: async () => {
       const email = watch().email
-      return await plainInstance.post(
+      return await plainInstance.post<{ detail: string }>(
         "https://fragmnt.pics/api/v1/accounts/verification/send-email",
         {
           email,
@@ -24,10 +24,10 @@ const useEmailVerification = <TFieldValues extends EmailFields>(
       )
     },
     onSuccess: () => {
-      clearErrors("email" as Path<TFieldValues>)
+      clearErrors("email")
     },
     onError: (error: AxiosError<{ error_detail: string }>) => {
-      setError("email" as Path<TFieldValues>, {
+      setError("email", {
         type: "custom",
         message: error.response?.data.error_detail,
       })
@@ -42,7 +42,7 @@ const useEmailVerification = <TFieldValues extends EmailFields>(
     mutationFn: async () => {
       const email = watch().email
       const email_token = watch().email_token
-      return await plainInstance.post(
+      return await plainInstance.post<{ email_uuid_token: string }>(
         "https://fragmnt.pics/api/v1/accounts/verification/verify-email",
         {
           email,
@@ -50,11 +50,12 @@ const useEmailVerification = <TFieldValues extends EmailFields>(
         }
       )
     },
-    onSuccess: () => {
-      clearErrors("email_token" as Path<TFieldValues>)
+    onSuccess: (response) => {
+      clearErrors("email_token")
+      setValue("email_uuid_token", response.data.email_uuid_token)
     },
     onError(error: AxiosError<{ detail: string }>) {
-      setError("email_token" as Path<TFieldValues>, {
+      setError("email_token", {
         type: "custom",
         message: error.response?.data.detail,
       })
