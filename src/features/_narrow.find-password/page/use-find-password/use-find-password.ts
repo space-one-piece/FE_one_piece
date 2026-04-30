@@ -40,7 +40,7 @@ const useFindPassword = () => {
     mutationFn: (body: FindPasswordSchema) =>
       // NOTE: api가 아직 나오지 않음
       // NOTE: 현재는 404가 뜹니다
-      plainInstance.post("/accounts/chang-password", body),
+      plainInstance.post("/accounts/change-password", body),
   })
 
   const useFormReturn = useForm({ resolver: zodResolver(findPasswordSchema) })
