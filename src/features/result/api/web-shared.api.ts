@@ -1,27 +1,22 @@
 import { instance } from "@/shared/api/axios-instance"
-import type { ResultType } from "@/shared/types"
 
 type PostWebShareParams = {
   resultId: number
-  type: ResultType
-}
-
-type PostWebShareRequest = {
-  result_Id: number
+  type: string
 }
 
 type PostWebShareResponse = {
-  web_share_url: string
+  share_id: string
+  og_crawler: string
 }
 
 export const postWebShare = async ({ resultId, type }: PostWebShareParams) => {
-  const body: PostWebShareRequest = {
-    result_Id: resultId,
-  }
-
   const { data } = await instance.post<PostWebShareResponse>(
-    `/${type}/web_share/${resultId}`,
-    body
+    "/analyses/web-share",
+    {
+      result_id: resultId,
+      type,
+    }
   )
 
   return data

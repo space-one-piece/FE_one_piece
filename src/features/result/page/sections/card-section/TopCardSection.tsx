@@ -28,6 +28,7 @@ const TopCardSection = ({ result, type }: TopCardSectionProps) => {
   const { mutate: saveFeedback, isPending } = useSaveAnalysisFeedbackMutation()
   const { mutate: postWebShareMutate, isPending: isSharePending } =
     usePostWebShare()
+
   if (!recommendedScent || !result) {
     return (
       <div className="mt-2xl flex justify-center">
@@ -82,9 +83,11 @@ const TopCardSection = ({ result, type }: TopCardSectionProps) => {
         type,
       },
       {
-        onSuccess: async ({ web_share_url }) => {
+        onSuccess: async ({ share_id }) => {
+          const webShareUrl = `${window.location.origin}/share/${share_id}`
+
           try {
-            await navigator.clipboard.writeText(web_share_url)
+            await navigator.clipboard.writeText(webShareUrl)
             showToast("공유 링크가 복사되었습니다")
           } catch {
             showToast("공유 링크 복사에 실패했습니다", "error")
