@@ -41,3 +41,24 @@ export type GetWebSharedParams = {
 }
 
 export type GetWebSharedResponse = WebSharedResult
+
+export type ScentFamily =
+  | "floral"
+  | "citrus"
+  | "woody"
+  | "musk"
+  | "green"
+  | "aquatic"
+  | "spicy"
+  | "powdery"
+
+export type VisualTheme = {
+  blobClassName: string
+  lineClassName: string
+  labelClassName: string
+}
+
+export type ScentAxisLabel = {
+  positionClassName: string
+  label: string
+}
