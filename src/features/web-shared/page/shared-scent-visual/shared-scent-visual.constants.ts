@@ -2,7 +2,7 @@ import type {
   ScentAxisLabel,
   ScentFamily,
   VisualTheme,
-} from "./shared-scent-visual.types"
+} from "../../types/web-shared.types"
 
 export const FAMILY_THEME_MAP: Record<ScentFamily, VisualTheme[]> = {
   floral: [

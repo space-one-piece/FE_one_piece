@@ -1,7 +1,6 @@
 import type { CSSProperties } from "react"
-import type { WebSharedScent } from "../../types/web-shared.types"
+import type { ScentFamily, WebSharedScent } from "../../types/web-shared.types"
 import { FAMILY_THEME_MAP } from "./shared-scent-visual.constants"
-import type { ScentFamily } from "./shared-scent-visual.types"
 
 export const getAllNoteItems = (scent: WebSharedScent) => {
   const { top, middle, base } = scent.scent_notes
