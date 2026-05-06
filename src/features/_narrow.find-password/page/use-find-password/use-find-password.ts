@@ -48,7 +48,7 @@ const useFindPassword = () => {
       // NOTE: 현재는 404가 뜹니다
       plainInstance.post("/accounts/change-password", body),
     onError: () => {
-      setValue("email_token", undefined)
+      setValue("email_token", "")
       setValue("email_uuid_token", undefined)
     },
   })

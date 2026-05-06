@@ -26,7 +26,7 @@ const useEmailVerification = <TFieldValues extends EmailFields>(
     },
     onSuccess: () => {
       clearErrors("email")
-      setValue("email_token", undefined)
+      setValue("email_token", "")
     },
     onError: (error: AxiosError<{ error_detail: string }>) => {
       setError("email", {
