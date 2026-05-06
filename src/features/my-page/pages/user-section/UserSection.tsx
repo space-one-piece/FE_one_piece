@@ -54,10 +54,17 @@ export const UserSection = ({ user, className }: UserSectionProps) => {
   }
 
   const handleSubmit = () => {
-    mutate({
-      name: form.name,
-      birthday: form.birthday,
-    })
+    mutate(
+      {
+        name: form.name,
+        birthday: form.birthday,
+      },
+      {
+        onSuccess: () => {
+          setIsEditing(false)
+        },
+      }
+    )
   }
 
   const fileInputRef = useRef<HTMLInputElement>(null)
