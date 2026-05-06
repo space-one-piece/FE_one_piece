@@ -16,8 +16,6 @@ const EmailVerificationFields = <TFieldValues extends EmailFields>({
     watch,
   } = useFormReturn as unknown as UseFormReturn<EmailFields> // NOTE: 타입을 강제해서 이 이하에서는 type assertion이 필요 없게 합니다
 
-  console.log({ errors })
-
   const {
     emailFirstData,
     emailFirstIsPending,
@@ -51,7 +49,7 @@ const EmailVerificationFields = <TFieldValues extends EmailFields>({
             인증
           </Button>
         </Labeled.Body>
-        <Labeled.Message>{errors.email?.message as string}</Labeled.Message>
+        <Labeled.Message>{errors.email?.message}</Labeled.Message>
         <Labeled.Message>{emailFirstData?.data.detail}</Labeled.Message>
       </Labeled>
 

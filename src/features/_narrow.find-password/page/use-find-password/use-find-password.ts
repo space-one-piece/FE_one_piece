@@ -57,12 +57,9 @@ const useFindPassword = () => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
     setValue,
   } = useFormReturn
-
-  console.log(watch())
 
   const onSubmit = (data: FindPasswordSchema) => {
     mutate(data)
