@@ -13,6 +13,7 @@ const EmailVerificationFields = <TFieldValues extends EmailFields>({
   const {
     register,
     formState: { errors },
+    watch,
   } = useFormReturn as unknown as UseFormReturn<EmailFields> // NOTE: 타입을 강제해서 이 이하에서는 type assertion이 필요 없게 합니다
 
   const {
@@ -26,7 +27,7 @@ const EmailVerificationFields = <TFieldValues extends EmailFields>({
 
   const secondInputStatus = errors.email_token
     ? "error"
-    : emailSecondData
+    : emailSecondData && watch().email_token && watch().email_uuid_token
       ? "success"
       : "none"
 
@@ -71,7 +72,9 @@ const EmailVerificationFields = <TFieldValues extends EmailFields>({
         <Labeled.Message>
           {errors.email_token?.message as string}
         </Labeled.Message>
-        <Labeled.Message>{emailSecondData?.data.detail}</Labeled.Message>
+        {secondInputStatus == "success" && (
+          <Labeled.Message>{emailSecondData?.data.detail}</Labeled.Message>
+        )}
       </Labeled>
     </>
   )

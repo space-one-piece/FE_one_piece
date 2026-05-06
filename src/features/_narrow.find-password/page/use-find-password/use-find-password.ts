@@ -47,14 +47,22 @@ const useFindPassword = () => {
       // NOTE: api가 아직 나오지 않음
       // NOTE: 현재는 404가 뜹니다
       plainInstance.post("/accounts/change-password", body),
+    onError: () => {
+      setValue("email_token", undefined)
+      setValue("email_uuid_token", undefined)
+    },
   })
 
   const useFormReturn = useForm({ resolver: zodResolver(findPasswordSchema) })
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
+    setValue,
   } = useFormReturn
+
+  console.log(watch())
 
   const onSubmit = (data: FindPasswordSchema) => {
     mutate(data)
