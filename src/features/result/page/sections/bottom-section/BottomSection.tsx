@@ -46,7 +46,7 @@ const BottomSection = ({
             Similar Scents
           </div>
 
-          <div className="w-full grid grid-cols-2 gap-md">
+          <div className="w-full grid md:grid-cols-2 gap-md">
             {similarScents.map((scent) => (
               <SimilarScent
                 key={scent.id}
