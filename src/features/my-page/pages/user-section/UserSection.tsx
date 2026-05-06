@@ -170,7 +170,7 @@ export const UserSection = ({ user, className }: UserSectionProps) => {
         </button>
       </div>
 
-      <div className="grid grid-cols-2 gap-sm">
+      <div className="grid grid-cols-1 gap-sm md:grid-cols-2">
         {isEditing ? (
           <>
             <EditField
