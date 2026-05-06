@@ -84,7 +84,7 @@ const TopCardSection = ({ result, type }: TopCardSectionProps) => {
       },
       {
         onSuccess: async ({ share_id }) => {
-          const webShareUrl = `${window.location.origin}/share-og/${share_id}`
+          const webShareUrl = `fragmnt.pics/share-og/${share_id}`
 
           try {
             await navigator.clipboard.writeText(webShareUrl)
