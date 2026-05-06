@@ -74,7 +74,7 @@ const EmailVerificationFields = <TFieldValues extends EmailFields>({
         <Labeled.Message>
           {errors.email_token?.message as string}
         </Labeled.Message>
-        {secondInputStatus == "success" && (
+        {secondInputStatus === "success" && (
           <Labeled.Message>{emailSecondData?.data.detail}</Labeled.Message>
         )}
       </Labeled>
