@@ -6,7 +6,7 @@ import { Toast } from ".."
 type ErrorToastProps<T extends AxiosError<{ code: string }>> = {
   isOn: boolean
   onClose: () => void
-  error: T
+  error: T | null
 }
 const ErrorToast = <T extends AxiosError<{ code: string }>>({
   isOn,
