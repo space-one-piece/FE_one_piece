@@ -49,14 +49,14 @@ const NavigationButton = ({
   return (
     <Link
       to={pathname}
-      className="flex h-14 w-full items-center justify-center border-t border-border transition hover:bg-gray-5 md:h-20 md:pt-sm"
+      className="flex h-14 w-full items-center justify-center border-t border-border transition hover:bg-gray-5 md:h-18 md:pt-sm"
     >
       <Vstack gap="none" className="items-center justify-center">
         <Icon
           className={clsx(
             "size-7 rounded-md p-1 transition-all duration-300 md:size-10",
             isSelected
-              ? "scale-140 bg-primary text-card shadow-[0_0_16px_rgba(86,101,74,0.35)]"
+              ? "scale-140 md:scale-110 bg-primary text-card shadow-[0_0_16px_rgba(86,101,74,0.35)]"
               : "text-primary opacity-70"
           )}
         />
