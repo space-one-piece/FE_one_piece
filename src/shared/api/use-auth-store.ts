@@ -20,7 +20,7 @@ type AuthStoreState = {
 
 const useAuthStore = create<AuthStoreState>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       accessToken: null,
       setAccessToken: (accessToken) => set({ accessToken }),
 
