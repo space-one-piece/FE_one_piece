@@ -11,7 +11,9 @@ import CustomerReviews from "./5-customer-reviews/CustomerReviews"
 import FAQ from "./6-faq/FAQ"
 
 const MainPage = () => {
-  const { access_token: socialLoginAccessToken } = useSearch({ from: "/" })
+  const { access_token: socialLoginAccessToken } = useSearch({
+    from: "__root__",
+  })
   const navigate = useNavigate()
 
   const accessToken = useAuthStore((state) => state.accessToken)
