@@ -9,6 +9,8 @@ import { useEffect, useState } from "react"
 import SocialLoginButton from "./social-login-button/SocialLoginButton"
 import useLogin from "./use-login/use-login"
 
+const isMockServer = import.meta.env.VITE_ENABLE_MSW === "true"
+
 const DimLink = ({
   to,
   children,
@@ -19,31 +21,54 @@ const DimLink = ({
   </Link>
 )
 
+type LoginToast = {
+  variant: "error"
+  message: string
+}
+
 const LoginPage = () => {
   const { errors, register, submitForm } = useLogin()
   const { reason } = useSearch({ from: "/_narrow/login" })
 
-  const [showToast, setShowToast] = useState(reason === "unauthorized")
+  const [toast, setToast] = useState<LoginToast | null>(
+    reason === "unauthorized"
+      ? {
+          variant: "error",
+          message: "로그인이 필요한 서비스입니다.",
+        }
+      : null
+  )
 
   useEffect(() => {
-    if (!showToast) return
+    if (!toast) return
 
     const timer = setTimeout(() => {
-      setShowToast(false)
+      setToast(null)
     }, 3000)
 
     return () => clearTimeout(timer)
-  }, [showToast])
+  }, [toast])
+
+  const handleSocialLoginClick = () => {
+    if (!isMockServer) return
+
+    setToast({
+      variant: "error",
+      message:
+        "데모 환경에서는 소셜 로그인이 제한됩니다. 데모 계정으로 로그인해주세요.",
+    })
+  }
 
   return (
     <div>
-      {showToast && (
+      {toast && (
         <div className="fixed top-6 left-0 right-0 z-50 flex justify-center">
           <div className="relative">
-            <Toast variant="error" message="로그인이 필요한 서비스입니다." />
+            <Toast variant={toast.variant} message={toast.message} />
           </div>
         </div>
       )}
+
       <form onSubmit={submitForm}>
         <Vstack gap="xl">
           <NarrowTitleSection
@@ -55,6 +80,7 @@ const LoginPage = () => {
             <p className="mb-2 text-sm font-semibold text-text-primary">
               데모 계정 안내
             </p>
+
             <p className="break-keep leading-relaxed">
               포트폴리오 데모 환경에서는 아래 계정으로 서비스를 체험할 수
               있습니다.
@@ -67,6 +93,7 @@ const LoginPage = () => {
                   demo@demo.com
                 </p>
               </div>
+
               <div className="rounded-2xl bg-white px-md py-sm shadow-sm">
                 <p className="text-xs text-text-sub">비밀번호</p>
                 <p className="mt-1 font-medium text-text-primary">demo</p>
@@ -107,9 +134,18 @@ const LoginPage = () => {
           <Button className="mt-lg">로그인</Button>
 
           <HOrVStack gap="sm" className="mt-lg">
-            <SocialLoginButton provider="kakao" />
-            <SocialLoginButton provider="google" />
-            <SocialLoginButton provider="naver" />
+            <SocialLoginButton
+              provider="kakao"
+              onClick={handleSocialLoginClick}
+            />
+            <SocialLoginButton
+              provider="google"
+              onClick={handleSocialLoginClick}
+            />
+            <SocialLoginButton
+              provider="naver"
+              onClick={handleSocialLoginClick}
+            />
           </HOrVStack>
 
           <DimLink to="/signup" className="mx-auto">
