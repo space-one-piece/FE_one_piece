@@ -1,6 +1,7 @@
 import { findEmailHandlers } from "@/features/_narrow.find-email/mocks/handlers"
 import { findPasswordHandlers } from "@/features/_narrow.find-password/mocks/handlers"
 import { mainPageHandlers } from "@/features/_wide.index/mocks/main-page-handler"
+import { keywordHandlers } from "@/features/keyword/mocks/handlers"
 import { myPageHandlers } from "@/features/my-page/mocks/handlers"
 import { resultHandlers } from "@/features/result/mock/handlers"
 import { detailPageHandlers } from "@/features/scent-detail/mocks/handler"
@@ -18,6 +19,7 @@ export const handlers = [
   ...detailPageHandlers,
   ...mainPageHandlers,
   ...surveyHandlers,
+  ...keywordHandlers,
   ...resultHandlers,
   ...findEmailHandlers,
   ...findPasswordHandlers,

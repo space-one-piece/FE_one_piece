@@ -19,7 +19,7 @@ export const baseAnalysisResultMockData: Omit<
     description:
       "잠시 창문을 열고 식물의 숨을 들이마시는 순간을 닮은 향입니다. 생기 있지만 과하게 날카롭지 않아 공간에 자연스러운 여유를 만들어 줍니다.",
     categories: "green",
-    tags: ["싱그러운", "자연스러운", "환기되는", "편안한"],
+    tags: ["fresh", "natural", "airy", "comfortable"],
     keywords: ["플랜테리어", "산책", "싱그러움"],
     intensity: 61,
     is_bestseller: false,
@@ -71,8 +71,45 @@ export const baseAnalysisResultMockData: Omit<
         description: "숨이 트이는 느낌을 주는 작업 공간",
       },
     ],
-    similar_scents: [],
-    thumbnail_url: "/public/mock-images/green-pause.jpg",
+    similar_scents: [
+      {
+        id: 22,
+        name: "피그 가든",
+        eng_name: "Fig Garden",
+        categories: "green",
+        tags: ["fresh", "elegant", "natural", "relaxed"],
+        description:
+          "무화과잎의 싱그러움과 크리미한 과육 느낌이 조화로운 향입니다. 자연스럽고 세련된 무드로 공간에 여유로운 결을 더해 줍니다.",
+        intensity: 67,
+        season: ["spring", "summer", "autumn"],
+        thumbnail_url: "/mock-images/fig-garden.jpg",
+      },
+      {
+        id: 23,
+        name: "바질 셰이드",
+        eng_name: "Basil Shade",
+        categories: "green",
+        tags: ["herbal", "clear", "airy", "dry"],
+        description:
+          "바질과 허브의 선명한 초록향이 공간을 시원하게 정리해 줍니다. 개운하고 또렷한 분위기를 좋아하는 취향에 잘 맞는 향입니다.",
+        intensity: 63,
+        season: ["spring", "summer"],
+        thumbnail_url: "/mock-images/basil-shade.jpg",
+      },
+      {
+        id: 7,
+        name: "세린 우즈",
+        eng_name: "Serene Woods",
+        categories: "woody",
+        tags: ["calm", "deep", "natural", "stable"],
+        description:
+          "깊은 숲속을 천천히 거닐 때 느껴지는 고요함을 닮은 향입니다. 묵직하지만 답답하지 않고, 공간에 차분한 중심을 만들어 줍니다.",
+        intensity: 72,
+        season: ["autumn", "winter"],
+        thumbnail_url: "/mock-images/serene-woods.jpg",
+      },
+    ],
+    thumbnail_url: "/mock-images/green-pause.jpg",
     created_at: "2026-04-22T05:21:47.289Z",
   },
 }
