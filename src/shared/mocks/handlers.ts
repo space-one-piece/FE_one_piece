@@ -3,6 +3,7 @@ import { findPasswordHandlers } from "@/features/_narrow.find-password/mocks/han
 import { mainPageHandlers } from "@/features/_wide.index/mocks/main-page-handler"
 import { keywordHandlers } from "@/features/keyword/mocks/handlers"
 import { myPageHandlers } from "@/features/my-page/mocks/handlers"
+import { photoHandlers } from "@/features/photo/mocks/handlers"
 import { resultHandlers } from "@/features/result/mock/handlers"
 import { detailPageHandlers } from "@/features/scent-detail/mocks/handler"
 import { scentHandlers } from "@/features/scent-list/mocks/handlers"
@@ -20,6 +21,7 @@ export const handlers = [
   ...mainPageHandlers,
   ...surveyHandlers,
   ...keywordHandlers,
+  ...photoHandlers,
   ...resultHandlers,
   ...findEmailHandlers,
   ...findPasswordHandlers,
