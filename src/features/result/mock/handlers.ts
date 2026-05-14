@@ -73,9 +73,16 @@ export const resultHandlers = [
       return HttpResponse.json(storedResult)
     }
 
-    const historyResult = getHistoryResult(resultId, type)
+    const historyItem = getHistoryResult(resultId, type)
 
-    if (historyResult) {
+    if (historyItem) {
+      const historyResult = createFallbackResult({
+        id: resultId,
+        type: historyItem.type,
+      })
+
+      saveAnalysisResult(historyResult)
+
       return HttpResponse.json(historyResult)
     }
 

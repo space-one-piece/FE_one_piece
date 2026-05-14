@@ -1,4 +1,5 @@
-import type { RecommendedScent } from "@/shared/types"
+import { baseAnalysisResultMockData } from "@/features/result/mock/result-base-mock"
+import { saveAnalysisResult } from "@/features/result/mock/result.store"
 import { delay, http, HttpResponse } from "msw"
 import type { CreateChatSessionResponse } from "../api/create-chat-session.api"
 import type {
@@ -12,36 +13,6 @@ import type { RetryChatRecommendationResponse } from "../types/retry-chat.types"
 type SendChatMessageRequest = {
   message?: string
 }
-
-const mockChatScents = [
-  {
-    id: 1,
-    name: "우디 머스크",
-    eng_name: "Woody Musk",
-    description:
-      "차분한 우디 향과 부드러운 머스크가 어우러진 안정적인 분위기의 향입니다.",
-    tags: ["차분한", "우디", "머스크"],
-    thumbnail_url: "/msw-image/scent-woody-musk.jpg",
-  },
-  {
-    id: 2,
-    name: "시트러스 가든",
-    eng_name: "Citrus Garden",
-    description:
-      "상큼한 시트러스와 은은한 그린 노트가 어우러진 밝고 산뜻한 향입니다.",
-    tags: ["상큼한", "시트러스", "산뜻한"],
-    thumbnail_url: "/msw-image/scent-citrus-garden.jpg",
-  },
-  {
-    id: 3,
-    name: "플로럴 코튼",
-    eng_name: "Floral Cotton",
-    description:
-      "깨끗한 코튼 향에 은은한 플로럴 무드가 더해진 포근한 향입니다.",
-    tags: ["포근한", "플로럴", "코튼"],
-    thumbnail_url: "/msw-image/scent-floral-cotton.jpg",
-  },
-]
 
 const followUpReplies = [
   "좋아요. 평소에는 산뜻한 향과 포근한 향 중 어느 쪽을 더 좋아하세요?",
@@ -66,6 +37,7 @@ const retryComments = [
 
 const chatRecommendationResults = new Map<number, ChatRecommendationResult>()
 const chatMessageCountMap = new Map<number, number>()
+const chatLastUserMessageMap = new Map<number, string>()
 
 let sessionId = 1
 let recommendationId = 1
@@ -77,35 +49,24 @@ const getRandomItem = <T>(items: T[]) => {
   return items[randomIndex]
 }
 
-const getRandomScent = () => getRandomItem(mockChatScents)
-
-const createRecommendedScent = (
-  scent: (typeof mockChatScents)[number]
-): RecommendedScent =>
-  ({
-    id: scent.id,
-    name: scent.name,
-    eng_name: scent.eng_name,
-    description: scent.description,
-    tags: scent.tags,
-    thumbnail_url: scent.thumbnail_url,
-  }) as RecommendedScent
-
 const createChatRecommendationResult = ({
   id,
-  scent,
   aiComment,
+  userMessage,
 }: {
   id: number
-  scent: (typeof mockChatScents)[number]
   aiComment: string
+  userMessage: string
 }): ChatRecommendationResult => ({
   id,
-  recommended_scent: createRecommendedScent(scent),
+  type: "chatbot",
+  recommended_scent: baseAnalysisResultMockData.recommended_scent,
   ai_comment: aiComment,
-  match_score: 92,
+  match_score: baseAnalysisResultMockData.match_score,
   source_type: "chatbot",
-  is_saved: false,
+  user_message: userMessage,
+  ai_keywords: ["대화", "취향", "추천"],
+  is_saved: baseAnalysisResultMockData.is_saved,
   created_at: new Date().toISOString(),
 })
 
@@ -142,6 +103,7 @@ export const chatbotHandlers = [
       const nextCount = prevCount + 1
 
       chatMessageCountMap.set(currentSessionId, nextCount)
+      chatLastUserMessageMap.set(currentSessionId, message)
 
       const shouldRecommend =
         nextCount >= 3 ||
@@ -163,17 +125,17 @@ export const chatbotHandlers = [
         return HttpResponse.json(response)
       }
 
-      const scent = getRandomScent()
       const nextRecommendationId = recommendationId++
       const aiComment = getRandomItem(recommendationComments)
 
       const result = createChatRecommendationResult({
         id: nextRecommendationId,
-        scent,
         aiComment,
+        userMessage: message,
       })
 
       chatRecommendationResults.set(nextRecommendationId, result)
+      saveAnalysisResult(result)
 
       const response: SendChatMessageResponse = {
         status: "success",
@@ -181,7 +143,7 @@ export const chatbotHandlers = [
           ai_comment: aiComment,
           is_recommendation: true,
           recommendation_id: nextRecommendationId,
-          scent_id: scent.id,
+          scent_id: baseAnalysisResultMockData.recommended_scent.id,
           source_type: "chat",
         },
       }
@@ -190,42 +152,47 @@ export const chatbotHandlers = [
     }
   ),
 
-  http.post("*/chatbot/sessions/:sessionId/recommendations/retry", async () => {
-    await delay(900)
+  http.post(
+    "*/chatbot/sessions/:sessionId/recommendations/retry",
+    async ({ params }) => {
+      await delay(900)
 
-    retryCount += 1
+      const currentSessionId = Number(params.sessionId)
+      retryCount += 1
 
-    const scent = getRandomScent()
-    const nextRecommendationId = recommendationId++
-    const aiComment = getRandomItem(retryComments)
+      const nextRecommendationId = recommendationId++
+      const aiComment = getRandomItem(retryComments)
+      const userMessage = chatLastUserMessageMap.get(currentSessionId) ?? ""
 
-    const result = createChatRecommendationResult({
-      id: nextRecommendationId,
-      scent,
-      aiComment,
-    })
+      const result = createChatRecommendationResult({
+        id: nextRecommendationId,
+        aiComment,
+        userMessage,
+      })
 
-    chatRecommendationResults.set(nextRecommendationId, result)
+      chatRecommendationResults.set(nextRecommendationId, result)
+      saveAnalysisResult(result)
 
-    const response: RetryChatRecommendationResponse = {
-      status: "success",
-      data: {
-        ai_comment: aiComment,
-        recommendation_id: nextRecommendationId,
-        scent_id: scent.id,
-        retry_count: retryCount,
-        source_type: "chatbot",
-      },
+      const response: RetryChatRecommendationResponse = {
+        status: "success",
+        data: {
+          ai_comment: aiComment,
+          recommendation_id: nextRecommendationId,
+          scent_id: baseAnalysisResultMockData.recommended_scent.id,
+          retry_count: retryCount,
+          source_type: "chatbot",
+        },
+      }
+
+      return HttpResponse.json(response)
     }
-
-    return HttpResponse.json(response)
-  }),
+  ),
 
   http.get("*/scents/:scentId", ({ params }) => {
     const scentId = Number(params.scentId)
-    const scent = mockChatScents.find((item) => item.id === scentId)
+    const scent = baseAnalysisResultMockData.recommended_scent
 
-    if (!scent) {
+    if (scent.id !== scentId) {
       return HttpResponse.json(
         { message: "향기 정보를 찾을 수 없습니다." },
         { status: 404 }
@@ -234,7 +201,14 @@ export const chatbotHandlers = [
 
     const response: GetScentDetailResponse = {
       status: "success",
-      data: scent,
+      data: {
+        id: scent.id,
+        name: scent.name,
+        eng_name: scent.eng_name,
+        description: scent.description,
+        tags: scent.tags,
+        thumbnail_url: scent.thumbnail_url,
+      },
     }
 
     return HttpResponse.json(response)
