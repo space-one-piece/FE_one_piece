@@ -1,5 +1,17 @@
-export const resultMock = {
-  id: 1,
+import type { BaseAnalysisResult } from "@/shared/types"
+
+// base-result.mock.ts
+export const baseAnalysisResultMockData: Omit<
+  BaseAnalysisResult,
+  "id" | "type"
+> = {
+  ai_comment:
+    "자연 속에서 잠시 쉬어가는 듯한 느낌을 주는 향으로, 공간을 편안하게 만들어줍니다.",
+  match_score: 89,
+  is_saved: false,
+  created_at: "2026-04-22T05:21:47.289Z",
+  review: null,
+  rating: null,
   recommended_scent: {
     id: 21,
     name: "그린 포즈",
@@ -7,7 +19,6 @@ export const resultMock = {
     description:
       "잠시 창문을 열고 식물의 숨을 들이마시는 순간을 닮은 향입니다. 생기 있지만 과하게 날카롭지 않아 공간에 자연스러운 여유를 만들어 줍니다.",
     categories: "green",
-    match_rate: 80,
     tags: ["싱그러운", "자연스러운", "환기되는", "편안한"],
     keywords: ["플랜테리어", "산책", "싱그러움"],
     intensity: 61,
@@ -60,29 +71,8 @@ export const resultMock = {
         description: "숨이 트이는 느낌을 주는 작업 공간",
       },
     ],
-    similar_scents: [15, 22, 23],
-    thumbnail_url:
-      "https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=800&q=80",
+    similar_scents: [],
+    thumbnail_url: "/public/mock-images/green-pause.jpg",
     created_at: "2026-04-22T05:21:47.289Z",
   },
-
-  image_metadata: {
-    id: 1,
-    dominant_color_hex: "#A3B18A",
-    contrast_ratio: 4.5,
-    avg_brightness: 0.72,
-    avg_saturation: 0.38,
-    is_failed: false,
-    error_log: "",
-  },
-
-  ai_tags: ["자연", "편안함", "그린"],
-  ai_keywords: ["식물", "환기", "싱그러움"],
-  ai_intensity: 60,
-  ai_comment:
-    "자연 속에서 잠시 쉬어가는 듯한 느낌을 주는 향으로, 공간을 편안하게 만들어줍니다.",
-
-  match_score: 89,
-  is_fallback: false,
-  created_at: "2026-04-22T05:21:47.289Z",
-} as const
+}
