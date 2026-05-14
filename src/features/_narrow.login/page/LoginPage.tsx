@@ -51,6 +51,29 @@ const LoginPage = () => {
             description="fragmnt에서 당신만의 향기 아카이브를 시작하세요"
           />
 
+          <div className="rounded-2xl border border-border bg-surface-default p-lg text-sm text-text-sub shadow-sm">
+            <p className="mb-2 text-sm font-semibold text-text-primary">
+              데모 계정 안내
+            </p>
+            <p className="break-keep leading-relaxed">
+              포트폴리오 데모 환경에서는 아래 계정으로 서비스를 체험할 수
+              있습니다.
+            </p>
+
+            <div className="mt-4 grid gap-2">
+              <div className="rounded-2xl bg-white px-md py-sm shadow-sm">
+                <p className="text-xs text-text-sub">이메일</p>
+                <p className="mt-1 font-medium text-text-primary">
+                  demo@demo.com
+                </p>
+              </div>
+              <div className="rounded-2xl bg-white px-md py-sm shadow-sm">
+                <p className="text-xs text-text-sub">비밀번호</p>
+                <p className="mt-1 font-medium text-text-primary">demo</p>
+              </div>
+            </div>
+          </div>
+
           <Labeled isError={Boolean(errors.email)}>
             <Labeled.Title>이메일</Labeled.Title>
             <Input
