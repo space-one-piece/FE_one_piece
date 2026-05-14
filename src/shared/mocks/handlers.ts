@@ -16,7 +16,7 @@ export const handlers = [
   http.get("/api/hello", () => {
     return HttpResponse.json({ message: "Hello, world!", code: 200 })
   }),
-
+  ...resultHandlers,
   ...myPageHandlers,
   ...scentHandlers,
   ...detailPageHandlers,
@@ -25,7 +25,7 @@ export const handlers = [
   ...keywordHandlers,
   ...authHandlers,
   ...photoHandlers,
-  ...resultHandlers,
+
   ...findEmailHandlers,
   ...findPasswordHandlers,
   ...webSharedHandlers,
