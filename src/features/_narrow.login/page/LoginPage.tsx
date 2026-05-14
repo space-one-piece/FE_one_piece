@@ -5,21 +5,36 @@ import PasswordInput from "@/shared/components/inputs/password-input/PasswordInp
 import HOrVStack from "@/shared/components/layouts/HOrVStack/HOrVStack"
 import { Link, useSearch } from "@tanstack/react-router"
 import clsx from "clsx"
-import { useEffect, useState } from "react"
+import { useEffect, useState, type ReactNode } from "react"
 import SocialLoginButton from "./social-login-button/SocialLoginButton"
 import useLogin from "./use-login/use-login"
 
 const isMockServer = import.meta.env.VITE_ENABLE_MSW === "true"
 
-const DimLink = ({
-  to,
-  children,
-  className,
-}: React.ComponentProps<typeof Link>) => (
-  <Link to={to} className={clsx("text-sm text-text-sub", className)}>
-    {children}
-  </Link>
-)
+type DimLinkProps = {
+  to: React.ComponentProps<typeof Link>["to"]
+  children: ReactNode
+  className?: string
+  onClick?: () => void
+}
+
+const DimLink = ({ to, children, className, onClick }: DimLinkProps) => {
+  const linkClassName = clsx("text-sm text-text-sub", className)
+
+  if (onClick) {
+    return (
+      <button type="button" onClick={onClick} className={linkClassName}>
+        {children}
+      </button>
+    )
+  }
+
+  return (
+    <Link to={to} className={linkClassName}>
+      {children}
+    </Link>
+  )
+}
 
 type LoginToast = {
   variant: "error"
@@ -49,14 +64,27 @@ const LoginPage = () => {
     return () => clearTimeout(timer)
   }, [toast])
 
+  const showDemoBlockedToast = (message: string) => {
+    setToast({
+      variant: "error",
+      message,
+    })
+  }
+
   const handleSocialLoginClick = () => {
     if (!isMockServer) return
 
-    setToast({
-      variant: "error",
-      message:
-        "데모 환경에서는 소셜 로그인이 제한됩니다. 데모 계정으로 로그인해주세요.",
-    })
+    showDemoBlockedToast(
+      "데모 환경에서는 소셜 로그인이 제한됩니다. 데모 계정으로 로그인해주세요."
+    )
+  }
+
+  const handleFindAccountClick = () => {
+    if (!isMockServer) return
+
+    showDemoBlockedToast(
+      "데모 환경에서는 계정 찾기 기능이 제한됩니다. 데모 계정으로 로그인해주세요."
+    )
   }
 
   return (
@@ -108,11 +136,18 @@ const LoginPage = () => {
               placeholder="your@email.com"
               status={errors.email ? "error" : "none"}
             />
+
             <Hstack className="justify-end">
               <Labeled.Message className="grow">
                 {errors.email?.message}
               </Labeled.Message>
-              <DimLink to="/find-email">이메일 찾기</DimLink>
+
+              <DimLink
+                to="/find-email"
+                onClick={isMockServer ? handleFindAccountClick : undefined}
+              >
+                이메일 찾기
+              </DimLink>
             </Hstack>
           </Labeled>
 
@@ -123,11 +158,18 @@ const LoginPage = () => {
               isError={Boolean(errors.password)}
               placeholder="비밀번호를 입력해주세요"
             />
+
             <Hstack className="justify-end">
               <Labeled.Message className="grow">
                 {errors.password?.message}
               </Labeled.Message>
-              <DimLink to="/find-password">비밀번호 찾기</DimLink>
+
+              <DimLink
+                to="/find-password"
+                onClick={isMockServer ? handleFindAccountClick : undefined}
+              >
+                비밀번호 찾기
+              </DimLink>
             </Hstack>
           </Labeled>
 
@@ -136,15 +178,15 @@ const LoginPage = () => {
           <HOrVStack gap="sm" className="mt-lg">
             <SocialLoginButton
               provider="kakao"
-              onClick={handleSocialLoginClick}
+              onClick={isMockServer ? handleSocialLoginClick : undefined}
             />
             <SocialLoginButton
               provider="google"
-              onClick={handleSocialLoginClick}
+              onClick={isMockServer ? handleSocialLoginClick : undefined}
             />
             <SocialLoginButton
               provider="naver"
-              onClick={handleSocialLoginClick}
+              onClick={isMockServer ? handleSocialLoginClick : undefined}
             />
           </HOrVStack>
 

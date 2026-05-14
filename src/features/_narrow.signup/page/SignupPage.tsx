@@ -16,18 +16,17 @@ const DemoSignupGuide = () => {
   return (
     <Vstack gap="xl">
       <NarrowTitleSection
-        title="향기 아카이브를 체험해보세요"
-        description="fragmnt 데모에서는 준비된 계정으로 주요 기능을 둘러볼 수 있어요"
+        title="공간의 완성, 향기의 조각"
+        description="fragmnt에서 당신만의 향기 아카이브를 시작하세요"
       />
 
       <div className="rounded-2xl border border-border bg-surface-default p-lg text-sm text-text-sub shadow-sm">
         <p className="mb-2 text-sm font-semibold text-text-primary">
-          데모 계정으로 시작하기
+          데모 계정 안내
         </p>
 
         <p className="break-keep leading-relaxed">
-          현재 포트폴리오 데모 환경에서는 새로운 계정 생성 대신, 미리 준비된
-          계정으로 향기 추천과 저장 기능을 체험할 수 있습니다.
+          포트폴리오 데모 환경에서는 아래 계정으로 서비스를 체험할 수 있습니다.
         </p>
 
         <div className="mt-4 grid gap-2">
@@ -48,7 +47,7 @@ const DemoSignupGuide = () => {
         className="mt-lg w-full"
         onClick={() => navigate({ to: "/login" })}
       >
-        데모 계정으로 로그인하기
+        로그인하기
       </Button>
     </Vstack>
   )
