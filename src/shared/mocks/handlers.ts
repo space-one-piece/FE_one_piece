@@ -9,6 +9,7 @@ import { resultHandlers } from "@/features/result/mock/handlers"
 import { detailPageHandlers } from "@/features/scent-detail/mocks/handler"
 import { scentHandlers } from "@/features/scent-list/mocks/handlers"
 import { surveyHandlers } from "@/features/survey/mocks/handlers"
+import { webSharedHandlers } from "@/features/web-shared/mocks/handlers"
 import { http, HttpResponse } from "msw"
 
 export const handlers = [
@@ -27,4 +28,5 @@ export const handlers = [
   ...resultHandlers,
   ...findEmailHandlers,
   ...findPasswordHandlers,
+  ...webSharedHandlers,
 ]
