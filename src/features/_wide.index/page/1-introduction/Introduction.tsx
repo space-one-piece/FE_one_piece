@@ -1,4 +1,4 @@
-import BgSrc from "@/assets/images/main/introduction.png"
+import BgSrc from "@/assets/images/main/introduction.webp"
 import useAuthStore from "@/shared/api/use-auth-store"
 import { Button, Vstack } from "@/shared/components"
 import { useMediaQuery } from "@/shared/utils/use-media-query"
