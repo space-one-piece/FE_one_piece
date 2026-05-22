@@ -27,6 +27,7 @@ const Introduction = () => {
       <img
         src={BgSrc}
         alt="소개 배경"
+        fetchPriority="high"
         className="absolute top-0 inset-0 brightness-60 size-full object-cover"
       />
 
