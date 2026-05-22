@@ -28,6 +28,10 @@ const Introduction = () => {
         src={BgSrc}
         alt="소개 배경"
         fetchPriority="high"
+        width={1920}
+        height={1080}
+        decoding="async"
+        loading="eager"
         className="absolute top-0 inset-0 brightness-60 size-full object-cover"
       />
 
