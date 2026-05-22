@@ -1,4 +1,4 @@
-import InsertionSrc from "@/assets/images/main/insertion.png"
+import InsertionSrc from "@/assets/images/main/insertion.webp"
 import useAuthStore from "@/shared/api/use-auth-store"
 import { Vstack } from "@/shared/components"
 import { useNavigate, useSearch } from "@tanstack/react-router"
