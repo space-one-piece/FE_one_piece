@@ -1,9 +1,11 @@
 import InsertionSrc from "@/assets/images/main/insertion.webp"
 import useAuthStore from "@/shared/api/use-auth-store"
 import { Vstack } from "@/shared/components"
-import { useNavigate, useSearch } from "@tanstack/react-router"
+
+import { useSearch } from "@tanstack/react-router"
 import { lazy, Suspense, useEffect } from "react"
 
+import LazyOnView from "@/shared/components/lazy-on-view/LazyOnView"
 import Introduction from "./1-introduction/Introduction"
 import FindYourScent from "./2-find-your-scent/FindYourScent"
 import ViewAllScents from "./3-view-all-scents/ViewAllScents"
@@ -20,26 +22,20 @@ const MainPage = () => {
     from: "__root__",
   })
 
-  const navigate = useNavigate()
-
   const accessToken = useAuthStore((state) => state.accessToken)
   const refresh = useAuthStore((state) => state.refresh)
-
-  if (socialLoginAccessToken && !accessToken) {
-    refresh()
-  }
 
   useEffect(() => {
     if (!socialLoginAccessToken) {
       return
     }
 
-    if (!accessToken) {
+    if (accessToken) {
       return
     }
 
-    navigate({ to: "/" })
-  }, [socialLoginAccessToken, accessToken, navigate])
+    refresh()
+  }, [socialLoginAccessToken, accessToken, refresh])
 
   return (
     <div className="relative">
@@ -57,14 +53,30 @@ const MainPage = () => {
         <FindYourScent />
         <ViewAllScents />
 
-        <img src={InsertionSrc} alt="삽입 이미지" loading="lazy" />
+        <img
+          src={InsertionSrc}
+          alt="삽입 이미지"
+          loading="lazy"
+          decoding="async"
+          fetchPriority="low"
+          width={1200}
+          height={800}
+          className="mx-auto"
+        />
 
         <QuickStart />
 
-        <Suspense fallback={null}>
-          <CustomerReviews />
-          <FAQ />
-        </Suspense>
+        <LazyOnView rootMargin="300px">
+          <Suspense fallback={null}>
+            <CustomerReviews />
+          </Suspense>
+        </LazyOnView>
+
+        <LazyOnView rootMargin="300px">
+          <Suspense fallback={null}>
+            <FAQ />
+          </Suspense>
+        </LazyOnView>
       </Vstack>
     </div>
   )
