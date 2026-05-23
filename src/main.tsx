@@ -41,27 +41,22 @@ const enableMocking = async () => {
     onUnhandledRequest(request, print) {
       const url = new URL(request.url)
 
-      // 문서 이동 요청은 MSW 경고 대상에서 제외
       if (request.mode === "navigate") {
         return
       }
 
-      // HTML 문서 요청 제외
       if (request.destination === "document") {
         return
       }
 
-      // 정적 에셋 요청 제외
       if (request.destination) {
         return
       }
 
-      // API 요청이 아닌 것은 조용히 bypass
       if (!url.pathname.startsWith("/api")) {
         return
       }
 
-      // API 요청인데 handler가 없으면 경고
       print.warning()
     },
   })
