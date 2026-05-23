@@ -10,7 +10,7 @@ import Introduction from "./1-introduction/Introduction"
 import FindYourScent from "./2-find-your-scent/FindYourScent"
 import ViewAllScents from "./3-view-all-scents/ViewAllScents"
 import QuickStart from "./4-quick-start/QuickStart"
-import FAQSkeleton from "./6-faq/FAQSkeleton"
+import CustomerReviewsSkeleton from "./5-customer-reviews/CustomerReviewsSkeleton"
 
 const CustomerReviews = lazy(
   () => import("./5-customer-reviews/CustomerReviews")
@@ -67,14 +67,14 @@ const MainPage = () => {
 
         <QuickStart />
 
-        <LazyOnView rootMargin="300px">
-          <Suspense fallback={null}>
+        <LazyOnView rootMargin="300px" fallback={<CustomerReviewsSkeleton />}>
+          <Suspense fallback={<CustomerReviewsSkeleton />}>
             <CustomerReviews />
           </Suspense>
         </LazyOnView>
 
-        <LazyOnView rootMargin="300px" fallback={<FAQSkeleton />}>
-          <Suspense fallback={<FAQSkeleton />}>
+        <LazyOnView rootMargin="300px">
+          <Suspense fallback={null}>
             <FAQ />
           </Suspense>
         </LazyOnView>
